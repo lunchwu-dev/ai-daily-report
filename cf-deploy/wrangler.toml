@@ -1,0 +1,7 @@
+name = "ai-daily-report"
+main = "index.js"
+compatibility_date = "2026-03-02"
+
+[[kv_namespaces]]
+binding = "AI_REPORTS"
+id = "ai-daily-reports-kv"

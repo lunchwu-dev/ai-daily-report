@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球AI大事件热点报告 - 2026年3月2日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header .date {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title .icon {
+            font-size: 1.5rem;
+        }
+        
+        /* 国内动态样式 - 红色/金色边框 */
+        .domestic .section-title {
+            border-bottom-color: #e74c3c;
+        }
+        
+        .domestic .news-card {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .domestic .tag {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        /* 海外动态样式 - 蓝色边框 */
+        .international .section-title {
+            border-bottom-color: #3498db;
+        }
+        
+        .international .news-card {
+            border-left: 4px solid #3498db;
+        }
+        
+        .international .tag {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .news-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .news-card h3 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .news-card p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 12px;
+        }
+        
+        .news-card .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .source {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        /* 引用框样式 */
+        .quote-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            position: relative;
+            border-left: 5px solid #667eea;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            font-size: 4rem;
+            color: #667eea;
+            opacity: 0.3;
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-family: Georgia, serif;
+        }
+        
+        .quote-box p {
+            font-style: italic;
+            color: #444;
+            font-size: 1.05rem;
+            padding-left: 20px;
+        }
+        
+        .quote-box .author {
+            text-align: right;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        /* 市场情绪分析 */
+        .sentiment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .sentiment-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .sentiment-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sentiment-card ul {
+            list-style: none;
+        }
+        
+        .sentiment-card li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .sentiment-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        /* 预告区域 */
+        .preview-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .preview-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 3px solid #f39c12;
+        }
+        
+        .preview-item .date-badge {
+            background: #f39c12;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .preview-item .content {
+            flex: 1;
+        }
+        
+        .preview-item h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .preview-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 往期导航 */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .nav-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-card .date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .nav-card .title {
+            font-weight: 600;
+        }
+        
+        .view-all {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .view-all:hover {
+            background: #34495e;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sentiment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-card .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>🚀 全球AI大事件热点报告</h1>
+            <div class="date">2026年3月2日 星期一</div>
+            <div class="subtitle">AI Daily Report | 洞察人工智能前沿动态</div>
+        </header>
+
+        <!-- 统计概览 -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">📊</span>今日概览</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="number">20+</span>
+                    <span class="label">重大AI发布</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">1100亿</span>
+                    <span class="label">美元融资</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">50亿</span>
+                    <span class="label">春节红包投入</span>
+                </div>
+                <div class="stat-card">
+                    <span class="number">1.45亿</span>
+                    <span class="label">豆包DAU峰值</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 国内热点事件 -->
+        <div class="section domestic">
+            <h2 class="section-title"><span class="icon">🇨🇳</span>国内热点事件</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <h3>字节跳动投资自变量机器人10亿元，布局具身智能</h3>
+                    <p>字节跳动终于投出了在具身智能赛道的第一笔直接投资。自变量机器人完成10亿元A++轮融资，其WALL-A模型已实现外卖配送"最后100米"全程自主完成，展现零样本泛化能力。</p>
+                    <div class="meta">
+                        <span class="tag">融资</span>
+                        <span class="source">来源：36氪、投中网</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>春节AI大战：四大巨头豪掷50亿元抢用户</h3>
+                    <p>腾讯、阿里、字节、百度累计投入超50亿元红包补贴。豆包除夕总互动量达19亿次，DAU峰值突破1.45亿；千问日活达7352万，增幅940%成最大黑马。</p>
+                    <div class="meta">
+                        <span class="tag">产品</span>
+                        <span class="source">来源：QuestMobile、澎湃新闻</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>阶跃星辰完成超50亿元B+轮融资，创大模型赛道纪录</h3>
+                    <p>上海大模型创业公司阶跃星辰宣布完成超50亿元B+轮融资，刷新过去12个月中国大模型赛道单笔最高融资纪录。腾讯、启明、五源等老股东进一步跟投。</p>
+                    <div class="meta">
+                        <span class="tag">融资</span>
+                        <span class="source">来源：文汇报、36氪</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>DeepSeek V4灰度更新，国产大模型持续迭代</h3>
+                    <p>春节期间DeepSeek V4开启灰度更新，百万级长上下文成为通用大模型"入场券"。国产大模型在推理能力、多模态融合方面持续突破。</p>
+                    <div class="meta">
+                        <span class="tag">技术</span>
+                        <span class="source">来源：量子位、机器之心</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>智谱GLM-5发布当天宣布涨价30%</h3>
+                    <p>智谱发布旗舰大模型GLM-5当天，宣布核心套餐全线涨价至少30%，海外版订阅最高翻倍。付费用户数已达270万，因调用量激增开启限售模式。</p>
+                    <div class="meta">
+                        <span class="tag">产品</span>
+                        <span class="source">来源：21财经、虎嗅</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>中国具身智能市场规模突破万亿关口</h3>
+                    <p>据36氪研究院测算，中国具身智能市场规模已从2018年的2133亿元增长至2025年的9150亿元，有望在2026年突破万亿元关口。</p>
+                    <div class="meta">
+                        <span class="tag">政策</span>
+                        <span class="source">来源：36氪研究院</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>华为、阿里等发布世界模型，布局物理AI</h3>
+                    <p>腾讯混元Voyager、阿里高德世界模型等在3D空间感知与物理推理领域表现突出。物理AI作为新工业革命引擎，2026年将迎来关键发展期。</p>
+                    <div class="meta">
+                        <span class="tag">技术</span>
+                        <span class="source">来源：新浪财经、36氪</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>MiniMax港股上市，市值突破3000亿港元</h3>
+                    <p>MiniMax正式登陆港交所，创大模型公司最大规模IPO。上市后股价一度暴涨，M2.5模型Token周调用量登顶OpenRouter榜首。</p>
+                    <div class="meta">
+                        <span class="tag">融资</span>
+                        <span class="source">来源：量子位、新浪财经</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 海外热点事件 -->
+        <div class="section international">
+            <h2 class="section-title"><span class="icon">🌍</span>海外热点事件</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <h3>OpenAI完成1100亿美元融资，估值达7300亿美元</h3>
+                    <p>OpenAI宣布最新一轮融资筹集1100亿美元，其中亚马逊投资500亿美元，英伟达投资300亿美元，软银投资300亿美元。估值达7300亿美元，接近亚马逊。</p>
+                    <div class="meta">
+                        <span class="tag">融资</span>
+                        <span class="source">来源：TechCrunch、虎嗅</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Claude登顶App Store榜首，超越ChatGPT</h3>
+                    <p>Anthropic的Claude在3月1日成为美国App Store免费应用榜首，超越ChatGPT和Gemini。因拒绝向国防部开放无限制AI使用权限，遭特朗普政府"供应链风险"威胁。</p>
+                    <div class="meta">
+                        <span class="tag">产品</span>
+                        <span class="source">来源：Mashable、Yahoo News</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Google发布Gemini 3.1及Nano Banana 2图像生成模型</h3>
+                    <p>Google发布Gemini 3.1系列，Nano Banana 2图像生成模型实现近即时高质量图像生成，支持14个对象和5个角色一致性，已集成至Gemini应用和Search。</p>
+                    <div class="meta">
+                        <span class="tag">技术</span>
+                        <span class="source">来源：Google Blog、TechCrunch</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>AI基础设施投资持续升温，2026年 capex将达7000亿美元</h3>
+                    <p>亚马逊预计2026年资本支出2000亿美元，谷歌1750-1850亿美元，Meta 1150-1350亿美元。超大规模企业计划在2026年投入近7000亿美元建设数据中心。</p>
+                    <div class="meta">
+                        <span class="tag">融资</span>
+                        <span class="source">来源：TechCrunch、MIT Technology Review</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>OpenAI测试ChatGPT广告，引发隐私担忧</h3>
+                    <p>OpenAI确认在美国测试ChatGPT内广告，基于用户当前对话和记忆推送。数字权利倡导者警告AI聊天机器人比传统社交媒体更私密，广告模式可能侵犯隐私。</p>
+                    <div class="meta">
+                        <span class="tag">争议</span>
+                        <span class="source">来源：ABC News、Digital Rights Watch</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Claude Opus 4.6刷新AI能力基准</h3>
+                    <p>Anthropic发布Claude Opus 4.6，在METR基准测试中通过需要人类专家14.5小时的任务，较前纪录GPT-5.2的6.5小时提升超一倍。</p>
+                    <div class="meta">
+                        <span class="tag">技术</span>
+                        <span class="source">来源：MarTech AI Newsletter</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>Oracle签署3000亿美元AI算力协议</h3>
+                    <p>Oracle与OpenAI签署五年期3000亿美元算力协议，将于2027年开始执行。此前已签署300亿美元云服务协议，Oracle股价因此大幅上涨。</p>
+                    <div class="meta">
+                        <span class="tag">融资</span>
+                        <span class="source">来源：TechCrunch</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3>中国开源模型Qwen、Kimi获硅谷青睐</h3>
+                    <p>MIT Technology Review预测，2026年更多硅谷产品将基于中国开源LLM构建。阿里Qwen2.5-1.5B-Instruct下载量达885万次，DeepSeek R1引发全球"DeepSeek时刻"。</p>
+                    <div class="meta">
+                        <span class="tag">学术</span>
+                        <span class="source">来源：MIT Technology Review</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 业界领袖观点 -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">💬</span>业界领袖观点</h2>
+            
+            <div class="quote-box">
+                <p>AI已经长出'手脚'，走进了现实世界，机器人领域已正式迎来属于自己的ChatGPT时刻。</p>
+                <div class="author">—— 黄仁勋，NVIDIA CEO</div>
+            </div>
+            
+            <div class="quote-box">
+                <p>2026年将成为人工智能从技术革命迈向产业革命的关键一年。世界模型将实现物理规律深度编码，具身智能进入工业规模化应用期。</p>
+                <div class="author">—— 中企规划院 AI产业研究报告</div>
+            </div>
+            
+            <div class="quote-box">
+                <p>我们希望我们的领导者能够搁置分歧，共同继续拒绝战争部当前使用我们的模型进行国内大规模监控和自主杀人的要求。</p>
+                <div class="author">—— 700+ Google/OpenAI员工联名信</div>
+            </div>
+            
+            <div class="quote-box">
+                <p>AI的第二个拐点已经到来——从理解语言到理解物理世界，从软件智能体到具身智能体。</p>
+                <div class="author">—— 英伟达CEO黄仁勋 CES 2026演讲</div>
+            </div>
+        </div>
+
+        <!-- 市场情绪分析 -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">📈</span>市场情绪分析</h2>
+            <div class="sentiment-grid">
+                <div class="sentiment-card">
+                    <h4>🇨🇳 国内市场</h4>
+                    <ul>
+                        <li>春节AI大战后，豆包、千问双雄领跑格局确立</li>
+                        <li>智谱、MiniMax等创企股价暴涨后回调，市场回归理性</li>
+                        <li>具身智能赛道融资热度攀升，字节、阿里等巨头加速布局</li>
+                        <li>国产GPU厂商寒武纪等进入业绩兑现期</li>
+                        <li>政策红利持续释放，"人工智能+"行动深入推进</li>
+                    </ul>
+                </div>
+                <div class="sentiment-card">
+                    <h4>🌍 国际市场</h4>
+                    <ul>
+                        <li>OpenAI巨额融资提振市场信心，估值达7300亿美元</li>
+                        <li>Anthropic因伦理立场获用户支持，Claude登顶App Store</li>
+                        <li>AI广告变现模式引发隐私担忧，监管压力加大</li>
+                        <li>基础设施投资持续升温，但投资者开始关注ROI</li>
+                        <li>中美AI竞争从技术层面向应用层面延伸</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 明日关注预告 -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">🔮</span>明日关注预告</h2>
+            <div class="preview-list">
+                <div class="preview-item">
+                    <span class="date-badge">3月3日</span>
+                    <div class="content">
+                        <h4>Donut Lab固态电池技术验证结果公布</h4>
+                        <p>芬兰公司Donut Lab将在3月2日公布其固态电池技术的第三方验证结果，若属实将颠覆EV行业。</p>
+                    </div>
+                </div>
+                <div class="preview-item">
+                    <span class="date-badge">本周</span>
+                    <div class="content">
+                        <h4>GTC 2026大会预热</h4>
+                        <p>英伟达GTC大会即将召开，预计将发布新一代GPU架构及物理AI/机器人相关技术进展。</p>
+                    </div>
+                </div>
+                <div class="preview-item">
+                    <span class="date-badge">持续关注</span>
+                    <div class="content">
+                        <h4>AI应用用户留存数据</h4>
+                        <p>春节红包活动结束后，各AI应用DAU留存率将成为判断真实用户粘性的关键指标。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 往期报告导航 -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">📚</span>往期报告导航</h2>
+            <div class="nav-grid">
+                <a href="https://ai-daily-report.pages.dev/ai-report-2026-02-28.html" class="nav-card">
+                    <div class="date">2026年2月28日</div>
+                    <div class="title">AI日报 - 第028期</div>
+                </a>
+                <a href="https://ai-daily-report.pages.dev/ai-report-2026-02-27.html" class="nav-card">
+                    <div class="date">2026年2月27日</div>
+                    <div class="title">AI日报 - 第027期</div>
+                </a>
+                <a href="https://ai-daily-report.pages.dev/ai-report-2026-02-26.html" class="nav-card">
+                    <div class="date">2026年2月26日</div>
+                    <div class="title">AI日报 - 第026期</div>
+                </a>
+            </div>
+            <a href="https://ai-daily-report-index.pages.dev/" class="view-all">查看全部历史报告 →</a>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>全球AI大事件热点报告 | AI Daily Report</p>
+            <p>数据来源：TechCrunch、MIT Technology Review、36氪、量子位、机器之心等</p>
+            <p>© 2026 AI Daily Report. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

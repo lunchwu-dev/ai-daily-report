@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI日报 - 历史归档</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 60px; }
+        .logo { font-size: 3rem; margin-bottom: 10px; }
+        h1 { font-size: 2rem; background: linear-gradient(135deg, #6366f1, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: #94a3b8; margin-top: 10px; }
+        .archive-list { display: flex; flex-direction: column; gap: 16px; }
+        .archive-item {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .archive-item:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+        .archive-item.current { border-color: #6366f1; background: rgba(99, 102, 241, 0.1); }
+        .archive-date { font-size: 1.2rem; font-weight: 600; }
+        .archive-badge {
+            background: #6366f1;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .archive-badge.latest { background: #10b981; }
+        footer { text-align: center; margin-top: 60px; padding-top: 40px; border-top: 1px solid #334155; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🤖</div>
+            <h1>AI日报 - 历史归档</h1>
+            <p class="subtitle">全球人工智能前沿资讯 · 每日精选</p>
+        </header>
+        
+        <div class="archive-list">
+            <a href="https://a620c5bf.ai-daily-report-32b.pages.dev" class="archive-item current">
+                <span class="archive-date">2026年03月02日</span>
+                <span class="archive-badge latest">最新</span>
+            </a>
+            <a href="https://ai-daily-report-2026-03-02.pages.dev" class="archive-item">
+                <span class="archive-date">2026年03月02日 (历史版本)</span>
+                <span class="archive-badge">查看</span>
+            </a>
+            <a href="#" class="archive-item">
+                <span class="archive-date">2026年03月01日</span>
+                <span class="archive-badge">查看</span>
+            </a>
+            <a href="#" class="archive-item">
+                <span class="archive-date">2026年02月28日</span>
+                <span class="archive-badge">查看</span>
+            </a>
+        </div>
+        
+        <footer>
+            <p>© 2026 AI日报 | 每日精选全球人工智能前沿资讯</p>
+        </footer>
+    </div>
+</body>
+</html>

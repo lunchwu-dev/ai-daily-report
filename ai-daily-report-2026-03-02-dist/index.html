@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI日报 | 2026年03月02日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-light: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+            --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --gradient-3: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--gradient-1);
+            border-radius: 24px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-tab {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-tab:hover, .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+        
+        .card.hot::before { background: var(--gradient-2); }
+        .card.trend::before { background: var(--gradient-3); }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+        
+        .card-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-badge.hot {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent);
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .card-summary {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .card-source {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .card-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .card-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Featured Section */
+        .featured {
+            background: var(--gradient-1);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+        
+        .featured-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .featured-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .featured-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+        
+        /* Quote Section */
+        .quote-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .quote-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .quote-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .quote-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .quote-info {
+            flex: 1;
+        }
+        
+        .quote-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .quote-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid var(--bg-dark);
+        }
+        
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Archive Navigation */
+        .archive-nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .archive-link {
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .archive-link:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .archive-link.current {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            color: var(--text-muted);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo { font-size: 2rem; }
+            .featured { padding: 24px; }
+            .featured-title { font-size: 1.4rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-tabs { gap: 8px; }
+            .nav-tab { padding: 10px 16px; font-size: 0.9rem; }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">🤖 AI日报</div>
+            <div class="tagline">全球人工智能前沿资讯 · 每日精选</div>
+            <div class="date-badge">📅 2026年03月02日 星期一</div>
+        </header>
+        
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <a href="#domestic" class="nav-tab active">🇨🇳 国内热点</a>
+            <a href="#overseas" class="nav-tab">🌍 海外动态</a>
+            <a href="#leaders" class="nav-tab">💬 领袖观点</a>
+            <a href="#market" class="nav-tab">📊 市场分析</a>
+            <a href="#preview" class="nav-tab">🔮 明日预告</a>
+            <a href="#archive" class="nav-tab">📚 往期导航</a>
+        </div>
+        
+        <!-- Featured -->
+        <div class="featured">
+            <div class="featured-content">
+                <span class="featured-label">🔥 今日头条</span>
+                <h1 class="featured-title">OpenAI获1100亿美元融资，估值达7300亿美元</h1>
+                <p class="featured-desc">OpenAI宣布获得创纪录的1100亿美元新投资，估值达7300亿美元。软银、英伟达、亚马逊分别投资300亿、300亿和500亿美元。ChatGPT周活跃用户突破9亿，付费用户超5000万。</p>
+            </div>
+        </div>
+        
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">$110B</div>
+                <div class="stat-label">OpenAI新融资</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">9亿+</div>
+                <div class="stat-label">ChatGPT周活用户</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">#1</div>
+                <div class="stat-label">Claude美区免费榜</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">$3-4T</div>
+                <div class="stat-label">AI基建十年投入</div>
+            </div>
+        </div>
+        
+        <!-- Domestic Section -->
+        <section class="section" id="domestic">
+            <h2 class="section-title">
+                <span class="icon">🇨🇳</span>
+                国内AI热点
+            </h2>
+            <div class="cards-grid">
+                <div class="card hot fade-in">
+                    <span class="card-badge hot">重磅</span>
+                    <h3 class="card-title">DeepSeek V4即将发布：原生多模态能力</h3>
+                    <p class="card-summary">DeepSeek计划下周发布V4多模态大模型，具备原生图像、视频和文本生成能力。据金融时报报道，DeepSeek未向美国芯片厂商展示该模型进行性能优化，打破行业惯例。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 金融时报 / 量子位</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">动态</span>
+                    <h3 class="card-title">智谱AI市值突破2500亿港元</h3>
+                    <p class="card-summary">从清华实验室走出的AI独角兽智谱AI，成立不到一年便实现市值2500亿港元。公司致力于构建中国自己的预训练模型框架，对标OpenAI GPT系列。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 36氪</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">产业</span>
+                    <h3 class="card-title">中美AI竞赛白热化：47天30次更新</h3>
+                    <p class="card-summary">据统计，仅1月1日至除夕期间，国内公开宣发的AI模型技术迭代已超过30起，平均每1.5天就有一个重磅发布。中美AI发展进入同步加速阶段。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 量子位</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">技术</span>
+                    <h3 class="card-title">Karpathy：AI编程在2025年12月质变</h3>
+                    <p class="card-summary">前特斯拉AI总监Andrej Karpathy指出，2025年12月是AI编程发展的分水岭，此后AI编程能力发生质的飞跃，彻底重塑编程范式。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 北京智源研究院</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">产业</span>
+                    <h3 class="card-title">华为发布AI编程利器</h3>
+                    <p class="card-summary">华为推出集成智谱、DeepSeek模型的AI编程工具，进一步强化在开发者生态的布局，助力中国AI编程基础设施发展。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 智东西</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">荣誉</span>
+                    <h3 class="card-title">蔚来CEO李斌获中国人工智能最高奖</h3>
+                    <p class="card-summary">中国人工智能学会发布2025年度"吴文俊人工智能科学技术奖"，蔚来CEO李斌与中国科学技术大学教授任少卿共同获奖。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 车东西</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Overseas Section -->
+        <section class="section" id="overseas">
+            <h2 class="section-title">
+                <span class="icon">🌍</span>
+                海外AI动态
+            </h2>
+            <div class="cards-grid">
+                <div class="card hot fade-in">
+                    <span class="card-badge hot">头条</span>
+                    <h3 class="card-title">OpenAI与亚马逊达成战略合作</h3>
+                    <p class="card-summary">OpenAI与亚马逊宣布多年期战略合作，加速面向企业、初创公司和终端消费者的AI创新。同时获得英伟达30亿美元投资，用于下一代推理计算。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 OpenAI官方</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card hot fade-in">
+                    <span class="card-badge hot">热点</span>
+                    <h3 class="card-title">Anthropic与五角大楼对峙：AI伦理之争</h3>
+                    <p class="card-summary">Anthropic CEO Dario Amodei拒绝接受五角大楼新合同条款，该条款要求允许"任何合法使用"包括大规模监控和完全自主致命武器。特朗普下令联邦机构停止使用Claude。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 The Verge / CNBC</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">产品</span>
+                    <h3 class="card-title">Claude登顶美区App Store免费榜</h3>
+                    <p class="card-summary">Anthropic的Claude AI助手跃升至美国App Store免费应用榜首，超越ChatGPT。免费用户自1月以来增长超60%，付费用户翻倍。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 CNBC</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">产品</span>
+                    <h3 class="card-title">Perplexity发布"Computer" AI代理平台</h3>
+                    <p class="card-summary">Perplexity推出全新"Computer"平台，整合多个AI代理，实现推理、委派、搜索、构建、记忆、编码和交付等功能，打造通用数字工作者。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 The Verge</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">产业</span>
+                    <h3 class="card-title">AI基础设施投资激增至数万亿美元</h3>
+                    <p class="card-summary">英伟达CEO黄仁勋预计，到2030年AI基础设施投资将达3-4万亿美元。Meta计划2028年前在美国基础设施投入6000亿美元。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 TechCrunch</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-badge">争议</span>
+                    <h3 class="card-title">Grok预测美以打击伊朗日期引发热议</h3>
+                    <p class="card-summary">马斯克旗下xAI的Grok聊天机器人提前预测了2月28日美国对伊朗的打击行动，引发广泛关注。五角大楼已批准在机密环境中使用Grok。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📰 Times of India / WSJ</span>
+                        <a href="#" class="card-link">查看详情 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Leaders Section -->
+        <section class="section" id="leaders">
+            <h2 class="section-title">
+                <span class="icon">💬</span>
+                领袖观点
+            </h2>
+            
+            <div class="quote-section">
+                <p class="quote-text">"我们正在推动基础设施、研究和产品的前沿发展，使AI更加强大、可靠和广泛有用。软银、英伟达和亚马逊是长期合作伙伴，与我们有着共同的雄心——将真正的科学进步转化为在全球范围内为人们带来有意义利益的系统。"</p>
+                <div class="quote-author">
+                    <div class="quote-avatar">SA</div>
+                    <div class="quote-info">
+                        <div class="quote-name">Sam Altman</div>
+                        <div class="quote-role">OpenAI联合创始人兼CEO</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-section">
+                <p class="quote-text">"威胁不会改变我们的立场：我们不能良心上同意他们的要求。国防部有权选择与其愿景最一致的承包商，但考虑到Anthropic技术为武装部队提供的巨大价值，我们希望他们重新考虑。"</p>
+                <div class="quote-author">
+                    <div class="quote-avatar">DA</div>
+                    <div class="quote-info">
+                        <div class="quote-name">Dario Amodei</div>
+                        <div class="quote-role">Anthropic CEO</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-section">
+                <p class="quote-text">"Anthropic没有退缩是非常好的一件事，OpenAI采取类似立场也是意义重大的。未来会有更多这样具有挑战性的情况，相关领导人挺身而出、激烈竞争者搁置分歧将是至关重要的。"</p>
+                <div class="quote-author">
+                    <div class="quote-avatar">IS</div>
+                    <div class="quote-info">
+                        <div class="quote-name">Ilya Sutskever</div>
+                        <div class="quote-role">Safe Superintelligence创始人 / OpenAI联合创始人</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Market Section -->
+        <section class="section" id="market">
+            <h2 class="section-title">
+                <span class="icon">📊</span>
+                市场分析
+            </h2>
+            <div class="cards-grid">
+                <div class="card trend fade-in">
+                    <span class="card-badge">投资</span>
+                    <h3 class="card-title">AI投资进入"万亿美元时代"</h3>
+                    <p class="card-summary">2026年AI领域迎来史上最大规模融资潮。OpenAI 1100亿美元、Oracle 3000亿美元云合同、Meta 6000亿美元基建计划，资本正在以前所未有的速度涌入AI基础设施。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📈 趋势分析</span>
+                    </div>
+                </div>
+                <div class="card trend fade-in">
+                    <span class="card-badge">竞争</span>
+                    <h3 class="card-title">AI助手市场格局生变</h3>
+                    <p class="card-summary">Claude凭借与五角大楼的"伦理之战"意外获得公众支持，登顶App Store。ChatGPT虽仍保持9亿周活用户优势，但竞争格局正在快速演变。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📈 市场观察</span>
+                    </div>
+                </div>
+                <div class="card trend fade-in">
+                    <span class="card-badge">政策</span>
+                    <h3 class="card-title">AI军事化争议升温</h3>
+                    <p class="card-summary">五角大楼要求AI公司放宽使用限制，允许"任何合法使用"包括自主致命武器。Anthropic拒绝妥协，OpenAI和xAI已接受条款，行业分化加剧。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📈 政策解读</span>
+                    </div>
+                </div>
+                <div class="card trend fade-in">
+                    <span class="card-badge">技术</span>
+                    <h3 class="card-title">多模态成为新战场</h3>
+                    <p class="card-summary">DeepSeek V4、Gemini 3.1 Flash Image等新一代模型纷纷加入原生多模态能力，文本、图像、视频统一生成成为大模型竞争的新焦点。</p>
+                    <div class="card-meta">
+                        <span class="card-source">📈 技术趋势</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Preview Section -->
+        <section class="section" id="preview">
+            <h2 class="section-title">
+                <span class="icon">🔮</span>
+                明日预告
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2026年03月03日</div>
+                    <div class="timeline-title">DeepSeek V4 预计发布</div>
+                    <div class="timeline-desc">原生多模态大模型，支持图像、视频、文本生成</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">本周</div>
+                    <div class="timeline-title">Google Gemini 3.1 Flash Image</div>
+                    <div class="timeline-desc">新一代图像生成模型，代号"Nano Banana 2"</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">持续关注</div>
+                    <div class="timeline-title">Anthropic vs 五角大楼谈判进展</div>
+                    <div class="timeline-desc">AI伦理与军事应用的边界之争</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026年Q1</div>
+                    <div class="timeline-title">Stargate项目数据中心建设</div>
+                    <div class="timeline-desc">德州阿比林8座数据中心，预计2026年底完工</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Archive Section -->
+        <section class="section" id="archive">
+            <h2 class="section-title">
+                <span class="icon">📚</span>
+                往期导航
+            </h2>
+            <div class="archive-nav">
+                <a href="#" class="archive-link current">2026-03-02</a>
+                <a href="#" class="archive-link">2026-03-01</a>
+                <a href="#" class="archive-link">2026-02-28</a>
+                <a href="#" class="archive-link">2026-02-27</a>
+                <a href="#" class="archive-link">2026-02-26</a>
+                <a href="#" class="archive-link">查看更多 →</a>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-links">
+                <a href="#" class="footer-link">关于我们</a>
+                <a href="#" class="footer-link">订阅日报</a>
+                <a href="#" class="footer-link">意见反馈</a>
+                <a href="#" class="footer-link">免责声明</a>
+            </div>
+            <p>© 2026 AI日报 | 每日精选全球人工智能前沿资讯</p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">本报告仅供参考，不构成投资建议</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+📊 全球AI大事件热点报告 - 2026年3月2日
+
+🔗 在线阅读: https://ai-daily-report-32b.pages.dev
+
+---
+
+📌 中文摘要（250字）
+
+1. 国内动态：春节AI营销大战成效显著，豆包DAU突破8000万。阿里通义千问3.5、智谱GLM-5、MiniMax M2.5等国产大模型密集发布，多模态能力大幅提升。具身智能领域融资热潮，智平方、千寻智能估值破百亿。
+
+2. 国际动态：OpenAI完成史上最大1100亿美元融资，估值达7300亿美元。Anthropic拒绝五角大楼AI军事应用要求，引发伦理争议。Google Gemini 2.5 Pro发布，上下文窗口达200万token。
+
+3. 技术进展：AlphaFold3完全开源，AI for Science取得突破。芯片设计自动化超越人类专家，多模态统一架构ImageBind 2发布。
+
+---
+
+📌 English Summary (250 words)
+
+1. China AI: Spring Festival marketing war drove explosive user growth, with Doubao DAU exceeding 80M. Domestic LLMs (Qwen 3.5, GLM-5, MiniMax M2.5) launched with enhanced multimodal capabilities. Embodied AI unicorns emerged with $10B+ valuations.
+
+2. Global AI: OpenAI closed record $110B funding at $730B valuation. Anthropic refused Pentagon's unrestricted AI access request, sparking ethics debate. Google released Gemini 2.5 Pro with 2M token context window.
+
+3. Tech Progress: AlphaFold3 fully open-sourced. AI for Science achieved breakthroughs in automated research. Chip design automation surpassed human experts. Meta released ImageBind 2 for unified multimodal learning.
+
+---
+📁 历史归档: https://ai-daily-report-index.pages.dev

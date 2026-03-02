@@ -1,0 +1,41 @@
+{
+  "date": "2026-03-02",
+  "top3": [
+    {
+      "rank": 1,
+      "title_cn": "OpenAI获1100亿美元融资，亚马逊、英伟达、软银参投",
+      "title_en": "OpenAI Raises $110 Billion in Funding from Amazon, Nvidia, and SoftBank",
+      "summary_cn": "OpenAI宣布获得1100亿美元融资，其中亚马逊投资500亿美元，英伟达投资300亿美元，软银投资300亿美元。投前估值达7300亿美元，创下私营科技公司融资纪录。",
+      "summary_en": "OpenAI announced $110 billion in funding, with Amazon investing $50 billion, Nvidia $30 billion, and SoftBank $30 billion. The pre-money valuation reached $730 billion, setting a record for private tech company financing.",
+      "source": "36氪 / 量子位",
+      "url": "https://www.36kr.com/p/3705035989299333",
+      "category": "融资"
+    },
+    {
+      "rank": 2,
+      "title_cn": "OpenAI公布五角大楼合作协议细节",
+      "title_en": "OpenAI Shares More Details About Its Agreement with the Pentagon",
+      "summary_cn": "OpenAI CEO Sam Altman承认与国防部的合作\"确实仓促\"，并公布了协议内容。协议禁止将AI用于大规模国内监控、自主武器系统和高风险自动化决策。此前Anthropic与五角大楼谈判破裂。",
+      "summary_en": "OpenAI CEO Sam Altman admitted the deal with the Department of Defense was 'definitely rushed' and outlined the agreement. It prohibits using AI for mass domestic surveillance, autonomous weapons systems, and high-stakes automated decisions.",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/03/01/openai-shares-more-details-about-its-agreement-with-the-pentagon/",
+      "category": "政策"
+    },
+    {
+      "rank": 3,
+      "title_cn": "国产安全智能体超越Claude：13比3的战绩",
+      "title_en": "Chinese Security AI Agent Surpasses Claude with 13-to-3 Achievement",
+      "summary_cn": "安恒信息旗下恒脑安全智能体在AI自主挖洞领域完成对标超越。不仅100%复现了Claude Code Security发现的3个0day漏洞，还额外挖掘出10个全新0day漏洞，其中7个属于ghostscript项目，3个属于opensc项目。",
+      "summary_en": "Anheng Information's Hengnao Security AI Agent achieved a breakthrough in autonomous vulnerability discovery. It not only reproduced 100% of the 3 zero-day vulnerabilities found by Claude Code Security but also discovered 10 additional new zero-day vulnerabilities.",
+      "source": "量子位",
+      "url": "https://www.qbitai.com/2026/03/383016.html",
+      "category": "技术突破"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-03-02",
+    "total_sources": 8,
+    "domestic_sources": ["36氪", "量子位", "机器之心", "智东西"],
+    "international_sources": ["TechCrunch", "The Verge", "OpenAI Blog"]
+  }
+}

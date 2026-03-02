@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI日报 - 历史报告索引</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; color: white; margin-bottom: 40px; }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .report-list { display: flex; flex-direction: column; gap: 15px; }
+        .report-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s ease;
+        }
+        .report-card:hover { transform: translateX(10px); }
+        .report-card .date { font-weight: 600; color: #667eea; }
+        .report-card .title { color: #666; }
+        .report-card .arrow { font-size: 1.5rem; color: #667eea; }
+        .footer { text-align: center; color: rgba(255,255,255,0.8); margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 AI日报历史报告</h1>
+            <p>全球AI大事件热点报告归档</p>
+        </div>
+        <div class="report-list">
+            <a href="https://ai-daily-report.pages.dev/ai-report-2026-03-02.html" class="report-card">
+                <span class="date">2026年3月2日</span>
+                <span class="title">第032期 - OpenAI巨额融资、春节AI大战、Claude登顶</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://ai-daily-report.pages.dev/ai-report-2026-02-28.html" class="report-card">
+                <span class="date">2026年2月28日</span>
+                <span class="title">第028期</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://ai-daily-report.pages.dev/ai-report-2026-02-27.html" class="report-card">
+                <span class="date">2026年2月27日</span>
+                <span class="title">第027期</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+        <div class="footer">
+            <p>© 2026 AI Daily Report</p>
+        </div>
+    </div>
+</body>
+</html>
