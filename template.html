@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI日报 - 2026年3月2日</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #0f172a;
+            min-height: 100vh;
+            padding: 20px;
+            color: #e2e8f0;
+            padding-bottom: 100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* ==================== PC端样式 (min-width: 769px) ==================== */
+        @media (min-width: 769px) {
+            body {
+                padding: 30px;
+                padding-bottom: 30px;
+            }
+            
+            /* 顶部固定导航 */
+            .top-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                padding: 15px 30px;
+                border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            }
+            
+            .top-nav-content {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .top-nav-logo {
+                font-size: 1.5rem;
+                font-weight: bold;
+                background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            
+            .top-nav-links {
+                display: flex;
+                gap: 30px;
+            }
+            
+            .top-nav-links a {
+                color: #94a3b8;
+                text-decoration: none;
+                font-size: 0.95rem;
+                transition: color 0.3s;
+                padding: 8px 0;
+            }
+            
+            .top-nav-links a:hover {
+                color: #6366f1;
+            }
+            
+            .header {
+                text-align: center;
+                padding: 80px 40px 60px;
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+                border-radius: 24px;
+                margin-bottom: 50px;
+                margin-top: 70px;
+                border: 1px solid rgba(99, 102, 241, 0.2);
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: 0 0 60px rgba(99, 102, 241, 0.5);
+            }
+            
+            .header .date {
+                font-size: 1.1rem;
+                color: #94a3b8;
+                letter-spacing: 2px;
+            }
+            
+            .section {
+                margin-bottom: 50px;
+            }
+            
+            .section-title {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                color: #6366f1;
+                padding: 18px 30px;
+                border-radius: 12px;
+                font-size: 1.3rem;
+                font-weight: bold;
+                margin-bottom: 30px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+                border: 1px solid rgba(99, 102, 241, 0.3);
+            }
+            
+            .cards {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+            
+            .card {
+                background: #1e293b;
+                border-radius: 16px;
+                padding: 30px;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                transition: all 0.3s ease;
+                border: 1px solid rgba(148, 163, 184, 0.1);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, #6366f1, #a855f7);
+            }
+            
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+                border-color: rgba(99, 102, 241, 0.3);
+            }
+            
+            .card-title {
+                font-size: 1.15rem;
+                color: #f1f5f9;
+                margin-bottom: 15px;
+                line-height: 1.5;
+                font-weight: 600;
+            }
+            
+            .card-source {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                color: white;
+                padding: 6px 14px;
+                border-radius: 20px;
+                font-size: 0.85em;
+                margin-bottom: 15px;
+                font-weight: 500;
+            }
+            
+            .card-summary {
+                color: #94a3b8;
+                line-height: 1.7;
+                margin-bottom: 18px;
+                font-size: 1rem;
+            }
+            
+            .card-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                color: #6366f1;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s;
+                font-size: 0.95em;
+            }
+            
+            .card-link:hover {
+                color: #a855f7;
+                gap: 12px;
+            }
+            
+            /* 引用框样式 */
+            .quote-box {
+                background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
+                border-radius: 16px;
+                padding: 30px;
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                position: relative;
+                margin-bottom: 20px;
+            }
+            
+            .quote-box::before {
+                content: '"';
+                font-size: 4em;
+                color: rgba(168, 85, 247, 0.3);
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                font-family: Georgia, serif;
+            }
+            
+            .quote-text {
+                font-size: 1.1rem;
+                color: #e2e8f0;
+                line-height: 1.8;
+                padding-left: 40px;
+                font-style: italic;
+            }
+            
+            .quote-author {
+                text-align: right;
+                color: #a855f7;
+                margin-top: 15px;
+                font-weight: 600;
+            }
+            
+            /* 市场情绪分析 */
+            .sentiment-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 25px;
+            }
+            
+            .sentiment-item {
+                background: #1e293b;
+                border-radius: 12px;
+                padding: 25px;
+                border: 1px solid rgba(148, 163, 184, 0.1);
+            }
+            
+            .sentiment-label {
+                color: #64748b;
+                font-size: 0.95rem;
+                margin-bottom: 10px;
+            }
+            
+            .sentiment-value {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            
+            /* 往期报告导航 */
+            .history-nav {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .history-item {
+                background: #1e293b;
+                border-radius: 10px;
+                padding: 15px 25px;
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                color: #f59e0b;
+                text-decoration: none;
+                transition: all 0.3s;
+                font-weight: 500;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .history-item:hover {
+                background: rgba(245, 158, 11, 0.1);
+                transform: translateY(-3px);
+            }
+            
+            .footer {
+                text-align: center;
+                padding: 40px;
+                color: #64748b;
+                border-top: 1px solid rgba(148, 163, 184, 0.1);
+                margin-top: 40px;
+            }
+            
+            /* 底部导航隐藏 */
+            .bottom-nav {
+                display: none;
+            }
+        }
+        
+        /* ==================== 移动端样式 (max-width: 768px) ==================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+                padding-bottom: 90px;
+            }
+            
+            /* 顶部导航隐藏 */
+            .top-nav {
+                display: none;
+            }
+            
+            .header {
+                text-align: center;
+                padding: 30px 20px;
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+                border-radius: 16px;
+                margin-bottom: 30px;
+                border: 1px solid rgba(99, 102, 241, 0.2);
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+                margin-bottom: 12px;
+                background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            
+            .header .date {
+                font-size: 0.95rem;
+                color: #94a3b8;
+                letter-spacing: 1px;
+            }
+            
+            .section {
+                margin-bottom: 30px;
+            }
+            
+            .section-title {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                color: #6366f1;
+                padding: 14px 20px;
+                border-radius: 10px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                border: 1px solid rgba(99, 102, 241, 0.3);
+            }
+            
+            .cards {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .card {
+                background: #1e293b;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+                transition: all 0.2s ease;
+                border: 1px solid rgba(148, 163, 184, 0.1);
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+            }
+            
+            .card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(90deg, #6366f1, #a855f7);
+            }
+            
+            .card:active {
+                transform: scale(0.98);
+                background: #252f47;
+            }
+            
+            .card-title {
+                font-size: 1.05rem;
+                color: #f1f5f9;
+                margin-bottom: 12px;
+                line-height: 1.5;
+                font-weight: 600;
+            }
+            
+            .card-source {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                color: white;
+                padding: 5px 12px;
+                border-radius: 16px;
+                font-size: 0.8em;
+                margin-bottom: 12px;
+                font-weight: 500;
+            }
+            
+            .card-summary {
+                color: #94a3b8;
+                line-height: 1.6;
+                margin-bottom: 15px;
+                font-size: 0.95rem;
+            }
+            
+            .card-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                color: #6366f1;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.2s;
+                font-size: 0.9em;
+                min-height: 44px;
+                padding: 8px 0;
+            }
+            
+            /* 引用框样式 */
+            .quote-box {
+                background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
+                border-radius: 12px;
+                padding: 20px;
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                position: relative;
+                margin-bottom: 16px;
+            }
+            
+            .quote-box::before {
+                content: '"';
+                font-size: 2.5em;
+                color: rgba(168, 85, 247, 0.3);
+                position: absolute;
+                top: 5px;
+                left: 15px;
+                font-family: Georgia, serif;
+            }
+            
+            .quote-text {
+                font-size: 0.95rem;
+                color: #e2e8f0;
+                line-height: 1.7;
+                padding-left: 30px;
+                font-style: italic;
+            }
+            
+            .quote-author {
+                text-align: right;
+                color: #a855f7;
+                margin-top: 12px;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+            
+            /* 市场情绪分析 */
+            .sentiment-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .sentiment-item {
+                background: #1e293b;
+                border-radius: 10px;
+                padding: 18px;
+                border: 1px solid rgba(148, 163, 184, 0.1);
+            }
+            
+            .sentiment-label {
+                color: #64748b;
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+            
+            .sentiment-value {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+            
+            .sentiment-bar {
+                height: 6px;
+                background: #334155;
+                border-radius: 3px;
+                overflow: hidden;
+            }
+            
+            .sentiment-bar-fill {
+                height: 100%;
+                border-radius: 3px;
+                transition: width 0.5s ease;
+            }
+            
+            /* 往期报告导航 */
+            .history-nav {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            
+            .history-item {
+                background: #1e293b;
+                border-radius: 8px;
+                padding: 12px 18px;
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                color: #f59e0b;
+                text-decoration: none;
+                transition: all 0.2s;
+                font-weight: 500;
+                font-size: 0.9rem;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .history-item:active {
+                background: rgba(245, 158, 11, 0.15);
+                transform: scale(0.98);
+            }
+            
+            .footer {
+                text-align: center;
+                padding: 30px 20px;
+                color: #64748b;
+                border-top: 1px solid rgba(148, 163, 184, 0.1);
+                margin-top: 30px;
+                font-size: 0.85rem;
+            }
+            
+            /* 底部固定导航栏 */
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(10px);
+                border-top: 1px solid rgba(99, 102, 241, 0.2);
+                z-index: 1000;
+                padding: 8px 0;
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+            }
+            
+            .bottom-nav-content {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: #64748b;
+                text-decoration: none;
+                font-size: 0.7rem;
+                padding: 6px 12px;
+                min-height: 44px;
+                min-width: 60px;
+                transition: color 0.2s;
+            }
+            
+            .bottom-nav-item.active {
+                color: #6366f1;
+            }
+            
+            .bottom-nav-icon {
+                font-size: 1.4rem;
+                margin-bottom: 2px;
+            }
+        }
+        
+        /* ==================== 公共样式 ==================== */
+        .section-title.domestic {
+            border-left: 4px solid #ef4444;
+            background: linear-gradient(135deg, #1e293b 0%, rgba(239, 68, 68, 0.1) 100%);
+        }
+        
+        .section-title.international {
+            border-left: 4px solid #3b82f6;
+            background: linear-gradient(135deg, #1e293b 0%, rgba(59, 130, 246, 0.1) 100%);
+        }
+        
+        .section-title.quote {
+            border-left: 4px solid #a855f7;
+            background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
+        }
+        
+        .section-title.sentiment {
+            border-left: 4px solid #10b981;
+            background: linear-gradient(135deg, #1e293b 0%, rgba(16, 185, 129, 0.1) 100%);
+        }
+        
+        .section-title.history {
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.1) 100%);
+        }
+        
+        .card.domestic::before {
+            background: linear-gradient(90deg, #ef4444, #f59e0b);
+        }
+        
+        .card.international::before {
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+        }
+        
+        .card-link::after {
+            content: '→';
+            transition: transform 0.3s;
+        }
+        
+        .card-link:hover::after {
+            transform: translateX(4px);
+        }
+        
+        .sentiment-value.bullish {
+            color: #10b981;
+        }
+        
+        .sentiment-value.bearish {
+            color: #ef4444;
+        }
+        
+        .sentiment-value.neutral {
+            color: #f59e0b;
+        }
+        
+        .sentiment-bar-fill.bullish {
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+        
+        .sentiment-bar-fill.bearish {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+        }
+        
+        .sentiment-bar-fill.neutral {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+        
+        .footer p {
+            margin: 6px 0;
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 选中文字样式 */
+        ::selection {
+            background: rgba(99, 102, 241, 0.3);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- PC端顶部导航 -->
+    <nav class="top-nav">
+        <div class="top-nav-content">
+            <div class="top-nav-logo">🤖 AI日报</div>
+            <div class="top-nav-links">
+                <a href="#domestic">国内热点</a>
+                <a href="#international">海外热点</a>
+                <a href="#quote">领袖观点</a>
+                <a href="#sentiment">市场情绪</a>
+                <a href="#history">往期报告</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1>🤖 AI日报</h1>
+            <div class="date">2026年3月2日 · 星期一</div>
+        </header>
+
+        <!-- 国内热点 -->
+        <section class="section" id="domestic">
+            <div class="section-title domestic">
+                🇨🇳 国内AI热点
+            </div>
+            <div class="cards">
+                <div class="card domestic">
+                    <div class="card-source">🔥 深度求索</div>
+                    <h3 class="card-title">DeepSeek V4即将发布：跳过英伟达，深度适配国产芯片</h3>
+                    <p class="card-summary">据金融时报报道，DeepSeek将于下周发布备受期待的V4多模态AI模型，具备图片、视频和文本生成能力。值得注意的是，V4并未选择与英伟达进行优化适配，而是优先与国产芯片厂商合作，此举或将动摇全球算力霸权格局。</p>
+                    <a href="https://www.ft.com/content/e3366881-0622-40a7-9c34-a0d82e3d573e" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card domestic">
+                    <div class="card-source">🔬 清华大学</div>
+                    <h3 class="card-title">天文AI模型"星衍"：成功探测超130亿光年星系</h3>
+                    <p class="card-summary">清华大学科研团队基于计算光学原理与人工智能算法，开发出天文AI模型"星衍"，成功探测到距离地球超130亿光年的星系。该成果已发表于国际学术期刊《科学》杂志。</p>
+                    <a href="https://news.cctv.cn/2026/03/02/ARTIA0BGZ6ZwfbJwJHLVD26O260302.shtml" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card domestic">
+                    <div class="card-source">🧠 科研突破</div>
+                    <h3 class="card-title">新型神经网络研发成功：AI不再只会"死记硬背"</h3>
+                    <p class="card-summary">我国科研团队最新研发出一种新型神经网络，让AI能像人类一样，从看到、听到的信息中进行学习和推理，不再局限于传统的"死记硬背"模式，标志着AI认知能力的重大突破。</p>
+                    <a href="https://news.gmw.cn/2026-03/02/content_38620799.htm" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card domestic">
+                    <div class="card-source">🏭 深圳特区报</div>
+                    <h3 class="card-title">深圳"雁阵梯队"AI产业图景加速成型</h3>
+                    <p class="card-summary">南山西丽湖路演社模力营AI项目专场上，总规模达30亿元的"AI基金群"落地；龙岗以"All in AI"战略为引领，全栈创新+全域应用，深圳AI产业生态正加速成型。</p>
+                    <a href="https://www.sznews.com/news/content/2026-03/02/content_31961006.htm" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card domestic">
+                    <div class="card-source">📱 新浪科技</div>
+                    <h3 class="card-title">荣耀提出AHI理念：让AI既有IQ又有EQ</h3>
+                    <p class="card-summary">荣耀在AI领域提出全新AHI（Artificial Human Intelligence）理念，致力于打造既有智商又有情商的AI系统，实现更自然、更懂用户的人机交互体验。</p>
+                    <a href="https://k.sina.com.cn/article_7857201856_1d45362c001902rao6.html" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card domestic">
+                    <div class="card-source">🌐 经济日报</div>
+                    <h3 class="card-title">加强全球人工智能资源共享</h3>
+                    <p class="card-summary">国际清算银行发布《人工智能对新兴市场的经济影响》报告指出，人工智能对生产力和经济发展的影响在新兴市场尤为显著，呼吁加强全球AI资源共享，促进技术普惠。</p>
+                    <a href="http://paper.ce.cn/pc/content/202603/02/content_328804.html" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 海外热点 -->
+        <section class="section" id="international">
+            <div class="section-title international">
+                🌍 海外AI热点
+            </div>
+            <div class="cards">
+                <div class="card international">
+                    <div class="card-source">💰 中国创投</div>
+                    <h3 class="card-title">Anthropic完成300亿美元G轮融资，估值达3800亿美元</h3>
+                    <p class="card-summary">美国AI初创公司Anthropic宣布完成新一轮G轮融资，金额高达300亿美元，投后估值飙升至3800亿美元（约合人民币2.6万亿元），成为全球估值最高的AI独角兽之一。</p>
+                    <a href="https://www.chinaventure.com.cn/news/80-20260302-390302.html" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card international">
+                    <div class="card-source">📊 Reuters</div>
+                    <h3 class="card-title">AI颠覆 looming over markets，美国就业数据备受关注</h3>
+                    <p class="card-summary">华尔街分析师表示，AI技术颠覆正笼罩市场，投资者密切关注即将公布的美国就业数据。AI对劳动力市场的影响成为投资者评估经济前景的关键因素。</p>
+                    <a href="https://www.reuters.com/world/asia-pacific/wall-st-week-ahead-ai-disruption-looms-over-markets-with-us-jobs-data-tap-2026-03-02/" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card international">
+                    <div class="card-source">🤝 EENews Europe</div>
+                    <h3 class="card-title">美国在印度AI影响力峰会上提出AI主权倡议</h3>
+                    <p class="card-summary">美国在新德里举行的印度AI影响力峰会2026上推动以合作伙伴为中心的国家AI系统控制方法，强调AI主权和技术自主的重要性。</p>
+                    <a href="https://www.eenewseurope.com/en/ai-sovereignty-initiative-india-ai-impact-summit-us/" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card international">
+                    <div class="card-source">📡 ZTE</div>
+                    <h3 class="card-title">中兴在MWC 2026展示全栈AI创新</h3>
+                    <p class="card-summary">中兴通讯在巴塞罗那MWC 2026大会上展示最新AI解决方案，通过AI与ICT深度融合的四大关键领域，展示全栈AI创新能力，共创智能未来。</p>
+                    <a href="https://www.zte.com.cn/content/zte-site/www-zte-com-cn/global/about/news/ZTE-Showcases-Full-Stack-AI-Innovations-at-MWC-Barcelona-2026-Creating-an-Intelligent-Future.html" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card international">
+                    <div class="card-source">💼 LinkedIn</div>
+                    <h3 class="card-title">桥水分析：美国科技巨头2026年将联合投资6500亿美元于AI基础设施</h3>
+                    <p class="card-summary">桥水联合分析发现，美国大型科技公司将在2026年联合投资6500亿美元用于扩展AI相关基础设施，包括数据中心、芯片和能源设施。</p>
+                    <a href="https://www.linkedin.com/pulse/ai-weekly-digest-march-2-2026-pa-media-jhcfe" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+
+                <div class="card international">
+                    <div class="card-source">🔒 中国网</div>
+                    <h3 class="card-title">全球人工智能领域2月发展盘点</h3>
+                    <p class="card-summary">法国泰雷兹公司发布的《2026年数据威胁报告》指出，70%的受访机构将AI相关风险置于重要数据安全议题之列，业界担忧的不仅是恶意AI本身，更是AI系统的安全性。</p>
+                    <a href="http://news.china.com.cn/2026-03/02/content_118354483.shtml" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 业界领袖观点 -->
+        <section class="section" id="quote">
+            <div class="section-title quote">
+                💬 业界领袖观点
+            </div>
+            <div class="quote-box">
+                <p class="quote-text">2026年将是Agent在真实场景中集中落地的一年，Coding Agent等新范式正在重塑传统软件开发的基本逻辑。AI不再只是工具，而是成为真正的协作者。</p>
+                <div class="quote-author">— AI行业专家</div>
+            </div>
+            <div class="quote-box">
+                <p class="quote-text">DeepSeek V4选择优先适配国产芯片而非英伟达，这标志着全球AI算力格局可能发生根本性转变。技术自主正在成为中国AI企业的核心战略。</p>
+                <div class="quote-author">— 产业观察家</div>
+            </div>
+        </section>
+
+        <!-- 市场情绪分析 -->
+        <section class="section" id="sentiment">
+            <div class="section-title sentiment">
+                📈 市场情绪分析
+            </div>
+            <div class="sentiment-grid">
+                <div class="sentiment-item">
+                    <div class="sentiment-label">AI板块整体情绪</div>
+                    <div class="sentiment-value bullish">看涨 72%</div>
+                    <div class="sentiment-bar">
+                        <div class="sentiment-bar-fill bullish" style="width: 72%"></div>
+                    </div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-label">算力/芯片板块</div>
+                    <div class="sentiment-value neutral">震荡 55%</div>
+                    <div class="sentiment-bar">
+                        <div class="sentiment-bar-fill neutral" style="width: 55%"></div>
+                    </div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-label">AI应用/Agent</div>
+                    <div class="sentiment-value bullish">强烈看涨 85%</div>
+                    <div class="sentiment-bar">
+                        <div class="sentiment-bar-fill bullish" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="sentiment-item">
+                    <div class="sentiment-label">大模型竞争</div>
+                    <div class="sentiment-value bullish">看涨 68%</div>
+                    <div class="sentiment-bar">
+                        <div class="sentiment-bar-fill bullish" style="width: 68%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 往期报告导航 -->
+        <section class="section" id="history">
+            <div class="section-title history">
+                📚 往期报告
+            </div>
+            <div class="history-nav">
+                <a href="https://ai-daily-report-2026-02-28.pages.dev" class="history-item">3月1日</a>
+                <a href="https://ai-daily-report-2026-02-28.pages.dev" class="history-item">2月28日</a>
+                <a href="https://ai-daily-report-2026-02-27.pages.dev" class="history-item">2月27日</a>
+                <a href="https://ai-daily-report-2026-02-26.pages.dev" class="history-item">2月26日</a>
+                <a href="https://6613149a.ai-daily-report-index.pages.dev" class="history-item">2月25日</a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>🤖 AI日报 | 每日精选全球人工智能热点</p>
+            <p>生成时间：2026年3月2日 | 数据来源：公开网络</p>
+        </footer>
+    </div>
+
+    <!-- 移动端底部固定导航 -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="#domestic" class="bottom-nav-item active">
+                <span class="bottom-nav-icon">🇨🇳</span>
+                <span>国内</span>
+            </a>
+            <a href="#international" class="bottom-nav-item">
+                <span class="bottom-nav-icon">🌍</span>
+                <span>海外</span>
+            </a>
+            <a href="#quote" class="bottom-nav-item">
+                <span class="bottom-nav-icon">💬</span>
+                <span>观点</span>
+            </a>
+            <a href="#sentiment" class="bottom-nav-item">
+                <span class="bottom-nav-icon">📈</span>
+                <span>情绪</span>
+            </a>
+            <a href="#history" class="bottom-nav-item">
+                <span class="bottom-nav-icon">📚</span>
+                <span>往期</span>
+            </a>
+        </div>
+    </nav>
+</body>
+</html>
