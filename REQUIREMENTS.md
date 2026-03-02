@@ -26,9 +26,9 @@
 | **3** | **生成HTML报告** | 使用模板样式，填充今日热点，每个事件包含真实来源链接 |
 | **4** | **生成JSON摘要** | 文件：`ai-report-YYYY-MM-DD-summary.json`，Top 3热点，中英文对应 |
 | **5** | **Cloudflare部署** | 主报告（`ai-daily-report`）+ 历史版本（`ai-report-YYYY-MM-DD`）+ 索引页面（`ai-daily-report-index`） |
-| **6** | **发送邮件** | 收件人：lunchwu@gmail.com，使用应用专用密码 |
-| **7** | **发送飞书消息** | 目标：user:ou_11ad053de00f1b52a9bf7fd6f0dc6a34 |
-| **8** | **QA验证** | 检查链接可访问性、邮件/飞书发送状态 |
+| **6** | **QA验证** | 检查链接可访问性、页面功能完整性，**验证通过后才能发送通知** |
+| **7** | **发送邮件** | 收件人：lunchwu@gmail.com，使用应用专用密码 |
+| **8** | **发送飞书消息** | 目标：user:ou_11ad053de00f1b52a9bf7fd6f0dc6a34 |
 
 ---
 
