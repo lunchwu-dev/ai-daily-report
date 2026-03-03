@@ -1,0 +1,26 @@
+{
+  "date": "2026年03月03日",
+  "top3": [
+    {
+      "rank": 1,
+      "title_cn": "银河通用再融25亿元，成估值最高未上市机器人公司",
+      "desc_cn": "3月2日银河通用完成新一轮融资，投资方包括国家人工智能产业投资基金等，累计融资额居中国具身智能领域首位，估值超30亿美元",
+      "title_en": "Galbot Raises $362M, Becomes Highest-Valued Private Robotics Company",
+      "desc_en": "Galbot completes new funding round led by National AI Industry Investment Fund, reaching $3B+ valuation and becoming China's top-funded embodied AI company"
+    },
+    {
+      "rank": 2,
+      "title_cn": "OpenAI完成1100亿美元融资，估值达7300亿美元",
+      "desc_cn": "OpenAI完成史上最大规模融资，Amazon领投500亿美元，ChatGPT周活跃用户达9亿，预计2026年收入290亿美元",
+      "title_en": "OpenAI Closes $110B Funding Round at $730B Valuation",
+      "desc_en": "OpenAI secures largest funding round in history with Amazon leading $50B, ChatGPT reaches 900M weekly users, 2026 revenue projected at $29B"
+    },
+    {
+      "rank": 3,
+      "title_cn": "AI教父辛顿警告：2026年AI将取代更多工作岗位",
+      "desc_cn": "诺贝尔奖得主Hinton表示AI能力每7个月翻倍，已从完成一分钟代码发展到一小时项目，软件开发岗位将大幅减少",
+      "title_en": "AI Godfather Hinton Warns: AI Will Replace More Jobs in 2026",
+      "desc_en": "Nobel laureate Geoffrey Hinton predicts AI capabilities double every 7 months, evolving from 1-minute to 1-hour coding tasks, threatening software engineering jobs"
+    }
+  ]
+}

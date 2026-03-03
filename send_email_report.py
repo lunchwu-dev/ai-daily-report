@@ -19,8 +19,12 @@ SENDER_PASSWORD = "bize wlmw kupz jnoc"
 # 主收件人
 RECIPIENT_EMAIL = "lunchwu@gmail.com"
 
-# 抄送列表（暂时为空）
-CC_EMAILS = []
+# 抄送列表
+CC_EMAILS = [
+    "jerry.wu1@decathlon.com",
+    "leanna.li@decathlon.com",
+    "tia.song@decathlon.com",
+]
 
 def load_summary_from_json(file_path):
     """从JSON文件加载双语摘要"""
@@ -34,12 +38,14 @@ def load_summary_from_json(file_path):
         # 构建中文摘要
         summary_cn = ""
         for item in top3[:3]:
-            summary_cn += f"<p><strong>{item['rank']}. {item['title_cn']}</strong><br/>{item['summary_cn']}</p>"
+            desc = item.get('desc_cn', item.get('summary_cn', ''))
+            summary_cn += f"<p><strong>{item['rank']}. {item['title_cn']}</strong><br/>{desc}</p>"
         
         # 构建英文摘要
         summary_en = ""
         for item in top3[:3]:
-            summary_en += f"<p><strong>{item['rank']}. {item['title_en']}</strong><br/>{item['summary_en']}</p>"
+            desc = item.get('desc_en', item.get('summary_en', ''))
+            summary_en += f"<p><strong>{item['rank']}. {item['title_en']}</strong><br/>{desc}</p>"
         
         return date, summary_cn, summary_en, len(top3)
         
@@ -73,7 +79,7 @@ def send_daily_report(report_file, cc_list=None):
         return False
     
     # 构建报告URL - 使用主项目域名
-    report_url = "https://a620c5bf.ai-daily-report-32b.pages.dev"
+    report_url = "https://0661b823.ai-daily-report-32b.pages.dev"
     
     subject = f"📰 AI Daily Report | {report_date}"
     
