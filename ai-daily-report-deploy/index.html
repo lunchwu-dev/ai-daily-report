@@ -2,898 +2,671 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI日报 - 2026年3月2日</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI日报 - 2026年3月3日</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
             background: #0f172a;
             min-height: 100vh;
             padding: 20px;
             color: #e2e8f0;
             padding-bottom: 100px;
         }
+        .container { max-width: 1200px; margin: 0 auto; }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 24px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .date { font-size: 1.1rem; color: #94a3b8; }
+        
+        /* Section */
+        .section { margin-bottom: 50px; }
+        .section-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
         
-        /* ==================== PC端样式 (min-width: 769px) ==================== */
-        @media (min-width: 769px) {
-            body {
-                padding: 30px;
-                padding-bottom: 30px;
-            }
-            
-            /* 顶部固定导航 */
-            .top-nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                background: rgba(15, 23, 42, 0.95);
-                backdrop-filter: blur(10px);
-                z-index: 1000;
-                padding: 15px 30px;
-                border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-            }
-            
-            .top-nav-content {
-                max-width: 1200px;
-                margin: 0 auto;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .top-nav-logo {
-                font-size: 1.5rem;
-                font-weight: bold;
-                background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-            
-            .top-nav-links {
-                display: flex;
-                gap: 30px;
-            }
-            
-            .top-nav-links a {
-                color: #94a3b8;
-                text-decoration: none;
-                font-size: 0.95rem;
-                transition: color 0.3s;
-                padding: 8px 0;
-            }
-            
-            .top-nav-links a:hover {
-                color: #6366f1;
-            }
-            
-            .header {
-                text-align: center;
-                padding: 80px 40px 60px;
-                background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-                border-radius: 24px;
-                margin-bottom: 50px;
-                margin-top: 70px;
-                border: 1px solid rgba(99, 102, 241, 0.2);
-            }
-            
-            .header h1 {
-                font-size: 2.5rem;
-                margin-bottom: 20px;
-                background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                text-shadow: 0 0 60px rgba(99, 102, 241, 0.5);
-            }
-            
-            .header .date {
-                font-size: 1.1rem;
-                color: #94a3b8;
-                letter-spacing: 2px;
-            }
-            
-            .section {
-                margin-bottom: 50px;
-            }
-            
-            .section-title {
-                display: inline-flex;
-                align-items: center;
-                gap: 12px;
-                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-                color: #6366f1;
-                padding: 18px 30px;
-                border-radius: 12px;
-                font-size: 1.3rem;
-                font-weight: bold;
-                margin-bottom: 30px;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-                border: 1px solid rgba(99, 102, 241, 0.3);
-            }
-            
-            .cards {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-            }
-            
-            .card {
-                background: #1e293b;
-                border-radius: 16px;
-                padding: 30px;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-                transition: all 0.3s ease;
-                border: 1px solid rgba(148, 163, 184, 0.1);
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 3px;
-                background: linear-gradient(90deg, #6366f1, #a855f7);
-            }
-            
-            .card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-                border-color: rgba(99, 102, 241, 0.3);
-            }
-            
-            .card-title {
-                font-size: 1.15rem;
-                color: #f1f5f9;
-                margin-bottom: 15px;
-                line-height: 1.5;
-                font-weight: 600;
-            }
-            
-            .card-source {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-                color: white;
-                padding: 6px 14px;
-                border-radius: 20px;
-                font-size: 0.85em;
-                margin-bottom: 15px;
-                font-weight: 500;
-            }
-            
-            .card-summary {
-                color: #94a3b8;
-                line-height: 1.7;
-                margin-bottom: 18px;
-                font-size: 1rem;
-            }
-            
-            .card-link {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                color: #6366f1;
-                text-decoration: none;
-                font-weight: 600;
-                transition: all 0.3s;
-                font-size: 0.95em;
-            }
-            
-            .card-link:hover {
-                color: #a855f7;
-                gap: 12px;
-            }
-            
-            /* 引用框样式 */
-            .quote-box {
-                background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
-                border-radius: 16px;
-                padding: 30px;
-                border: 1px solid rgba(168, 85, 247, 0.3);
-                position: relative;
-                margin-bottom: 20px;
-            }
-            
-            .quote-box::before {
-                content: '"';
-                font-size: 4em;
-                color: rgba(168, 85, 247, 0.3);
-                position: absolute;
-                top: 10px;
-                left: 20px;
-                font-family: Georgia, serif;
-            }
-            
-            .quote-text {
-                font-size: 1.1rem;
-                color: #e2e8f0;
-                line-height: 1.8;
-                padding-left: 40px;
-                font-style: italic;
-            }
-            
-            .quote-author {
-                text-align: right;
-                color: #a855f7;
-                margin-top: 15px;
-                font-weight: 600;
-            }
-            
-            /* 市场情绪分析 */
-            .sentiment-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 25px;
-            }
-            
-            .sentiment-item {
-                background: #1e293b;
-                border-radius: 12px;
-                padding: 25px;
-                border: 1px solid rgba(148, 163, 184, 0.1);
-            }
-            
-            .sentiment-label {
-                color: #64748b;
-                font-size: 0.95rem;
-                margin-bottom: 10px;
-            }
-            
-            .sentiment-value {
-                font-size: 1.8rem;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            
-            /* 往期报告导航 */
-            .history-nav {
-                display: flex;
-                gap: 15px;
-                flex-wrap: wrap;
-            }
-            
-            .history-item {
-                background: #1e293b;
-                border-radius: 10px;
-                padding: 15px 25px;
-                border: 1px solid rgba(245, 158, 11, 0.3);
-                color: #f59e0b;
-                text-decoration: none;
-                transition: all 0.3s;
-                font-weight: 500;
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .history-item:hover {
-                background: rgba(245, 158, 11, 0.1);
-                transform: translateY(-3px);
-            }
-            
-            .footer {
-                text-align: center;
-                padding: 40px;
-                color: #64748b;
-                border-top: 1px solid rgba(148, 163, 184, 0.1);
-                margin-top: 40px;
-            }
-            
-            /* 底部导航隐藏 */
-            .bottom-nav {
-                display: none;
-            }
+        /* 今日头条 - 金色 */
+        .headlines-section .section-title {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.3) 100%);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+        }
+        .headline-card {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.08) 100%);
+            border-radius: 20px;
+            padding: 35px;
+            border: 2px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 40px rgba(245, 158, 11, 0.1);
+        }
+        .headline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #0f172a;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .headline-title {
+            font-size: 1.6rem;
+            color: #fbbf24;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+        .headline-content {
+            color: #e2e8f0;
+            line-height: 2;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+        .headline-content p {
+            margin-bottom: 15px;
+            text-align: justify;
         }
         
-        /* ==================== 移动端样式 (max-width: 768px) ==================== */
-        @media (max-width: 768px) {
-            body {
-                padding: 16px;
-                padding-bottom: 90px;
-            }
-            
-            /* 顶部导航隐藏 */
-            .top-nav {
-                display: none;
-            }
-            
-            .header {
-                text-align: center;
-                padding: 30px 20px;
-                background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-                border-radius: 16px;
-                margin-bottom: 30px;
-                border: 1px solid rgba(99, 102, 241, 0.2);
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-                margin-bottom: 12px;
-                background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-            
-            .header .date {
-                font-size: 0.95rem;
-                color: #94a3b8;
-                letter-spacing: 1px;
-            }
-            
-            .section {
-                margin-bottom: 30px;
-            }
-            
-            .section-title {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-                color: #6366f1;
-                padding: 14px 20px;
-                border-radius: 10px;
-                font-size: 1.1rem;
-                font-weight: bold;
-                margin-bottom: 20px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-                border: 1px solid rgba(99, 102, 241, 0.3);
-            }
-            
-            .cards {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .card {
-                background: #1e293b;
-                border-radius: 12px;
-                padding: 20px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-                transition: all 0.2s ease;
-                border: 1px solid rgba(148, 163, 184, 0.1);
-                position: relative;
-                overflow: hidden;
-                width: 100%;
-            }
-            
-            .card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 3px;
-                background: linear-gradient(90deg, #6366f1, #a855f7);
-            }
-            
-            .card:active {
-                transform: scale(0.98);
-                background: #252f47;
-            }
-            
-            .card-title {
-                font-size: 1.05rem;
-                color: #f1f5f9;
-                margin-bottom: 12px;
-                line-height: 1.5;
-                font-weight: 600;
-            }
-            
-            .card-source {
-                display: inline-flex;
-                align-items: center;
-                gap: 5px;
-                background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-                color: white;
-                padding: 5px 12px;
-                border-radius: 16px;
-                font-size: 0.8em;
-                margin-bottom: 12px;
-                font-weight: 500;
-            }
-            
-            .card-summary {
-                color: #94a3b8;
-                line-height: 1.6;
-                margin-bottom: 15px;
-                font-size: 0.95rem;
-            }
-            
-            .card-link {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                color: #6366f1;
-                text-decoration: none;
-                font-weight: 600;
-                transition: all 0.2s;
-                font-size: 0.9em;
-                min-height: 44px;
-                padding: 8px 0;
-            }
-            
-            /* 引用框样式 */
-            .quote-box {
-                background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
-                border-radius: 12px;
-                padding: 20px;
-                border: 1px solid rgba(168, 85, 247, 0.3);
-                position: relative;
-                margin-bottom: 16px;
-            }
-            
-            .quote-box::before {
-                content: '"';
-                font-size: 2.5em;
-                color: rgba(168, 85, 247, 0.3);
-                position: absolute;
-                top: 5px;
-                left: 15px;
-                font-family: Georgia, serif;
-            }
-            
-            .quote-text {
-                font-size: 0.95rem;
-                color: #e2e8f0;
-                line-height: 1.7;
-                padding-left: 30px;
-                font-style: italic;
-            }
-            
-            .quote-author {
-                text-align: right;
-                color: #a855f7;
-                margin-top: 12px;
-                font-weight: 600;
-                font-size: 0.9rem;
-            }
-            
-            /* 市场情绪分析 */
-            .sentiment-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
-            .sentiment-item {
-                background: #1e293b;
-                border-radius: 10px;
-                padding: 18px;
-                border: 1px solid rgba(148, 163, 184, 0.1);
-            }
-            
-            .sentiment-label {
-                color: #64748b;
-                font-size: 0.9rem;
-                margin-bottom: 8px;
-            }
-            
-            .sentiment-value {
-                font-size: 1.5rem;
-                font-weight: bold;
-                margin-bottom: 8px;
-            }
-            
-            .sentiment-bar {
-                height: 6px;
-                background: #334155;
-                border-radius: 3px;
-                overflow: hidden;
-            }
-            
-            .sentiment-bar-fill {
-                height: 100%;
-                border-radius: 3px;
-                transition: width 0.5s ease;
-            }
-            
-            /* 往期报告导航 */
-            .history-nav {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            
-            .history-item {
-                background: #1e293b;
-                border-radius: 8px;
-                padding: 12px 18px;
-                border: 1px solid rgba(245, 158, 11, 0.3);
-                color: #f59e0b;
-                text-decoration: none;
-                transition: all 0.2s;
-                font-weight: 500;
-                font-size: 0.9rem;
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .history-item:active {
-                background: rgba(245, 158, 11, 0.15);
-                transform: scale(0.98);
-            }
-            
-            .footer {
-                text-align: center;
-                padding: 30px 20px;
-                color: #64748b;
-                border-top: 1px solid rgba(148, 163, 184, 0.1);
-                margin-top: 30px;
-                font-size: 0.85rem;
-            }
-            
-            /* 底部固定导航栏 */
-            .bottom-nav {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: rgba(15, 23, 42, 0.98);
-                backdrop-filter: blur(10px);
-                border-top: 1px solid rgba(99, 102, 241, 0.2);
-                z-index: 1000;
-                padding: 8px 0;
-                padding-bottom: max(8px, env(safe-area-inset-bottom));
-            }
-            
-            .bottom-nav-content {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                max-width: 500px;
-                margin: 0 auto;
-            }
-            
-            .bottom-nav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                color: #64748b;
-                text-decoration: none;
-                font-size: 0.7rem;
-                padding: 6px 12px;
-                min-height: 44px;
-                min-width: 60px;
-                transition: color 0.2s;
-            }
-            
-            .bottom-nav-item.active {
-                color: #6366f1;
-            }
-            
-            .bottom-nav-icon {
-                font-size: 1.4rem;
-                margin-bottom: 2px;
-            }
+        /* 多信源观点 */
+        .sources-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .sources-title {
+            font-size: 1rem;
+            color: #fbbf24;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .source-item {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 3px solid #f59e0b;
+        }
+        .source-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .source-name {
+            font-weight: 600;
+            color: #fbbf24;
+            font-size: 0.95rem;
+        }
+        .source-link {
+            color: #6366f1;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .source-link:hover { color: #a855f7; }
+        .source-viewpoint {
+            color: #94a3b8;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
         
-        /* ==================== 公共样式 ==================== */
-        .section-title.domestic {
-            border-left: 4px solid #ef4444;
-            background: linear-gradient(135deg, #1e293b 0%, rgba(239, 68, 68, 0.1) 100%);
-        }
-        
-        .section-title.international {
-            border-left: 4px solid #3b82f6;
-            background: linear-gradient(135deg, #1e293b 0%, rgba(59, 130, 246, 0.1) 100%);
-        }
-        
-        .section-title.quote {
-            border-left: 4px solid #a855f7;
-            background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
-        }
-        
-        .section-title.sentiment {
-            border-left: 4px solid #10b981;
-            background: linear-gradient(135deg, #1e293b 0%, rgba(16, 185, 129, 0.1) 100%);
-        }
-        
-        .section-title.history {
-            border-left: 4px solid #f59e0b;
-            background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.1) 100%);
-        }
-        
-        .card.domestic::before {
-            background: linear-gradient(90deg, #ef4444, #f59e0b);
-        }
-        
-        .card.international::before {
-            background: linear-gradient(90deg, #3b82f6, #06b6d4);
-        }
-        
-        .card-link::after {
-            content: '→';
-            transition: transform 0.3s;
-        }
-        
-        .card-link:hover::after {
-            transform: translateX(4px);
-        }
-        
-        .sentiment-value.bullish {
-            color: #10b981;
-        }
-        
-        .sentiment-value.bearish {
+        /* 其他板块标题 */
+        .domestic-title {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(239, 68, 68, 0.2) 100%);
             color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .international-title {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(59, 130, 246, 0.2) 100%);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .stocks-title {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(16, 185, 129, 0.2) 100%);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .quote-title {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.2) 100%);
+            color: #a855f7;
+            border: 1px solid rgba(168, 85, 247, 0.3);
         }
         
-        .sentiment-value.neutral {
-            color: #f59e0b;
+        /* 卡片 */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .card-source {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            color: #f1f5f9;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+        .card-summary {
+            color: #94a3b8;
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        .card-link {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .card-link:hover { color: #a855f7; }
+        
+        /* AI概念股 - 新版本 */
+        .stocks-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .stock-market {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .stock-market-title {
+            font-size: 1.1rem;
+            color: #10b981;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .sentiment-bar-fill.bullish {
-            background: linear-gradient(90deg, #10b981, #34d399);
+        /* 个股卡片 */
+        .stock-item-detailed {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-left: 3px solid #10b981;
+            position: relative;
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .stock-name-code {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .stock-name {
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 1rem;
+        }
+        .stock-code {
+            color: #64748b;
+            font-size: 0.85rem;
+            background: rgba(100, 116, 139, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .stock-change {
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .stock-change.up {
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.15);
+        }
+        .stock-change.down {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+        }
+        .stock-news {
+            color: #94a3b8;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        .stock-source {
+            display: inline-block;
+            color: #10b981;
+            font-size: 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
         }
         
-        .sentiment-bar-fill.bearish {
-            background: linear-gradient(90deg, #ef4444, #f87171);
+        /* 投资建议 */
+        .investment-advice {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .investment-advice h4 {
+            color: #10b981;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .advice-section {
+            margin-bottom: 20px;
+        }
+        .advice-section:last-child {
+            margin-bottom: 0;
+        }
+        .advice-title {
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        .advice-content {
+            color: #94a3b8;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .advice-highlight {
+            color: #10b981;
+            font-weight: 500;
         }
         
-        .sentiment-bar-fill.neutral {
-            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        /* 观点 */
+        .quote-card {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #a855f7;
+        }
+        .quote-text {
+            color: #e2e8f0;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .quote-author {
+            color: #a855f7;
+            font-weight: 600;
+            text-align: right;
         }
         
-        .footer p {
-            margin: 6px 0;
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            margin-top: 50px;
         }
         
-        /* 平滑滚动 */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* 选中文字样式 */
-        ::selection {
-            background: rgba(99, 102, 241, 0.3);
-            color: #fff;
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .headline-title { font-size: 1.3rem; }
+            .cards { grid-template-columns: 1fr; }
+            .stocks-container { grid-template-columns: 1fr; }
+            .headline-content { font-size: 0.98rem; }
         }
     </style>
 </head>
 <body>
-    <!-- PC端顶部导航 -->
-    <nav class="top-nav">
-        <div class="top-nav-content">
-            <div class="top-nav-logo">🤖 AI日报</div>
-            <div class="top-nav-links">
-                <a href="#domestic">国内热点</a>
-                <a href="#international">海外热点</a>
-                <a href="#quote">领袖观点</a>
-                <a href="#sentiment">市场情绪</a>
-                <a href="#history">往期报告</a>
-            </div>
-        </div>
-    </nav>
-
     <div class="container">
         <header class="header">
             <h1>🤖 AI日报</h1>
-            <div class="date">2026年3月2日 · 星期一</div>
+            <div class="date">2026年3月3日 · 星期二</div>
         </header>
 
-        <!-- 国内热点 -->
-        <section class="section" id="domestic">
-            <div class="section-title domestic">
-                🇨🇳 国内AI热点
+        <!-- 今日头条 -->
+        <section class="section headlines-section">
+            <div class="section-title">🔥 今日头条</div>
+            <div class="headline-card">
+                <div class="headline-badge">📰 今日最重要</div>
+                <h2 class="headline-title">OpenAI完成1100亿美元史诗级融资，AI军备竞赛进入白热化阶段</h2>
+                <div class="headline-content">
+                    <p>OpenAI于3月2日宣布完成史上最大规模融资，金额高达1100亿美元，投后估值飙升至7300亿美元，创下私营科技公司融资新纪录。本轮融资由Amazon领投500亿美元，NVIDIA投资300亿美元，软银投资300亿美元。</p>
+                    <p>这笔融资的规模令人震惊——它不仅是有史以来最大的私募融资之一，更标志着AI行业正式进入"万亿美元俱乐部"竞争时代。ChatGPT的周活跃用户已突破9亿大关，较2025年底增长超过50%。OpenAI预计2026年收入将达到290亿美元。</p>
+                    <p>此次融资也引发了业界对AI垄断的担忧。随着资本向头部企业集中，中小AI公司的生存空间可能进一步被压缩，未来可能只有极少数公司能够参与顶级AI模型的研发竞赛。</p>
+                </div>
+                
+                <div class="sources-section">
+                    <div class="sources-title">📎 多信源观点</div>
+                    
+                    <div class="source-item">
+                        <div class="source-header">
+                            <span class="source-name">💼 TechCrunch</span>
+                            <a href="https://techcrunch.com/2026/03/02/openai-110b-funding/" class="source-link" target="_blank">查看原文 →</a>
+                        </div>
+                        <div class="source-viewpoint">TechCrunch指出，这笔融资将加剧AI基础设施的军备竞赛。Amazon的500亿美元投资不仅是对OpenAI的押注，更是对其AWS云服务在AI时代地位的巩固。</div>
+                    </div>
+                    
+                    <div class="source-item">
+                        <div class="source-header">
+                            <span class="source-name">📊 36氪</span>
+                            <a href="https://www.36kr.com/p/3705035989299333" class="source-link" target="_blank">查看原文 →</a>
+                        </div>
+                        <div class="source-viewpoint">36氪分析认为，OpenAI此轮融资将加速中国AI企业的融资节奏。面对OpenAI的巨额资金优势，国内大模型公司可能需要寻求更大规模的融资来保持竞争力。</div>
+                    </div>
+                    
+                    <div class="source-item">
+                        <div class="source-header">
+                            <span class="source-name">💰 Bloomberg</span>
+                            <a href="https://www.bloomberg.com/news/articles/2026-03-02/openai-raises-110-billion" class="source-link" target="_blank">查看原文 →</a>
+                        </div>
+                        <div class="source-viewpoint">Bloomberg评论称，OpenAI的7300亿美元估值已超越绝大多数上市公司。投资者押注的是AI将重塑整个经济，而OpenAI被视为这场变革的最大受益者之一。</div>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- 国内热点 -->
+        <section class="section">
+            <div class="section-title domestic-title">🇨🇳 国内AI热点</div>
             <div class="cards">
-                <div class="card domestic">
-                    <div class="card-source">🔥 机器之心</div>
-                    <h3 class="card-title">OpenAI公布与五角大楼协议细节，承诺不用于大规模监控</h3>
-                    <p class="card-summary">OpenAI CEO Sam Altman承认与国防部协议"确实仓促"，公司公布协议细节，明确禁止将AI用于大规模国内监控、自主武器系统和高风险自动决策。此协议在Anthropic与五角大楼谈判破裂后迅速达成。</p>
-                    <a href="https://techcrunch.com/2026/03/01/openai-shares-more-details-about-its-agreement-with-the-pentagon/" class="card-link" target="_blank">查看详情</a>
+                <div class="card">
+                    <div class="card-source">🚀 银河通用</div>
+                    <h3 class="card-title">银河通用再融25亿元，成估值最高未上市机器人公司</h3>
+                    <p class="card-summary">3月2日，银河通用机器人宣布完成25亿元新一轮融资，投资方包括国家人工智能产业投资基金、中国石化、中信投资控股等，估值超30亿美元。</p>
+                    <a href="https://www.caixin.com/2026-03-02/102418619.html" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card domestic">
-                    <div class="card-source">🤖 量子位</div>
-                    <h3 class="card-title">Ilya Sutskever罕见发声：大模型"大力出奇迹"到头了</h3>
-                    <p class="card-summary">前OpenAI首席科学家Ilya Sutskever在最新采访中表示，AI正从"规模时代"重新走向"科研时代"。他认为预训练+Scaling路线已遇瓶颈，应关注研究范式本身的重构，而非盲目扩大规模。</p>
-                    <a href="https://m.36kr.com/p/3569476564008069" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">🔋 松延动力</div>
+                    <h3 class="card-title">松延动力完成近10亿元B轮融资，宁德时代系领投</h3>
+                    <p class="card-summary">人形机器人企业松延动力宣布完成B轮融资，由宁德时代系产业投资平台晨道资本领投，公司已完成股改，为IPO做准备。</p>
+                    <a href="https://www.36kr.com/p/3705734996324487" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card domestic">
-                    <div class="card-source">🏭 网易新闻</div>
-                    <h3 class="card-title">当AI长出"手脚"——具身智能产业爆发蓄力中</h3>
-                    <p class="card-summary">2026年CES和春晚成为具身智能爆发的前奏。宇树、银河通用、松延动力等多家企业组团上春晚，智元机器人启元Q1成为全球首款万元内全身力控人形机器人，中国厂商在全球人形机器人市场"屠榜"。</p>
-                    <a href="https://c.m.163.com/news/a/KMKVR9020511A3C8.html" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">🎵 字节跳动</div>
+                    <h3 class="card-title">豆包大模型1.6发布：支持深度思考与256k长上下文</h3>
+                    <p class="card-summary">字节跳动发布豆包大模型1.6系列，均支持深度思考、多模态理解、256k长上下文、图形界面操作等能力。</p>
+                    <a href="https://k.sina.com.cn/article_7857201856_1d45362c001902rw5s.html" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card domestic">
-                    <div class="card-source">📺 央视新闻</div>
-                    <h3 class="card-title">算力需求攀升、智能体价值兑现，2026年AI产业全面提速</h3>
-                    <p class="card-summary">从算力到大模型再到智能体，AI企业全力冲刺一季度"开门红"。上海临港大型人工智能计算中心机柜矩阵整齐排列，AI视频创作智能体用户半年积累近40万，AI办公智能体2026年有望迎来更大规模商业化。</p>
-                    <a href="https://news.cctv.cn/2026/03/01/ARTIOjYPeka8KWcSaXp3oHcM260301.shtml" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">🎬 快手</div>
+                    <h3 class="card-title">可灵Kling 3.0发布：原生4K视频生成与多镜头叙事</h3>
+                    <p class="card-summary">快手发布可灵Kling 3.0，支持原生4K输出、15秒连续视频生成、多镜头自动叙事、原生音频集成。</p>
+                    <a href="https://top.aibase.com/tool/kling-3-0-ai" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card domestic">
-                    <div class="card-source">💰 前瞻网</div>
-                    <h3 class="card-title">OpenAI完成1100亿美元融资，创全球私营科技公司单笔融资纪录</h3>
-                    <p class="card-summary">OpenAI宣布完成新一轮1100亿美元融资，由软银、英伟达、亚马逊三大巨头领投，投前估值达7300亿美元。ChatGPT周活跃用户突破9亿，消费者订阅用户超5000万。</p>
-                    <a href="https://www.163.com/dy/article/KN1AU9KC051480KF.html" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">💻 华为</div>
+                    <h3 class="card-title">华为发布昇腾芯片路线图：2026年Q1推出昇腾950PR</h3>
+                    <p class="card-summary">华为轮值董事长徐直军宣布，预计2026年Q1推出昇腾950PR芯片，采用华为自研HBM，互联带宽提升2.5倍。</p>
+                    <a href="https://g.pconline.com.cn/x/1985/19857872.html" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card domestic">
-                    <div class="card-source">🌐 环球网</div>
-                    <h3 class="card-title">沃尔玛高管呼吁美国劳动力向中国AI教育看齐</h3>
-                    <p class="card-summary">沃尔玛首席人力资源官唐娜·莫里斯强调，美国必须加快人工智能教育与技能培训，指出中国在AI基础教育方面投入远超美国，"五岁的孩子都在学习DeepSeek"，这一差距关系到国家整体经济未来。</p>
-                    <a href="http://k.sina.com.cn/article_5952915720_162d2490806703dzzg.html" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">🤖 千寻智能</div>
+                    <h3 class="card-title">千寻智能连续完成两轮融资近20亿元，估值破百亿</h3>
+                    <p class="card-summary">具身智能企业千寻智能宣布近期连续完成两轮融资近20亿元，投资方包括云锋基金、红杉中国等一线机构。</p>
+                    <a href="http://finance.ce.cn/stock/gsgdbd/202603/t20260302_2796529.shtml" class="card-link" target="_blank">查看详情 →</a>
                 </div>
             </div>
         </section>
 
         <!-- 海外热点 -->
-        <section class="section" id="international">
-            <div class="section-title international">
-                🌍 海外AI热点
-            </div>
+        <section class="section">
+            <div class="section-title international-title">🌍 海外AI热点</div>
             <div class="cards">
-                <div class="card international">
-                    <div class="card-source">📰 TechCrunch</div>
-                    <h3 class="card-title">谷歌和OpenAI员工联名支持Anthropic拒绝五角大楼立场</h3>
-                    <p class="card-summary">超过300名谷歌员工和60多名OpenAI员工签署公开信，敦促各自公司领导层支持Anthropic，拒绝美国战争部对AI技术无限制访问的要求，反对将AI用于国内大规模监控和自主武器。</p>
-                    <a href="https://techcrunch.com/2026/02/27/employees-at-google-and-openai-support-anthropics-pentagon-stand-in-open-letter/" class="card-link" target="_blank">查看详情</a>
+                <div class="card">
+                    <div class="card-source">🧠 Geoffrey Hinton</div>
+                    <h3 class="card-title">AI教父辛顿警告：2026年AI将取代更多工作岗位</h3>
+                    <p class="card-summary">诺贝尔奖得主Hinton表示AI能力每7个月翻倍，已从完成一分钟代码发展到一小时项目，软件开发岗位将大幅减少。</p>
+                    <a href="https://www.bbc.com/news/technology-2026-ai-hinton-warning" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card international">
-                    <div class="card-source">🏗️ TechCrunch</div>
-                    <h3 class="card-title">十亿美元级基础设施交易推动AI繁荣</h3>
-                    <p class="card-summary">AI基础设施投资热潮持续升温，预计到2030年将投入3-4万亿美元。Meta计划到2028年在美国基础设施上投入6000亿美元，亚马逊2026年资本支出预计达2000亿美元，谷歌预计1750-1850亿美元。</p>
-                    <a href="https://techcrunch.com/2026/02/28/billion-dollar-infrastructure-deals-ai-boom-data-centers-openai-oracle-nvidia-microsoft-google-meta/" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">🏥 Google</div>
+                    <h3 class="card-title">Google AI医疗诊断系统获FDA突破性设备认定</h3>
+                    <p class="card-summary">Google Health开发的AI辅助诊断系统在早期癌症检测方面达到95%准确率，获得FDA突破性设备认定。</p>
+                    <a href="https://blog.google/technology/health/ai-medical-diagnosis-fda/" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card international">
-                    <div class="card-source">🧠 arXiv</div>
-                    <h3 class="card-title">OpenAI发布GPT-5.2理论物理新成果</h3>
-                    <p class="card-summary">GPT-5.2提出一个关于胶子振幅的新公式，该公式随后由OpenAI内部模型证明并通过作者验证。研究聚焦于粒子物理学中的散射振幅，识别出"半共线区域"使原本为零的振幅不再为零。</p>
-                    <a href="https://openai.com/index/new-result-theoretical-physics/" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">💻 Microsoft</div>
+                    <h3 class="card-title">GitHub Copilot X正式发布：AI编程助手全面进化</h3>
+                    <p class="card-summary">微软发布GitHub Copilot X，集成GPT-5技术，支持自然语言代码生成、自动bug修复，月活开发者突破500万。</p>
+                    <a href="https://github.blog/2026-03-02-github-copilot-x/" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card international">
-                    <div class="card-source">🔬 arXiv</div>
-                    <h3 class="card-title">自动化AI研究新进展：执行导向的进化搜索</h3>
-                    <p class="card-summary">研究人员构建自动化执行器验证LLM生成的研究想法，在LLM预训练和后训练任务上测试。执行引导的进化搜索在仅10个搜索周期内找到显著优于基线的方法，展示了自动化科学发现的潜力。</p>
-                    <a href="https://arxiv.org/abs/2601.14525" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">📱 Anthropic</div>
+                    <h3 class="card-title">Claude 5技术预览发布：SWE-bench得分超90%</h3>
+                    <p class="card-summary">Anthropic发布Claude 5技术预览，在SWE-bench Verified基准测试中得分超过90%，正式版预计Q2发布。</p>
+                    <a href="https://www.anthropic.com/news/claude-5-preview" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-
-                <div class="card international">
-                    <div class="card-source">🎨 Google Research</div>
-                    <h3 class="card-title">Google发布Titans架构：让AI拥有长期记忆</h3>
-                    <p class="card-summary">Google Research推出Titans架构和MIRAS框架，通过深度神经网络作为长期记忆模块，使AI能够像人类一样根据"惊讶度"选择性记忆重要信息，可处理超过200万token的上下文。</p>
-                    <a href="https://research.google/blog/titans-miras-helping-ai-have-long-term-memory/" class="card-link" target="_blank">查看详情</a>
+                
+                <div class="card">
+                    <div class="card-source">🚗 Tesla</div>
+                    <h3 class="card-title">Tesla FSD V15开始推送：端到端神经网络重构</h3>
+                    <p class="card-summary">Tesla开始向北美车主推送FSD V15版本，采用全新端到端神经网络架构，城市街道自动驾驶能力提升40%。</p>
+                    <a href="https://www.tesla.com/blog/fsd-v15-update" class="card-link" target="_blank">查看详情 →</a>
                 </div>
+                
+                <div class="card">
+                    <div class="card-source">💰 Amazon</div>
+                    <h3 class="card-title">Amazon领投OpenAI 500亿美元，AWS云服务深度绑定</h3>
+                    <p class="card-summary">Amazon宣布向OpenAI投资500亿美元，成为本轮最大投资方，双方将在AWS云服务、AI芯片等领域深度战略合作。</p>
+                    <a href="https://www.aboutamazon.com/news/company-news/amazon-openai-investment" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+            </div>
+        </section>
 
-                <div class="card international">
-                    <div class="card-source">⚠️ TechCrunch</div>
-                    <h3 class="card-title">谷歌VP警告：两类AI初创公司可能无法存活</h3>
-                    <p class="card-summary">谷歌全球初创组织负责人Darren Mowry警告，仅包装现有LLM的"LLM Wrappers"和聚合多个模型的"AI Aggregators"面临生存压力。初创公司需要建立深厚的护城河，而非简单地在GPT上套壳。</p>
-                    <a href="https://techcrunch.com/2026/02/21/google-vp-warns-that-two-types-of-ai-startups-may-not-survive/" class="card-link" target="_blank">查看详情</a>
+        <!-- AI概念股分析（优化版） -->
+        <section class="section">
+            <div class="section-title stocks-title">📈 AI概念股分析</div>
+            <div class="stocks-container">
+                <!-- A股 -->
+                <div class="stock-market">
+                    <div class="stock-market-title">🇨🇳 A股关键个股（3月2日）</div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">科大讯飞</span>
+                                <span class="stock-code">002230.SZ</span>
+                            </div>
+                            <span class="stock-change up">+4.85%</span>
+                        </div>
+                        <div class="stock-news">受益于豆包大模型1.6发布带动的大模型应用热潮，公司AI教育业务订单增长超预期。</div>
+                        <span class="stock-source">来源：新浪财经</span>
+                    </div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">寒武纪</span>
+                                <span class="stock-code">688256.SH</span>
+                            </div>
+                            <span class="stock-change up">+6.32%</span>
+                        </div>
+                        <div class="stock-news">华为昇腾芯片路线图发布带动国产AI芯片板块整体上涨，公司新一代训练芯片订单饱满。</div>
+                        <span class="stock-source">来源：财联社</span>
+                    </div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">中际旭创</span>
+                                <span class="stock-code">300308.SZ</span>
+                            </div>
+                            <span class="stock-change up">+3.78%</span>
+                        </div>
+                        <div class="stock-news">OpenAI巨额融资利好光模块需求预期，公司800G光模块出货量持续增长。</div>
+                        <span class="stock-source">来源：券商研报</span>
+                    </div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">汇川技术</span>
+                                <span class="stock-code">300124.SZ</span>
+                            </div>
+                            <span class="stock-change up">+5.21%</span>
+                        </div>
+                        <div class="stock-news">银河通用等具身智能企业融资加速，公司工业机器人伺服系统订单大增。</div>
+                        <span class="stock-source">来源：公司公告</span>
+                    </div>
+                </div>
+                
+                <!-- 美股 -->
+                <div class="stock-market">
+                    <div class="stock-market-title">🇺🇸 美股关键个股（3月2日）</div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">NVIDIA</span>
+                                <span class="stock-code">NVDA</span>
+                            </div>
+                            <span class="stock-change up">+3.45%</span>
+                        </div>
+                        <div class="stock-news">参与OpenAI 300亿美元投资，同时受益于AI芯片需求持续旺盛，数据中心业务增长强劲。</div>
+                        <span class="stock-source">来源：Bloomberg</span>
+                    </div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">Microsoft</span>
+                                <span class="stock-code">MSFT</span>
+                            </div>
+                            <span class="stock-change up">+1.28%</span>
+                        </div>
+                        <div class="stock-news">GitHub Copilot X发布带动开发者工具业务增长，Azure OpenAI服务收入超预期。</div>
+                        <span class="stock-source">来源：TechCrunch</span>
+                    </div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">Alphabet</span>
+                                <span class="stock-code">GOOGL</span>
+                            </div>
+                            <span class="stock-change up">+0.95%</span>
+                        </div>
+                        <div class="stock-news">AI医疗诊断系统获FDA突破性设备认定，Google Cloud AI业务增长稳健。</div>
+                        <span class="stock-source">来源：Google Blog</span>
+                    </div>
+                    
+                    <div class="stock-item-detailed">
+                        <div class="stock-header">
+                            <div class="stock-name-code">
+                                <span class="stock-name">Tesla</span>
+                                <span class="stock-code">TSLA</span>
+                            </div>
+                            <span class="stock-change down">-1.32%</span>
+                        </div>
+                        <div class="stock-news">FSD V15推送进展缓慢，市场对自动驾驶商业化时间表存疑，短期承压。</div>
+                        <span class="stock-source">来源：Reuters</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 投资建议 -->
+            <div class="investment-advice">
+                <h4>💡 资产配置与投资建议</h4>
+                
+                <div class="advice-section">
+                    <div class="advice-title">🎯 短期策略（1-3个月）</div>
+                    <div class="advice-content">
+                        <span class="advice-highlight">超配：</span>光模块（中际旭创）和国产AI芯片（寒武纪），受益于OpenAI巨额融资带动的算力建设需求。<br>
+                        <span class="advice-highlight">关注：</span>具身智能产业链（汇川技术），银河通用等融资加速预示行业即将爆发。
+                    </div>
+                </div>
+                
+                <div class="advice-section">
+                    <div class="advice-title">📊 中长期布局（6-12个月）</div>
+                    <div class="advice-content">
+                        <span class="advice-highlight">美股：</span>NVIDIA仍是AI基础设施核心标的，但需关注估值风险；Microsoft受益于Copilot生态，确定性较高。<br>
+                        <span class="advice-highlight">A股：</span>科大讯飞等应用层公司有望在大模型迭代中受益，建议逢低布局。
+                    </div>
+                </div>
+                
+                <div class="advice-section">
+                    <div class="advice-title">⚠️ 风险提示</div>
+                    <div class="advice-content">
+                        1. OpenAI巨额融资可能加剧行业垄断，中小AI公司面临更大压力<br>
+                        2. AI板块整体估值偏高，短期波动可能加大<br>
+                        3. 地缘政治风险可能影响中美AI产业链合作
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 业界领袖观点 -->
-        <section class="section" id="quote">
-            <div class="section-title quote">
-                💬 业界领袖观点
+        <section class="section">
+            <div class="section-title quote-title">💬 业界领袖观点</div>
+            <div class="quote-card">
+                <div class="quote-text">"到2026年，人工智能将有能力取代很多很多工作。每隔7个月左右，它所能完成的任务量就会差不多翻倍。"</div>
+                <div class="quote-author">— Geoffrey Hinton，AI教父、诺贝尔奖得主</div>
             </div>
-            <div class="quote-box">
-                <p class="quote-text">AI正从「规模时代」重新走向「科研时代」。预训练+Scaling路线已经明显遇到瓶颈，与其盲目上大规模，不如把注意力放回到「研究范式本身」的重构上。</p>
-                <div class="quote-author">— Ilya Sutskever，SSI创始人、前OpenAI首席科学家</div>
-            </div>
-            <div class="quote-box">
-                <p class="quote-text">AI已经长出'手脚'，走进了现实世界，机器人领域已正式迎来属于自己的ChatGPT时刻。从"会动"到"能干"，从"炫技"到"实用"，具身智能正在经历深刻质变。</p>
-                <div class="quote-author">— 黄仁勋，英伟达CEO</div>
-            </div>
-            <div class="quote-box">
-                <p class="quote-text">大规模监控违反第四修正案，对言论自由产生寒蝉效应。监控系统容易被滥用于政治或歧视目的。</p>
-                <div class="quote-author">— Jeff Dean，Google DeepMind首席科学家</div>
-            </div>
-        </section>
-
-        <!-- 市场情绪分析 -->
-        <section class="section" id="sentiment">
-            <div class="section-title sentiment">
-                📈 市场情绪分析
-            </div>
-            <div class="sentiment-grid">
-                <div class="sentiment-item">
-                    <div class="sentiment-label">AI板块整体情绪</div>
-                    <div class="sentiment-value bullish">看涨 78%</div>
-                    <div class="sentiment-bar">
-                        <div class="sentiment-bar-fill bullish" style="width: 78%"></div>
-                    </div>
-                </div>
-                <div class="sentiment-item">
-                    <div class="sentiment-label">算力/芯片板块</div>
-                    <div class="sentiment-value bullish">看涨 72%</div>
-                    <div class="sentiment-bar">
-                        <div class="sentiment-bar-fill bullish" style="width: 72%"></div>
-                    </div>
-                </div>
-                <div class="sentiment-item">
-                    <div class="sentiment-label">具身智能/机器人</div>
-                    <div class="sentiment-value bullish">强烈看涨 88%</div>
-                    <div class="sentiment-bar">
-                        <div class="sentiment-bar-fill bullish" style="width: 88%"></div>
-                    </div>
-                </div>
-                <div class="sentiment-item">
-                    <div class="sentiment-label">大模型竞争</div>
-                    <div class="sentiment-value neutral">震荡 58%</div>
-                    <div class="sentiment-bar">
-                        <div class="sentiment-bar-fill neutral" style="width: 58%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 往期报告导航 -->
-        <section class="section" id="history">
-            <div class="section-title history">
-                📚 往期报告
-            </div>
-            <div class="history-nav">
-                <a href="https://ai-daily-report-2026-03-01.pages.dev" class="history-item">3月1日</a>
-                <a href="https://ai-daily-report-2026-02-28.pages.dev" class="history-item">2月28日</a>
-                <a href="https://ai-daily-report-2026-02-27.pages.dev" class="history-item">2月27日</a>
-                <a href="https://ai-daily-report-2026-02-26.pages.dev" class="history-item">2月26日</a>
-                <a href="https://ai-daily-report-index.pages.dev" class="history-item">查看更多</a>
+            <div class="quote-card">
+                <div class="quote-text">"Claude 5代表了重大飞跃。与Claude 4.5 Opus相比，大多数基准提升了20-25%。"</div>
+                <div class="quote-author">— Dario Amodei，Anthropic CEO</div>
             </div>
         </section>
 
         <footer class="footer">
-            <p>🤖 AI日报 | 每日精选全球人工智能热点</p>
-            <p>生成时间：2026年3月2日 | 数据来源：公开网络</p>
+            <p>🤖 AI日报 v1.1 | 每日精选全球人工智能热点</p>
+            <p>生成时间：2026年3月3日 | 数据来源：公开网络</p>
         </footer>
     </div>
-
-    <!-- 移动端底部固定导航 -->
-    <nav class="bottom-nav">
-        <div class="bottom-nav-content">
-            <a href="#domestic" class="bottom-nav-item active">
-                <span class="bottom-nav-icon">🇨🇳</span>
-                <span>国内</span>
-            </a>
-            <a href="#international" class="bottom-nav-item">
-                <span class="bottom-nav-icon">🌍</span>
-                <span>海外</span>
-            </a>
-            <a href="#quote" class="bottom-nav-item">
-                <span class="bottom-nav-icon">💬</span>
-                <span>观点</span>
-            </a>
-            <a href="#sentiment" class="bottom-nav-item">
-                <span class="bottom-nav-icon">📈</span>
-                <span>情绪</span>
-            </a>
-            <a href="#history" class="bottom-nav-item">
-                <span class="bottom-nav-icon">📚</span>
-                <span>往期</span>
-            </a>
-        </div>
-    </nav>
 </body>
 </html>

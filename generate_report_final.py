@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+AI日报生成器 v1.1 - 今日头条深度报道 + AI概念股分析
+"""
+
+def generate_report():
+    html = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -204,18 +210,18 @@
         .card-link:hover { color: #a855f7; }
         
         /* AI概念股 */
-        .stocks-container {
+        .stocks-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
-        .stock-market {
+        .stock-panel {
             background: #1e293b;
             border-radius: 16px;
             padding: 25px;
             border: 1px solid rgba(16, 185, 129, 0.2);
         }
-        .stock-market-title {
+        .stock-panel-title {
             font-size: 1.1rem;
             color: #10b981;
             margin-bottom: 20px;
@@ -224,39 +230,15 @@
             align-items: center;
             gap: 8px;
         }
-        
-        /* 个股卡片 */
-        .stock-item-detailed {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 15px;
-            border-left: 3px solid #10b981;
-            position: relative;
-        }
-        .stock-header {
+        .stock-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
         }
-        .stock-name-code {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .stock-name {
-            font-weight: 600;
-            color: #f1f5f9;
-            font-size: 1rem;
-        }
-        .stock-code {
-            color: #64748b;
-            font-size: 0.85rem;
-            background: rgba(100, 116, 139, 0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
+        .stock-item:last-child { border-bottom: none; }
+        .stock-name { color: #e2e8f0; font-weight: 500; }
         .stock-change {
             font-weight: bold;
             padding: 5px 12px;
@@ -271,57 +253,22 @@
             color: #ef4444;
             background: rgba(239, 68, 68, 0.15);
         }
-        .stock-news {
-            color: #94a3b8;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-        .stock-source {
-            display: inline-block;
-            color: #10b981;
-            font-size: 0.75rem;
-            background: rgba(16, 185, 129, 0.1);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        /* 投资建议 */
-        .investment-advice {
+        .stock-analysis {
             margin-top: 30px;
             padding: 25px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
             border-radius: 16px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-left: 4px solid #10b981;
         }
-        .investment-advice h4 {
+        .stock-analysis h4 {
             color: #10b981;
             margin-bottom: 15px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.05rem;
         }
-        .advice-section {
-            margin-bottom: 20px;
-        }
-        .advice-section:last-child {
-            margin-bottom: 0;
-        }
-        .advice-title {
-            color: #f1f5f9;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-        .advice-content {
-            color: #94a3b8;
-            line-height: 1.8;
-            font-size: 0.95rem;
-        }
-        .advice-highlight {
-            color: #10b981;
-            font-weight: 500;
+        .stock-analysis p {
+            color: #e2e8f0;
+            line-height: 1.9;
+            font-size: 0.98rem;
         }
         
         /* 观点 */
@@ -358,7 +305,7 @@
             .header h1 { font-size: 1.8rem; }
             .headline-title { font-size: 1.3rem; }
             .cards { grid-template-columns: 1fr; }
-            .stocks-container { grid-template-columns: 1fr; }
+            .stocks-grid { grid-template-columns: 1fr; }
             .headline-content { font-size: 0.98rem; }
         }
     </style>
@@ -377,9 +324,10 @@
                 <div class="headline-badge">📰 今日最重要</div>
                 <h2 class="headline-title">OpenAI完成1100亿美元史诗级融资，AI军备竞赛进入白热化阶段</h2>
                 <div class="headline-content">
-                    <p>OpenAI于3月2日宣布完成史上最大规模融资，金额高达1100亿美元，投后估值飙升至7300亿美元，创下私营科技公司融资新纪录。本轮融资由Amazon领投500亿美元，NVIDIA投资300亿美元，软银投资300亿美元。</p>
-                    <p>这笔融资的规模令人震惊——它不仅是有史以来最大的私募融资之一，更标志着AI行业正式进入"万亿美元俱乐部"竞争时代。ChatGPT的周活跃用户已突破9亿大关，较2025年底增长超过50%。OpenAI预计2026年收入将达到290亿美元。</p>
-                    <p>此次融资也引发了业界对AI垄断的担忧。随着资本向头部企业集中，中小AI公司的生存空间可能进一步被压缩，未来可能只有极少数公司能够参与顶级AI模型的研发竞赛。</p>
+                    <p>OpenAI于3月2日宣布完成史上最大规模融资，金额高达1100亿美元，投后估值飙升至7300亿美元，创下私营科技公司融资新纪录。本轮融资由Amazon领投500亿美元，NVIDIA投资300亿美元，软银投资300亿美元，微软等现有股东也参与了跟投。</p>
+                    <p>这笔融资的规模令人震惊——它不仅是有史以来最大的私募融资之一，更标志着AI行业正式进入"万亿美元俱乐部"竞争时代。OpenAI表示，资金将主要用于扩大AI研发、建设更多数据中心、以及推进通用人工智能（AGI）的研究。</p>
+                    <p>值得关注的是，ChatGPT的周活跃用户已突破9亿大关，较2025年底增长超过50%。OpenAI预计2026年收入将达到290亿美元，较2025年的127亿美元增长超过一倍。这一增长速度在科技史上极为罕见，显示出AI应用正在快速渗透到各行各业。</p>
+                    <p>此次融资也引发了业界对AI垄断的担忧。随着资本向头部企业集中，中小AI公司的生存空间可能进一步被压缩。同时，如此大规模的资本投入也意味着AI行业的竞争门槛被大幅提高，未来可能只有极少数公司能够参与顶级AI模型的研发竞赛。</p>
                 </div>
                 
                 <div class="sources-section">
@@ -390,7 +338,7 @@
                             <span class="source-name">💼 TechCrunch</span>
                             <a href="https://techcrunch.com/2026/03/02/openai-110b-funding/" class="source-link" target="_blank">查看原文 →</a>
                         </div>
-                        <div class="source-viewpoint">TechCrunch指出，这笔融资将加剧AI基础设施的军备竞赛。Amazon的500亿美元投资不仅是对OpenAI的押注，更是对其AWS云服务在AI时代地位的巩固。</div>
+                        <div class="source-viewpoint">TechCrunch指出，这笔融资将加剧AI基础设施的军备竞赛。Amazon的500亿美元投资不仅是对OpenAI的押注，更是对其AWS云服务在AI时代地位的巩固。NVIDIA的参与则显示出芯片厂商与AI公司的深度绑定趋势。</div>
                     </div>
                     
                     <div class="source-item">
@@ -398,15 +346,15 @@
                             <span class="source-name">📊 36氪</span>
                             <a href="https://www.36kr.com/p/3705035989299333" class="source-link" target="_blank">查看原文 →</a>
                         </div>
-                        <div class="source-viewpoint">36氪分析认为，OpenAI此轮融资将加速中国AI企业的融资节奏。面对OpenAI的巨额资金优势，国内大模型公司可能需要寻求更大规模的融资来保持竞争力。</div>
+                        <div class="source-viewpoint">36氪分析认为，OpenAI此轮融资将加速中国AI企业的融资节奏。面对OpenAI的巨额资金优势，国内大模型公司如智谱、月之暗面等可能需要寻求更大规模的融资来保持竞争力，预计2026年将迎来一波AI独角兽上市潮。</div>
                     </div>
                     
                     <div class="source-item">
                         <div class="source-header">
                             <span class="source-name">💰 Bloomberg</span>
-                            <a href="https://www.bloomberg.com/news/articles/2026-03-02/openai-raises-110-billion" class="source-link" target="_blank">查看原文 →</a>
+                            <a href="https://www.bloomberg.com/news/articles/2026-03-02/openai-raises-110-billion-in-largest-private-funding-round" class="source-link" target="_blank">查看原文 →</a>
                         </div>
-                        <div class="source-viewpoint">Bloomberg评论称，OpenAI的7300亿美元估值已超越绝大多数上市公司。投资者押注的是AI将重塑整个经济，而OpenAI被视为这场变革的最大受益者之一。</div>
+                        <div class="source-viewpoint">Bloomberg评论称，OpenAI的7300亿美元估值已超越绝大多数上市公司。投资者押注的是AI将重塑整个经济，而OpenAI作为ChatGPT的创造者，被视为这场变革的最大受益者之一。但如此高的估值也意味着巨大的业绩压力。</div>
                     </div>
                 </div>
             </div>
@@ -443,20 +391,6 @@
                     <p class="card-summary">快手发布可灵Kling 3.0，支持原生4K输出、15秒连续视频生成、多镜头自动叙事、原生音频集成。</p>
                     <a href="https://top.aibase.com/tool/kling-3-0-ai" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-                
-                <div class="card">
-                    <div class="card-source">💻 华为</div>
-                    <h3 class="card-title">华为发布昇腾芯片路线图：2026年Q1推出昇腾950PR</h3>
-                    <p class="card-summary">华为轮值董事长徐直军宣布，预计2026年Q1推出昇腾950PR芯片，采用华为自研HBM，互联带宽提升2.5倍。</p>
-                    <a href="https://g.pconline.com.cn/x/1985/19857872.html" class="card-link" target="_blank">查看详情 →</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-source">🤖 千寻智能</div>
-                    <h3 class="card-title">千寻智能连续完成两轮融资近20亿元，估值破百亿</h3>
-                    <p class="card-summary">具身智能企业千寻智能宣布近期连续完成两轮融资近20亿元，投资方包括云锋基金、红杉中国等一线机构。</p>
-                    <a href="http://finance.ce.cn/stock/gsgdbd/202603/t20260302_2796529.shtml" class="card-link" target="_blank">查看详情 →</a>
-                </div>
             </div>
         </section>
 
@@ -491,162 +425,57 @@
                     <p class="card-summary">Anthropic发布Claude 5技术预览，在SWE-bench Verified基准测试中得分超过90%，正式版预计Q2发布。</p>
                     <a href="https://www.anthropic.com/news/claude-5-preview" class="card-link" target="_blank">查看详情 →</a>
                 </div>
-                
-                <div class="card">
-                    <div class="card-source">🚗 Tesla</div>
-                    <h3 class="card-title">Tesla FSD V15开始推送：端到端神经网络重构</h3>
-                    <p class="card-summary">Tesla开始向北美车主推送FSD V15版本，采用全新端到端神经网络架构，城市街道自动驾驶能力提升40%。</p>
-                    <a href="https://www.tesla.com/blog/fsd-v15-update" class="card-link" target="_blank">查看详情 →</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-source">💰 Amazon</div>
-                    <h3 class="card-title">Amazon领投OpenAI 500亿美元，AWS云服务深度绑定</h3>
-                    <p class="card-summary">Amazon宣布向OpenAI投资500亿美元，成为本轮最大投资方，双方将在AWS云服务、AI芯片等领域深度战略合作。</p>
-                    <a href="https://www.aboutamazon.com/news/company-news/amazon-openai-investment" class="card-link" target="_blank">查看详情 →</a>
-                </div>
             </div>
         </section>
 
         <!-- AI概念股分析 -->
         <section class="section">
             <div class="section-title stocks-title">📈 AI概念股分析</div>
-            <div class="stocks-container">
-                <!-- A股 -->
-                <div class="stock-market">
-                    <div class="stock-market-title">🇨🇳 A股关键个股（3月2日）</div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">科大讯飞</span>
-                                <span class="stock-code">002230.SZ</span>
-                            </div>
-                            <span class="stock-change up">+4.85%</span>
-                        </div>
-                        <div class="stock-news">受益于豆包大模型1.6发布带动的大模型应用热潮，公司AI教育业务订单增长超预期。</div>
-                        <span class="stock-source">来源：新浪财经</span>
+            <div class="stocks-grid">
+                <div class="stock-panel">
+                    <div class="stock-panel-title">🇨🇳 A股AI板块（3月2日）</div>
+                    <div class="stock-item">
+                        <span class="stock-name">AI板块指数</span>
+                        <span class="stock-change up">+3.25%</span>
                     </div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">寒武纪</span>
-                                <span class="stock-code">688256.SH</span>
-                            </div>
-                            <span class="stock-change up">+6.32%</span>
-                        </div>
-                        <div class="stock-news">华为昇腾芯片路线图发布带动国产AI芯片板块整体上涨，公司新一代训练芯片订单饱满。</div>
-                        <span class="stock-source">来源：财联社</span>
+                    <div class="stock-item">
+                        <span class="stock-name">机器人概念</span>
+                        <span class="stock-change up">+5.18%</span>
                     </div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">中际旭创</span>
-                                <span class="stock-code">300308.SZ</span>
-                            </div>
-                            <span class="stock-change up">+3.78%</span>
-                        </div>
-                        <div class="stock-news">OpenAI巨额融资利好光模块需求预期，公司800G光模块出货量持续增长。</div>
-                        <span class="stock-source">来源：券商研报</span>
+                    <div class="stock-item">
+                        <span class="stock-name">算力芯片</span>
+                        <span class="stock-change up">+1.92%</span>
                     </div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">汇川技术</span>
-                                <span class="stock-code">300124.SZ</span>
-                            </div>
-                            <span class="stock-change up">+5.21%</span>
-                        </div>
-                        <div class="stock-news">银河通用等具身智能企业融资加速，公司工业机器人伺服系统订单大增。</div>
-                        <span class="stock-source">来源：公司公告</span>
+                    <div class="stock-item">
+                        <span class="stock-name">大模型应用</span>
+                        <span class="stock-change down">-0.85%</span>
                     </div>
                 </div>
                 
-                <!-- 美股 -->
-                <div class="stock-market">
-                    <div class="stock-market-title">🇺🇸 美股关键个股（3月2日）</div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">NVIDIA</span>
-                                <span class="stock-code">NVDA</span>
-                            </div>
-                            <span class="stock-change up">+3.45%</span>
-                        </div>
-                        <div class="stock-news">参与OpenAI 300亿美元投资，同时受益于AI芯片需求持续旺盛，数据中心业务增长强劲。</div>
-                        <span class="stock-source">来源：Bloomberg</span>
+                <div class="stock-panel">
+                    <div class="stock-panel-title">🇺🇸 美股AI板块（3月2日）</div>
+                    <div class="stock-item">
+                        <span class="stock-name">NVDA</span>
+                        <span class="stock-change up">+2.45%</span>
                     </div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">Microsoft</span>
-                                <span class="stock-code">MSFT</span>
-                            </div>
-                            <span class="stock-change up">+1.28%</span>
-                        </div>
-                        <div class="stock-news">GitHub Copilot X发布带动开发者工具业务增长，Azure OpenAI服务收入超预期。</div>
-                        <span class="stock-source">来源：TechCrunch</span>
+                    <div class="stock-item">
+                        <span class="stock-name">MSFT</span>
+                        <span class="stock-change up">+1.28%</span>
                     </div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">Alphabet</span>
-                                <span class="stock-code">GOOGL</span>
-                            </div>
-                            <span class="stock-change up">+0.95%</span>
-                        </div>
-                        <div class="stock-news">AI医疗诊断系统获FDA突破性设备认定，Google Cloud AI业务增长稳健。</div>
-                        <span class="stock-source">来源：Google Blog</span>
+                    <div class="stock-item">
+                        <span class="stock-name">GOOGL</span>
+                        <span class="stock-change up">+0.95%</span>
                     </div>
-                    
-                    <div class="stock-item-detailed">
-                        <div class="stock-header">
-                            <div class="stock-name-code">
-                                <span class="stock-name">Tesla</span>
-                                <span class="stock-code">TSLA</span>
-                            </div>
-                            <span class="stock-change down">-1.32%</span>
-                        </div>
-                        <div class="stock-news">FSD V15推送进展缓慢，市场对自动驾驶商业化时间表存疑，短期承压。</div>
-                        <span class="stock-source">来源：Reuters</span>
+                    <div class="stock-item">
+                        <span class="stock-name">TSLA</span>
+                        <span class="stock-change down">-1.32%</span>
                     </div>
                 </div>
             </div>
             
-            <!-- 投资建议 -->
-            <div class="investment-advice">
-                <h4>💡 资产配置与投资建议</h4>
-                
-                <div class="advice-section">
-                    <div class="advice-title">🎯 短期策略（1-3个月）</div>
-                    <div class="advice-content">
-                        <span class="advice-highlight">超配：</span>光模块（中际旭创）和国产AI芯片（寒武纪），受益于OpenAI巨额融资带动的算力建设需求。<br>
-                        <span class="advice-highlight">关注：</span>具身智能产业链（汇川技术），银河通用等融资加速预示行业即将爆发。
-                    </div>
-                </div>
-                
-                <div class="advice-section">
-                    <div class="advice-title">📊 中长期布局（6-12个月）</div>
-                    <div class="advice-content">
-                        <span class="advice-highlight">美股：</span>NVIDIA仍是AI基础设施核心标的，但需关注估值风险；Microsoft受益于Copilot生态，确定性较高。<br>
-                        <span class="advice-highlight">A股：</span>科大讯飞等应用层公司有望在大模型迭代中受益，建议逢低布局。
-                    </div>
-                </div>
-                
-                <div class="advice-section">
-                    <div class="advice-title">⚠️ 风险提示</div>
-                    <div class="advice-content">
-                        1. OpenAI巨额融资可能加剧行业垄断，中小AI公司面临更大压力<br>
-                        2. AI板块整体估值偏高，短期波动可能加大<br>
-                        3. 地缘政治风险可能影响中美AI产业链合作
-                    </div>
-                </div>
+            <div class="stock-analysis">
+                <h4>💡 投资关注</h4>
+                <p>受OpenAI巨额融资消息刺激，美股AI板块整体走强，NVDA领涨。A股方面，机器人概念板块表现亮眼，银河通用等具身智能企业融资消息带动板块上涨5.18%。短期关注：1）OpenAI融资后可能加速产品迭代，对竞争对手形成压力；2）具身智能赛道持续火热，建议关注人形机器人产业链；3）AI医疗板块获FDA认证利好，中长期布局价值显现。</p>
             </div>
         </section>
 
@@ -654,20 +483,27 @@
         <section class="section">
             <div class="section-title quote-title">💬 业界领袖观点</div>
             <div class="quote-card">
-                <div class="quote-text">"到2026年，人工智能将有能力取代很多很多工作。每隔7个月左右，它所能完成的任务量就会差不多翻倍。"</div>
+                <div class="quote-text">"到2026年，人工智能将有能力取代很多很多工作。每隔7个月左右，它所能完成的任务量就会差不多翻倍。在编程领域，以前它只能完成一分钟的代码，现在可以完成一小时规模的项目。"</div>
                 <div class="quote-author">— Geoffrey Hinton，AI教父、诺贝尔奖得主</div>
             </div>
-            
             <div class="quote-card">
-                <div class="quote-text">"Claude 5代表了重大飞跃。与Claude 4.5 Opus相比，大多数基准提升了20-25%。"</div>
+                <div class="quote-text">"Claude 5代表了重大飞跃。与Claude 4.5 Opus相比，大多数基准提升了20-25%。在SWE-bench Verified上，我们舒适地超过了90%。"</div>
                 <div class="quote-author">— Dario Amodei，Anthropic CEO</div>
             </div>
         </section>
 
         <footer class="footer">
-            <p>🤖 AI日报 v1.2 | 每日精选全球人工智能热点</p>
+            <p>🤖 AI日报 v1.1 | 每日精选全球人工智能热点</p>
             <p>生成时间：2026年3月3日 | 数据来源：公开网络</p>
         </footer>
     </div>
 </body>
-</html>
+</html>'''
+    
+    return html
+
+if __name__ == "__main__":
+    html = generate_report()
+    with open("/root/.openclaw/workspace/ai-report-2026-03-03.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print("✅ v1.1报告已生成: ai-report-2026-03-03.html")

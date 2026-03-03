@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+AI日报生成器 v1.1 - 优化AI概念股板块（具体股票+消息面+投资建议）
+"""
+
+def generate_report():
+    html = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -203,7 +209,7 @@
         }
         .card-link:hover { color: #a855f7; }
         
-        /* AI概念股 */
+        /* AI概念股 - 新版本 */
         .stocks-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -508,7 +514,7 @@
             </div>
         </section>
 
-        <!-- AI概念股分析 -->
+        <!-- AI概念股分析（优化版） -->
         <section class="section">
             <div class="section-title stocks-title">📈 AI概念股分析</div>
             <div class="stocks-container">
@@ -657,7 +663,6 @@
                 <div class="quote-text">"到2026年，人工智能将有能力取代很多很多工作。每隔7个月左右，它所能完成的任务量就会差不多翻倍。"</div>
                 <div class="quote-author">— Geoffrey Hinton，AI教父、诺贝尔奖得主</div>
             </div>
-            
             <div class="quote-card">
                 <div class="quote-text">"Claude 5代表了重大飞跃。与Claude 4.5 Opus相比，大多数基准提升了20-25%。"</div>
                 <div class="quote-author">— Dario Amodei，Anthropic CEO</div>
@@ -665,9 +670,17 @@
         </section>
 
         <footer class="footer">
-            <p>🤖 AI日报 v1.2 | 每日精选全球人工智能热点</p>
+            <p>🤖 AI日报 v1.1 | 每日精选全球人工智能热点</p>
             <p>生成时间：2026年3月3日 | 数据来源：公开网络</p>
         </footer>
     </div>
 </body>
-</html>
+</html>'''
+    
+    return html
+
+if __name__ == "__main__":
+    html = generate_report()
+    with open("/root/.openclaw/workspace/ai-report-2026-03-03.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print("✅ v1.1报告已生成: ai-report-2026-03-03.html")
