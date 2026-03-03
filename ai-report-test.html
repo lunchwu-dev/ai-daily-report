@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI日报 v1.3 - 语言切换测试</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; background: #0f172a; min-height: 100vh; padding: 20px; color: #e2e8f0; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(10px); padding: 10px 15px; border-radius: 8px; border: 1px solid rgba(99, 102, 241, 0.3); }
+        .lang-switcher select { background: transparent; color: #e2e8f0; border: none; font-size: 14px; cursor: pointer; }
+        .header { text-align: center; padding: 60px 20px 40px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%); border-radius: 24px; margin-bottom: 40px; border: 1px solid rgba(99, 102, 241, 0.2); }
+        .header h1 { font-size: 2.5rem; margin-bottom: 15px; background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .date { font-size: 1.1rem; color: #94a3b8; }
+        .section { margin-bottom: 50px; }
+        .section-title { display: inline-flex; align-items: center; gap: 12px; padding: 18px 30px; border-radius: 12px; font-size: 1.3rem; font-weight: bold; margin-bottom: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.3) 100%); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.5); }
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid rgba(148, 163, 184, 0.1); margin-bottom: 20px; }
+        .card-title { font-size: 1.2rem; color: #f1f5f9; margin-bottom: 12px; }
+        .card-summary { color: #94a3b8; line-height: 1.7; }
+        .footer { text-align: center; padding: 40px; color: #64748b; border-top: 1px solid rgba(148, 163, 184, 0.1); margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <select id="langSelect" onchange="switchLanguage()">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="lang-text" data-key="title">AI日报 v1.3</h1>
+            <div class="date"><span class="lang-text" data-key="date">2026年3月3日</span></div>
+        </header>
+
+        <section class="section">
+            <div class="section-title lang-text" data-key="headlines">今日头条</div>
+            <div class="card">
+                <div class="card-title lang-text" data-key="news1_title">OpenAI完成1100亿美元融资</div>
+                <div class="card-summary lang-text" data-key="news1_summary">OpenAI宣布完成史上最大规模融资，金额高达1100亿美元。</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title lang-text" data-key="domestic">国内AI热点</div>
+            <div class="card">
+                <div class="card-title lang-text" data-key="news2_title">银河通用再融25亿元</div>
+                <div class="card-summary lang-text" data-key="news2_summary">银河通用机器人宣布完成25亿元新一轮融资。</div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p class="lang-text" data-key="footer">多语言支持：中文 · English · Français</p>
+        </footer>
+    </div>
+    
+    <script>
+        const i18n = {
+            zh: {
+                title: "AI日报 v1.3",
+                date: "2026年3月3日",
+                headlines: "今日头条",
+                news1_title: "OpenAI完成1100亿美元融资",
+                news1_summary: "OpenAI宣布完成史上最大规模融资，金额高达1100亿美元。",
+                domestic: "国内AI热点",
+                news2_title: "银河通用再融25亿元",
+                news2_summary: "银河通用机器人宣布完成25亿元新一轮融资。",
+                footer: "多语言支持：中文 · English · Français"
+            },
+            en: {
+                title: "AI Daily Report v1.3",
+                date: "March 3, 2026",
+                headlines: "Headlines",
+                news1_title: "OpenAI Closes $110B Funding Round",
+                news1_summary: "OpenAI announced the largest funding round in history, raising $110 billion.",
+                domestic: "Domestic AI News",
+                news2_title: "Galbot Raises $362M",
+                news2_summary: "Galbot announced a new funding round of 2.5 billion yuan.",
+                footer: "Multi-language: 中文 · English · Français"
+            },
+            fr: {
+                title: "Rapport Quotidien AI v1.3",
+                date: "3 Mars 2026",
+                headlines: "À la Une",
+                news1_title: "OpenAI Clôture une Levée de 110 Mds $",
+                news1_summary: "OpenAI a annoncé la plus grande levée de fonds de l'histoire, avec 110 milliards de dollars.",
+                domestic: "Actualités AI Nationales",
+                news2_title: "Galbot Lève 362 M$",
+                news2_summary: "Galbot a annoncé une nouvelle levée de fonds de 2,5 milliards de yuans.",
+                footer: "Multi-langue: 中文 · English · Français"
+            }
+        };
+
+        function switchLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const texts = document.querySelectorAll('.lang-text');
+            
+            texts.forEach(function(el) {
+                const key = el.getAttribute('data-key');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>

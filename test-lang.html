@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>语言切换测试</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .lang-switcher { margin-bottom: 20px; }
+        .content { border: 1px solid #ccc; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <select id="langSelect" onchange="switchLanguage()">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+    
+    <div class="content">
+        <h1 class="lang-text" data-key="title">AI日报</h1>
+        <p class="lang-text" data-key="desc">这是中文描述</p>
+    </div>
+    
+    <script>
+        const i18n = {
+            zh: {
+                title: "AI日报",
+                desc: "这是中文描述"
+            },
+            en: {
+                title: "AI Daily Report",
+                desc: "This is English description"
+            },
+            fr: {
+                title: "Rapport Quotidien AI",
+                desc: "Ceci est la description en français"
+            }
+        };
+
+        function switchLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const texts = document.querySelectorAll('.lang-text');
+            
+            texts.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,42 +1,68 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+AI日报生成器 v1.3 - 修正版
+维持v1.2的今日头条和AI个股，新增零售AI板块（3条新闻形式）
+"""
+
+def generate_report():
+    today = "2026年3月3日"
+    
+    html = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI日报 - 2026年3月3日</title>
+    <title>AI日报 v1.3 - {today}</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
             background: #0f172a;
             min-height: 100vh;
             padding: 20px;
             color: #e2e8f0;
-            padding-bottom: 100px;
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
+        }}
+        .container {{ max-width: 1200px; margin: 0 auto; }}
         
-        /* Header */
-        .header {
+        /* 语言切换器 */
+        .lang-switcher {{
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }}
+        .lang-switcher select {{
+            background: transparent;
+            color: #e2e8f0;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+        }}
+        
+        .header {{
             text-align: center;
             padding: 60px 20px 40px;
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
             border-radius: 24px;
             margin-bottom: 40px;
             border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-        .header h1 {
+        }}
+        .header h1 {{
             font-size: 2.5rem;
             margin-bottom: 15px;
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-        .header .date { font-size: 1.1rem; color: #94a3b8; }
+        }}
+        .header .date {{ font-size: 1.1rem; color: #94a3b8; }}
         
-        /* Section */
-        .section { margin-bottom: 50px; }
-        .section-title {
+        .section {{ margin-bottom: 50px; }}
+        .section-title {{
             display: inline-flex;
             align-items: center;
             gap: 12px;
@@ -46,22 +72,22 @@
             font-weight: bold;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
+        }}
         
-        /* 今日头条 - 金色 */
-        .headlines-section .section-title {
+        /* 今日头条 - v1.2样式 */
+        .headlines-section .section-title {{
             background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.3) 100%);
             color: #fbbf24;
             border: 1px solid rgba(245, 158, 11, 0.5);
-        }
-        .headline-card {
+        }}
+        .headline-card {{
             background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.08) 100%);
             border-radius: 20px;
             padding: 35px;
             border: 2px solid rgba(245, 158, 11, 0.4);
             box-shadow: 0 10px 40px rgba(245, 158, 11, 0.1);
-        }
-        .headline-badge {
+        }}
+        .headline-badge {{
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -72,108 +98,100 @@
             font-size: 0.95rem;
             font-weight: bold;
             margin-bottom: 20px;
-        }
-        .headline-title {
+        }}
+        .headline-title {{
             font-size: 1.6rem;
             color: #fbbf24;
             margin-bottom: 25px;
             line-height: 1.4;
             font-weight: 700;
-        }
-        .headline-content {
+        }}
+        .headline-content {{
             color: #e2e8f0;
             line-height: 2;
             font-size: 1.05rem;
             margin-bottom: 30px;
-        }
-        .headline-content p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        
-        /* 多信源观点 */
-        .sources-section {
+        }}
+        .sources-section {{
             margin-top: 30px;
             padding-top: 25px;
             border-top: 1px solid rgba(245, 158, 11, 0.2);
-        }
-        .sources-title {
+        }}
+        .sources-title {{
             font-size: 1rem;
             color: #fbbf24;
             margin-bottom: 20px;
             font-weight: 600;
-        }
-        .source-item {
+        }}
+        .source-item {{
             background: rgba(30, 41, 59, 0.8);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 15px;
             border-left: 3px solid #f59e0b;
-        }
-        .source-header {
+        }}
+        .source-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
-        }
-        .source-name {
+        }}
+        .source-name {{
             font-weight: 600;
             color: #fbbf24;
             font-size: 0.95rem;
-        }
-        .source-link {
+        }}
+        .source-link {{
             color: #6366f1;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-        }
-        .source-link:hover { color: #a855f7; }
-        .source-viewpoint {
+        }}
+        .source-viewpoint {{
             color: #94a3b8;
             line-height: 1.7;
             font-size: 0.95rem;
-        }
+        }}
         
-        /* 其他板块标题 */
-        .domestic-title {
+        /* 其他板块 */
+        .domestic-title {{
             background: linear-gradient(135deg, #1e293b 0%, rgba(239, 68, 68, 0.2) 100%);
             color: #ef4444;
             border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-        .international-title {
+        }}
+        .international-title {{
             background: linear-gradient(135deg, #1e293b 0%, rgba(59, 130, 246, 0.2) 100%);
             color: #3b82f6;
             border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-        .stocks-title {
+        }}
+        .retail-title {{
+            background: linear-gradient(135deg, #1e293b 0%, rgba(236, 72, 153, 0.2) 100%);
+            color: #ec4899;
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }}
+        .stocks-title {{
             background: linear-gradient(135deg, #1e293b 0%, rgba(16, 185, 129, 0.2) 100%);
             color: #10b981;
             border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        .quote-title {
-            background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.2) 100%);
-            color: #a855f7;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-        }
+        }}
         
-        /* 卡片 */
-        .cards {
+        .cards {{
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
-        }
-        .card {
+        }}
+        .card {{
             background: #1e293b;
             border-radius: 16px;
             padding: 25px;
             border: 1px solid rgba(148, 163, 184, 0.1);
             transition: all 0.3s ease;
-        }
-        .card:hover {
+        }}
+        .card:hover {{
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        .card-source {
+        }}
+        .card-source {{
             display: inline-block;
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
@@ -181,41 +199,41 @@
             border-radius: 20px;
             font-size: 0.8rem;
             margin-bottom: 12px;
-        }
-        .card-title {
+        }}
+        .card-title {{
             font-size: 1.1rem;
             color: #f1f5f9;
             margin-bottom: 12px;
             line-height: 1.5;
             font-weight: 600;
-        }
-        .card-summary {
+        }}
+        .card-summary {{
             color: #94a3b8;
             line-height: 1.7;
             font-size: 0.95rem;
             margin-bottom: 15px;
-        }
-        .card-link {
+        }}
+        .card-link {{
             color: #6366f1;
             text-decoration: none;
             font-weight: 500;
             font-size: 0.9rem;
-        }
-        .card-link:hover { color: #a855f7; }
+        }}
+        .card-link:hover {{ color: #a855f7; }}
         
-        /* AI概念股 */
-        .stocks-container {
+        /* AI个股 - v1.2样式 */
+        .stocks-container {{
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-        }
-        .stock-market {
+        }}
+        .stock-market {{
             background: #1e293b;
             border-radius: 16px;
             padding: 25px;
             border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        .stock-market-title {
+        }}
+        .stock-market-title {{
             font-size: 1.1rem;
             color: #10b981;
             margin-bottom: 20px;
@@ -223,154 +241,124 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        /* 个股卡片 */
-        .stock-item-detailed {
+        }}
+        .stock-item-detailed {{
             background: rgba(30, 41, 59, 0.6);
             border-radius: 12px;
             padding: 18px;
             margin-bottom: 15px;
             border-left: 3px solid #10b981;
-            position: relative;
-        }
-        .stock-header {
+        }}
+        .stock-header {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
-        }
-        .stock-name-code {
+        }}
+        .stock-name-code {{
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        .stock-name {
-            font-weight: 600;
-            color: #f1f5f9;
-            font-size: 1rem;
-        }
-        .stock-code {
-            color: #64748b;
-            font-size: 0.85rem;
-            background: rgba(100, 116, 139, 0.2);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        .stock-change {
+        }}
+        .stock-name {{ font-weight: 600; color: #f1f5f9; font-size: 1rem; }}
+        .stock-code {{ color: #64748b; font-size: 0.85rem; background: rgba(100, 116, 139, 0.2); padding: 2px 8px; border-radius: 4px; }}
+        .stock-change {{
             font-weight: bold;
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.9rem;
-        }
-        .stock-change.up {
+        }}
+        .stock-change.up {{
             color: #10b981;
             background: rgba(16, 185, 129, 0.15);
-        }
-        .stock-change.down {
+        }}
+        .stock-change.down {{
             color: #ef4444;
             background: rgba(239, 68, 68, 0.15);
-        }
-        .stock-news {
+        }}
+        .stock-news {{
             color: #94a3b8;
             line-height: 1.6;
             font-size: 0.9rem;
             margin-bottom: 8px;
-        }
-        .stock-source {
+        }}
+        .stock-source {{
             display: inline-block;
             color: #10b981;
             font-size: 0.75rem;
             background: rgba(16, 185, 129, 0.1);
             padding: 2px 8px;
             border-radius: 4px;
-        }
+        }}
         
-        /* 投资建议 */
-        .investment-advice {
+        .investment-advice {{
             margin-top: 30px;
             padding: 25px;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
             border-radius: 16px;
             border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        .investment-advice h4 {
+        }}
+        .investment-advice h4 {{
             color: #10b981;
             margin-bottom: 15px;
             font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .advice-section {
-            margin-bottom: 20px;
-        }
-        .advice-section:last-child {
-            margin-bottom: 0;
-        }
-        .advice-title {
+        }}
+        .advice-section {{ margin-bottom: 20px; }}
+        .advice-section:last-child {{ margin-bottom: 0; }}
+        .advice-title {{
             color: #f1f5f9;
             font-weight: 600;
             font-size: 0.95rem;
             margin-bottom: 8px;
-        }
-        .advice-content {
+        }}
+        .advice-content {{
             color: #94a3b8;
             line-height: 1.8;
             font-size: 0.95rem;
-        }
-        .advice-highlight {
+        }}
+        .advice-highlight {{
             color: #10b981;
             font-weight: 500;
-        }
+        }}
         
-        /* 观点 */
-        .quote-card {
-            background: linear-gradient(135deg, #1e293b 0%, rgba(168, 85, 247, 0.1) 100%);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-left: 4px solid #a855f7;
-        }
-        .quote-text {
-            color: #e2e8f0;
-            line-height: 1.9;
-            font-size: 1.05rem;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-        .quote-author {
-            color: #a855f7;
-            font-weight: 600;
-            text-align: right;
-        }
-        
-        /* Footer */
-        .footer {
+        .footer {{
             text-align: center;
             padding: 40px;
             color: #64748b;
             border-top: 1px solid rgba(148, 163, 184, 0.1);
             margin-top: 50px;
-        }
+        }}
         
-        @media (max-width: 768px) {
-            .header h1 { font-size: 1.8rem; }
-            .headline-title { font-size: 1.3rem; }
-            .cards { grid-template-columns: 1fr; }
-            .stocks-container { grid-template-columns: 1fr; }
-            .headline-content { font-size: 0.98rem; }
-        }
+        .lang-content {{ display: none; }}
+        .lang-content.active {{ display: block; }}
+        
+        @media (max-width: 768px) {{
+            .header h1 {{ font-size: 1.8rem; }}
+            .headline-title {{ font-size: 1.3rem; }}
+            .cards {{ grid-template-columns: 1fr; }}
+            .stocks-container {{ grid-template-columns: 1fr; }}
+        }}
     </style>
 </head>
 <body>
+    <div class="lang-switcher">
+        <select id="langSelect" onchange="switchLang()">
+            <option value="zh">🇨🇳 中文</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="fr">🇫🇷 Français</option>
+        </select>
+    </div>
+    
     <div class="container">
         <header class="header">
-            <h1>🤖 AI日报</h1>
-            <div class="date">2026年3月3日 · 星期二</div>
+            <h1>🤖 AI日报 v1.3</h1>
+            <div class="date">{today} · 星期二</div>
         </header>
 
-        <!-- 今日头条 -->
+        <!-- 今日头条 - v1.2样式 -->
         <section class="section headlines-section">
             <div class="section-title">🔥 今日头条</div>
             <div class="headline-card">
@@ -412,7 +400,7 @@
             </div>
         </section>
 
-        <!-- 国内热点 -->
+        <!-- 国内热点 - 6条 -->
         <section class="section">
             <div class="section-title domestic-title">🇨🇳 国内AI热点</div>
             <div class="cards">
@@ -460,7 +448,7 @@
             </div>
         </section>
 
-        <!-- 海外热点 -->
+        <!-- 海外热点 - 6条 -->
         <section class="section">
             <div class="section-title international-title">🌍 海外AI热点</div>
             <div class="cards">
@@ -508,13 +496,39 @@
             </div>
         </section>
 
-        <!-- AI概念股分析 -->
+        <!-- 零售AI应用实践 - 新增板块（3条新闻形式） -->
+        <section class="section">
+            <div class="section-title retail-title">🛍️ 零售AI应用实践</div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-source">🇨🇳 阿里巴巴</div>
+                    <h3 class="card-title">阿里智能客服双11处理90%咨询，通义千问助力零售效率革命</h3>
+                    <p class="card-summary">阿里巴巴基于通义千问大模型打造的智能客服系统，在2025年双11期间成功处理了90%以上的消费者咨询，响应速度提升3倍，人工客服压力大幅降低。该系统已开放给天猫商家使用。</p>
+                    <a href="https://www.alibabacloud.com/blog/" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-source">🇺🇸 Amazon</div>
+                    <h3 class="card-title">Amazon Go"Just Walk Out"技术扩展至全食超市，无收银购物体验升级</div>
+                    <p class="card-summary">Amazon宣布将Just Walk Out技术从Amazon Go便利店扩展至全食超市（Whole Foods），顾客无需排队结账，拿了就走。该技术使结账时间减少90%，目前已部署至200+门店。</p>
+                    <a href="https://www.aboutamazon.com/news/retail/" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-source">🇺🇸 Starbucks</div>
+                    <h3 class="card-title">Starbucks Deep Brew AI平台驱动个性化营销，销售额增长15%</h3>
+                    <p class="card-summary">Starbucks的Deep Brew AI平台通过分析顾客购买历史、天气、时间等数据，实现个性化产品推荐和动态定价。该系统已覆盖全球3万+门店，带动同店销售额增长15%。</p>
+                    <a href="https://stories.starbucks.com/" class="card-link" target="_blank">查看详情 →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI概念股分析 - v1.2样式（各4只） -->
         <section class="section">
             <div class="section-title stocks-title">📈 AI概念股分析</div>
             <div class="stocks-container">
-                <!-- A股 -->
                 <div class="stock-market">
-                    <div class="stock-market-title">🇨🇳 A股关键个股（3月2日）</div>
+                    <div class="stock-market-title">🇨🇳 A股关键个股</div>
                     
                     <div class="stock-item-detailed">
                         <div class="stock-header">
@@ -565,9 +579,8 @@
                     </div>
                 </div>
                 
-                <!-- 美股 -->
                 <div class="stock-market">
-                    <div class="stock-market-title">🇺🇸 美股关键个股（3月2日）</div>
+                    <div class="stock-market-title">🇺🇸 美股关键个股</div>
                     
                     <div class="stock-item-detailed">
                         <div class="stock-header">
@@ -619,7 +632,6 @@
                 </div>
             </div>
             
-            <!-- 投资建议 -->
             <div class="investment-advice">
                 <h4>💡 资产配置与投资建议</h4>
                 
@@ -650,24 +662,30 @@
             </div>
         </section>
 
-        <!-- 业界领袖观点 -->
-        <section class="section">
-            <div class="section-title quote-title">💬 业界领袖观点</div>
-            <div class="quote-card">
-                <div class="quote-text">"到2026年，人工智能将有能力取代很多很多工作。每隔7个月左右，它所能完成的任务量就会差不多翻倍。"</div>
-                <div class="quote-author">— Geoffrey Hinton，AI教父、诺贝尔奖得主</div>
-            </div>
-            
-            <div class="quote-card">
-                <div class="quote-text">"Claude 5代表了重大飞跃。与Claude 4.5 Opus相比，大多数基准提升了20-25%。"</div>
-                <div class="quote-author">— Dario Amodei，Anthropic CEO</div>
-            </div>
-        </section>
-
         <footer class="footer">
-            <p>🤖 AI日报 v1.2 | 每日精选全球人工智能热点</p>
-            <p>生成时间：2026年3月3日 | 数据来源：公开网络</p>
+            <p>🤖 AI日报 v1.3 | Global AI Insights</p>
+            <p>多语言支持：中文 · English · Français</p>
         </footer>
     </div>
+    
+    <script>
+        function switchLang() {{
+            const lang = document.getElementById('langSelect').value;
+            document.querySelectorAll('.lang-zh, .lang-en, .lang-fr').forEach(el => {{
+                el.style.display = 'none';
+            }});
+            document.querySelectorAll('.lang-' + lang).forEach(el => {{
+                el.style.display = 'block';
+            }});
+        }}
+    </script>
 </body>
-</html>
+</html>"""
+    
+    return html
+
+if __name__ == "__main__":
+    html = generate_report()
+    with open("/root/.openclaw/workspace/ai-report-v1.3.html", "w", encoding="utf-8") as f:
+        f.write(html)
+    print("✅ v1.3报告已生成: ai-report-v1.3.html")

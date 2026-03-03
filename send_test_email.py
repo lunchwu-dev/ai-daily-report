@@ -54,7 +54,7 @@ def send_daily_report(report_file, cc_list=None):
         print("❌ 今日头条数据缺失，取消发送")
         return False
     
-    report_url = "https://661f01ac.ai-daily-report-32b.pages.dev"
+    report_url = "https://29ade565.ai-daily-report-v1-3.pages.dev"
     
     subject = f"📰 AI Daily Report [TEST] | {report_date}"
     

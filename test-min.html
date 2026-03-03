@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test</title>
+<style>body{font-family:sans-serif;padding:50px}</style>
+</head>
+<body>
+<select id="lang" onchange="change()">
+<option value="zh">中文</option>
+<option value="en">English</option>
+</select>
+<h1 id="t">中文标题</h1>
+<script>
+const d={zh:"中文标题",en:"English Title"};
+function change(){document.getElementById("t").textContent=d[document.getElementById("lang").value]}
+</script>
+</body>
+</html>

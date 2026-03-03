@@ -1,0 +1,26 @@
+{
+  "date": "2026年03月03日",
+  "top3": [
+    {
+      "rank": 1,
+      "title_cn": "OpenAI完成1100亿美元史诗级融资，AI军备竞赛进入白热化阶段",
+      "desc_cn": "OpenAI于3月2日宣布完成史上最大规模融资，金额高达1100亿美元，投后估值飙升至7300亿美元，创下私营科技公司融资新纪录。",
+      "title_en": "OpenAI Closes $110B Funding Round at $730B Valuation",
+      "desc_en": "OpenAI announced the largest private funding round in history on March 2, with $110 billion raised and valuation soaring to $730 billion."
+    },
+    {
+      "rank": 2,
+      "title_cn": "银河通用再融25亿元，成估值最高未上市机器人公司",
+      "desc_cn": "3月2日，银河通用机器人宣布完成25亿元新一轮融资，投资方包括国家人工智能产业投资基金、中国石化、中信投资控股等，估值超30亿美元。",
+      "title_en": "Galbot Raises $362M, Becomes Highest-Valued Private Robotics Company",
+      "desc_en": "On March 2, Galbot announced a new funding round of 2.5 billion yuan, with investors including National AI Industry Investment Fund, Sinopec, and CITIC."
+    },
+    {
+      "rank": 3,
+      "title_cn": "AI教父辛顿警告：2026年AI将取代更多工作岗位",
+      "desc_cn": "诺贝尔奖得主Hinton表示AI能力每7个月翻倍，已从完成一分钟代码发展到一小时项目，软件开发岗位将大幅减少。",
+      "title_en": "AI Godfather Hinton Warns: AI Will Replace More Jobs in 2026",
+      "desc_en": "Nobel laureate Hinton predicts AI capabilities double every 7 months, evolving from 1-minute to 1-hour coding tasks, threatening software jobs."
+    }
+  ]
+}

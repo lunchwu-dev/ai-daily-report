@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>语言切换测试</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #0f172a; color: #e2e8f0; }
+        .lang-switcher { position: fixed; top: 20px; right: 20px; background: rgba(30, 41, 59, 0.9); padding: 10px 15px; border-radius: 8px; }
+        .lang-switcher select { background: transparent; color: #e2e8f0; border: none; font-size: 14px; cursor: pointer; }
+        .content { max-width: 600px; margin: 100px auto; padding: 20px; background: #1e293b; border-radius: 16px; }
+        h1 { color: #fbbf24; }
+        p { color: #94a3b8; }
+    </style>
+</head><body>
+    <div class="lang-switcher">
+        <select id="langSelect" onchange="switchLanguage()">
+            <option value="zh">🇨🇳 中文</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="fr">🇫🇷 Français</option>
+        </select>
+    </div>
+    
+    <div class="content">
+        <h1 class="lang-text" data-key="title">AI日报 v1.3</h1>
+        <p class="lang-text" data-key="date">2026年3月3日</p>
+        <p class="lang-text" data-key="desc">这是中文描述</p>
+    </div>
+    
+    <script>
+        const i18n = {
+            zh: { title: "AI日报 v1.3", date: "2026年3月3日", desc: "这是中文描述" },
+            en: { title: "AI Daily Report v1.3", date: "March 3, 2026", desc: "This is English description" },
+            fr: { title: "Rapport Quotidien AI v1.3", date: "3 Mars 2026", desc: "Ceci est la description en français" }
+        };
+
+        function switchLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const texts = document.querySelectorAll('.lang-text');
+            
+            texts.forEach(function(el) {
+                const key = el.getAttribute('data-key');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
