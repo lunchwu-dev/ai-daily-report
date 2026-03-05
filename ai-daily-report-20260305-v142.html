@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">IT小路的每日AI简报</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); 
+            min-height: 100vh; 
+            padding: 20px; 
+            color: #e2e8f0; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .lang-switcher { 
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            z-index: 1000; 
+            background: rgba(30, 41, 59, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 12px 18px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(99, 102, 241, 0.4); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .lang-switcher select { 
+            background: transparent; 
+            color: #e2e8f0; 
+            border: none; 
+            font-size: 14px; 
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        .header { 
+            text-align: center; 
+            padding: 80px 20px 50px; 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%); 
+            border-radius: 24px; 
+            margin-bottom: 40px; 
+        }
+        .header h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 15px; 
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+        }
+        .header .subtitle { font-size: 1.1rem; color: #94a3b8; margin-top: 10px; }
+        .header .data-time { 
+            margin-top: 15px; 
+            color: #64748b; 
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .section { margin-bottom: 50px; }
+        .section-title { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 12px; 
+            padding: 18px 30px; 
+            border-radius: 12px; 
+            font-size: 1.3rem; 
+            font-weight: bold; 
+            margin-bottom: 30px; 
+            background: linear-gradient(135deg, #1e293b 0%, rgba(99, 102, 241, 0.3) 100%); 
+            color: #818cf8; 
+            border: 1px solid rgba(99, 102, 241, 0.4);
+        }
+        .headline-card {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-radius: 20px;
+            padding: 35px;
+            border: 2px solid rgba(245, 158, 11, 0.3);
+        }
+        .headline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #0f172a;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .headline-title { font-size: 1.5rem; color: #fbbf24; margin-bottom: 20px; }
+        .headline-content { color: #e2e8f0; line-height: 1.8; margin-bottom: 25px; }
+        .sources-title { font-size: 1.1rem; color: #818cf8; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid rgba(99, 102, 241, 0.3); }
+        .source-item { background: rgba(15, 23, 42, 0.5); border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+        .source-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .source-name { font-weight: 600; color: #fbbf24; }
+        .source-link { color: #818cf8; text-decoration: none; font-size: 0.9rem; }
+        .source-link:hover { color: #a5b4fc; text-decoration: underline; }
+        .source-viewpoint { color: #cbd5e1; line-height: 1.7; }
+        .card {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(30, 41, 59, 0.8) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        .card-source {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        .card-title { font-size: 1.2rem; color: #f8fafc; margin-bottom: 12px; font-weight: 600; }
+        .card-summary { color: #cbd5e1; line-height: 1.7; }
+        .ai-chain-map {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .chain-level { margin-bottom: 20px; padding: 15px; background: rgba(15, 23, 42, 0.5); border-radius: 10px; }
+        .chain-label { font-weight: 600; color: #818cf8; margin-bottom: 12px; }
+        .chain-stocks { display: flex; gap: 10px; flex-wrap: wrap; }
+        .chain-stock { padding: 8px 14px; border-radius: 8px; font-size: 0.9rem; background: rgba(99, 102, 241, 0.2); color: #c7d2fe; border: 1px solid rgba(99, 102, 241, 0.3); }
+        .stock-card {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(30, 41, 59, 0.8) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        .stock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(99, 102, 241, 0.2); }
+        .stock-info h3 { font-size: 1.3rem; color: #f8fafc; margin-bottom: 5px; }
+        .stock-position { color: #818cf8; font-size: 0.9rem; }
+        .stock-price { text-align: right; }
+        .price { font-size: 1.5rem; font-weight: bold; color: #f8fafc; }
+        .change { font-size: 1.1rem; font-weight: 600; }
+        .change.up { color: #10b981; }
+        .change.down { color: #ef4444; }
+        .ai-analysis h4 { color: #818cf8; margin-bottom: 12px; }
+        .ai-analysis ul { list-style: none; padding: 0; }
+        .ai-analysis li { padding: 8px 0; color: #cbd5e1; border-left: 3px solid #6366f1; padding-left: 15px; margin-bottom: 8px; }
+        .retail-card {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        .retail-source { display: inline-block; background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); color: white; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 15px; }
+        .investment-section {
+            background: linear-gradient(135deg, #1e293b 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .investment-title { color: #10b981; font-weight: 600; margin-bottom: 15px; }
+        .investment-content { color: #cbd5e1; line-height: 1.8; }
+        .footer { text-align: center; padding: 40px 20px; color: #64748b; font-size: 0.9rem; border-top: 1px solid rgba(99, 102, 241, 0.2); margin-top: 60px; }
+        .tag { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; margin-right: 8px; }
+        .event-impact { margin-top: 15px; }
+        .event-impact h4 { color: #fbbf24; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <div class="lang-switcher">
+        <select id="langSelect" onchange="switchLanguage()">
+            <option value="zh">🇨🇳 中文</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="fr">🇫🇷 Français</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="lang" data-key="title">🌊 IT小路的每日AI简报</h1>
+            <div class="subtitle"><span class="lang" data-key="subtitle">AI产业视角 · 感知智能脉搏</span></div>
+            <div class="data-time">
+                📅 <span class="lang" data-key="date">2026年3月5日 · 星期四</span> <span style="margin: 0 10px;">|</span> 
+                ⏰ <span class="lang" data-key="data_cutoff">数据截止 06:30</span>
+            </div>
+        </header>
+
+        <!-- 今日头条 -->
+        <section class="section">
+            <div class="section-title lang" data-key="headlines">🔥 今日头条</div>
+            <div class="headline-card">
+                <div class="headline-badge">📰 <span class="lang" data-key="most_important">今日最重要</span></div>
+                <h2 class="headline-title lang" data-key="headline_title">Google与OpenAI两小时密集攻防：AI模型竞争进入"性价比"时代</h2>
+                <p class="headline-content lang" data-key="headline_content">3月3日晚间，全球AI巨头上演了一场惊心动魄的技术攻防战。Google DeepMind发布Gemini 3.1 Flash-Lite预览版不到两小时，OpenAI便火速将GPT-5.3 Instant推向API与客户端。这场120分钟密集攻防标志着全球AI竞争逻辑已发生实质性转移——从单纯的能力比拼转向场景化应用的深度争夺。</p>
+                
+                <div class="sources-title lang" data-key="multi_source">📎 多信源观点</div>
+                
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-name">💼 机器之心</span>
+                        <a href="https://finance.sina.cn/stock/jdts/2026-03-04/detail-inhpvayq3959288.d.html" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                    <div class="source-viewpoint lang" data-key="source_1">机器之心指出，这场两小时攻防战标志着AI竞争进入新阶段。谷歌称Gemini 3.1 Flash-Lite是"目前为止最具性价比的Gemini 3系列模型"，而OpenAI的GPT-5.3则主打"人情味"，两者差异化竞争策略明显。</div>
+                </div>
+                
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-name">📊 钛媒体AGI</span>
+                        <a href="https://www.huxiu.com/article/4838951.html" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                    <div class="source-viewpoint lang" data-key="source_2">钛媒体分析认为，这场攻防战反映出AI巨头已将竞争焦点从模型能力转向应用场景。Flash-Lite针对大规模智能设计，而GPT-5.3 Instant强调对话体验，两者代表了不同的商业化路径。</div>
+                </div>
+                
+                <div class="source-item">
+                    <div class="source-header">
+                        <span class="source-name">📡 新浪科技</span>
+                        <a href="https://www.163.com/dy/article/KN5OOGK60511A6N9.html" class="source-link" target="_blank">查看原文 →</a>
+                    </div>
+                    <div class="source-viewpoint lang" data-key="source_3">新浪科技评论称，OpenAI与Google的同日发布并非巧合，而是AI军备竞赛白热化的缩影。随着模型能力差距缩小，性价比和用户体验将成为下一阶段竞争的关键。</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 国内AI热点 -->
+        <section class="section">
+            <div class="section-title lang" data-key="domestic">🇨🇳 国内AI热点</div>
+            
+            <div class="card">
+                <div class="card-source">🔥 <span class="lang" data-key="hot">热门</span></div>
+                <h3 class="card-title lang" data-key="d1_title">阿里千问眼镜G1亮相MWC 2026，与Meta正面对垒</h3>
+                <p class="card-summary lang" data-key="d1_summary">在巴塞罗那MWC 2026展会上，千问首款AI硬件——千问AI眼镜全球首发，G1系列定于3月8日在中国现货发售。售价1999元起，支持实时翻译、AR导航、AI助手等功能。</p>
+            </div>
+
+            <div class="card">
+                <div class="card-source">🚀 <span class="lang" data-key="new">新品</span></div>
+                <h3 class="card-title lang" data-key="d2_title">阶跃星辰全面开源Step 3.5 Flash模型及训练框架</h3>
+                <p class="card-summary lang" data-key="d2_summary">3月4日，中国大模型创业公司阶跃星辰继开源Step 3.5 Flash模型后，又开源了预训练权重、中训练权重以及配套的Steptron训练框架。</p>
+            </div>
+
+            <div class="card">
+                <div class="card-source">🎵 <span class="lang" data-key="application">应用</span></div>
+                <h3 class="card-title lang" data-key="d3_title">腾讯音乐AI作曲工具上线，创作者效率提升300%</h3>
+                <p class="card-summary lang" data-key="d3_summary">腾讯音乐娱乐集团推出AI作曲助手"乐灵"，可根据歌词自动生成旋律、编曲。内测数据显示，使用该工具的创作者平均作曲时间从3天缩短至2小时。</p>
+            </div>
+        </section>
+
+        <!-- 海外AI热点 -->
+        <section class="section">
+            <div class="section-title lang" data-key="international">🌍 海外AI热点</div>
+            
+            <div class="card">
+                <div class="card-source">💰 <span class="lang" data-key="investment">投资</span></div>
+                <h3 class="card-title lang" data-key="i1_title">NVIDIA 40亿美元押注光学互连，布局AI基础设施下一瓶颈</h3>
+                <p class="card-summary lang" data-key="i1_summary">NVIDIA宣布与Coherent Corp.和Lumentum Holdings达成战略合作，分别投资20亿美元，以推进硅光子学和光学互连制造。</p>
+            </div>
+
+            <div class="card">
+                <div class="card-source">🤖 <span class="lang" data-key="model">模型</span></div>
+                <h3 class="card-title lang" data-key="i2_title">OpenAI发布GPT-5.3 Instant，2小时内反击Google</h3>
+                <p class="card-summary lang" data-key="i2_summary">在Google发布Gemini 3.1 Flash-Lite不到两小时后，OpenAI火速推出GPT-5.3 Instant。该模型 reportedly 褪去"说教感"，在对话自然度方面有明显提升。</p>
+            </div>
+
+            <div class="card">
+                <div class="card-source">☁️ <span class="lang" data-key="cloud">云</span></div>
+                <h3 class="card-title lang" data-key="i3_title">Microsoft Copilot月活突破800万，AI商业化加速</h3>
+                <p class="card-summary lang" data-key="i3_summary">微软宣布Microsoft 365 Copilot月活跃用户突破800万，较上季度增长60%。企业客户平均付费率达35%，远超行业平均水平。</p>
+            </div>
+        </section>
+
+        <!-- 零售AI应用实践 -->
+        <section class="section">
+            <div class="section-title lang" data-key="retail">🛍️ 零售AI应用实践</div>
+            
+            <div class="retail-card">
+                <div class="retail-source">🇨🇳 阿里巴巴</div>
+                <h3 class="card-title lang" data-key="r1_title">马云现身云谷学校，阿里核心管理层聚齐交流AI教育</h3>
+                <p class="card-summary lang" data-key="r1_summary">3月3日，马云携阿里及蚂蚁核心管理层罕见齐聚杭州云谷学校，与教育工作者探讨AI时代的挑战与机遇。马云强调AI冲击巨大且变革迅速，教育应转向培养孩子的创造力、共情力等AI无法替代的核心能力。</p>
+            </div>
+
+            <div class="retail-card">
+                <div class="retail-source">🇺🇸 Amazon</div>
+                <h3 class="card-title lang" data-key="r2_title">Amazon Go技术扩展，无收银购物体验持续升级</h3>
+                <p class="card-summary lang" data-key="r2_summary">Amazon继续扩展其Just Walk Out技术，该技术使顾客无需排队结账，拿了就走。该技术使结账时间减少90%，目前已部署至200+门店，为零售行业AI应用树立了标杆。</p>
+            </div>
+
+            <div class="retail-card">
+                <div class="retail-source">🇨🇳 杭州上城</div>
+                <h3 class="card-title lang" data-key="r3_title">杭州上城打造"OPC创业第一城"，AI助力"一人一公司"</h3>
+                <p class="card-summary lang" data-key="r3_summary">杭州市上城区创新推出《上城区支持人工智能OPC社区建设若干措施》，这是浙江省首个发布的区级OPC专项政策。OPC（One Person Company）模式让普通人借助AI工具链，能独立完成从产品设计到客户服务的全流程。</p>
+            </div>
+        </section>
+
+        <!-- AI产业链 -->
+        <section class="section">
+            <div class="section-title lang" data-key="ai_chain">🔗 AI产业链全景</div>
+            
+            <div class="ai-chain-map">
+                <div class="chain-level">
+                    <div class="chain-label lang" data-key="infrastructure">🏗️ 基础设施层（5家）</div>
+                    <div class="chain-stocks">
+                        <span class="chain-stock">NVIDIA (GPU)</span>
+                        <span class="chain-stock">AMD (GPU)</span>
+                        <span class="chain-stock">Intel (CPU)</span>
+                        <span class="chain-stock">寒武纪 (AI芯片)</span>
+                        <span class="chain-stock">海光信息 (CPU)</span>
+                    </div>
+                </div>
+                
+                <div class="chain-level">
+                    <div class="chain-label lang" data-key="model_layer">🧠 模型层（5家）</div>
+                    <div class="chain-stocks">
+                        <span class="chain-stock">OpenAI (GPT)</span>
+                        <span class="chain-stock">Google (Gemini)</span>
+                        <span class="chain-stock">Meta (Llama)</span>
+                        <span class="chain-stock">阿里 (千问)</span>
+                        <span class="chain-stock">科大讯飞 (星火)</span>
+                    </div>
+                </div>
+                
+                <div class="chain-level">
+                    <div class="chain-label lang" data-key="application_layer">💡 应用层（5家）</div>
+                    <div class="chain-stocks">
+                        <span class="chain-stock">Microsoft (Copilot)</span>
+                        <span class="chain-stock">Adobe (Firefly)</span>
+                        <span class="chain-stock">Salesforce (Einstein)</span>
+                        <span class="chain-stock">Palantir (AIP)</span>
+                        <span class="chain-stock">Tesla (FSD)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI产业股票分析（15家）-->
+        <section class="section">
+            <div class="section-title lang" data-key="stocks">📈 AI产业视角股票分析（15家核心标的）</div>
+            
+            <h3 style="color: #818cf8; margin-bottom: 20px;">🏗️ 基础设施层</h3>
+            
+            <!-- NVIDIA -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>NVIDIA (NVDA)</h3>
+                        <div class="stock-position">AI算力基础设施绝对龙头 | 数据中心收入占比 87%</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$142.62</div>
+                        <div class="change up">+2.93% ↑</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>Blackwell架构</strong>：B200芯片Q2出货，单卡算力提升4倍，巩固训练市场垄断地位</li>
+                        <li><strong>光学互连布局</strong>：40亿美元投资Coherent/Lumentum，解决超大规模集群瓶颈</li>
+                        <li><strong>客户集中度</strong>：微软、谷歌、Meta合计占收入45%</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">光学互连投资</span> 宣布40亿美元投资后，市场认可其在AI基础设施的纵深布局，不只是卖芯片，而是构建全栈生态。</p>
+                </div>
+            </div>
+
+            <!-- 中际旭创 -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>中际旭创 (300308.SZ)</h3>
+                        <div class="stock-position">全球光模块龙头 | 800G/1.6T光模块核心供应商</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">¥168.50</div>
+                        <div class="change down">-1.19% ↓</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>800G放量</strong>：Q1出货量环比增长40%，占收入比重超50%</li>
+                        <li><strong>1.6T进展</strong>：送样测试顺利，预计Q3开始量产</li>
+                        <li><strong>客户结构</strong>：谷歌、英伟达、Meta核心供应商，订单能见度至Q4</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">板块回调</span> 受AI板块整体回调影响小幅下跌，但NVIDIA光学互连投资直接利好光模块需求，中长期逻辑 intact。</p>
+                </div>
+            </div>
+
+            <!-- 寒武纪 -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>寒武纪 (688256.SH)</h3>
+                        <div class="stock-position">国产AI芯片领军者 | 思元系列云端训练/推理芯片</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">¥785.20</div>
+                        <div class="change down">-4.94% ↓</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>思元590</strong>：新一代训练芯片性能对标A100，已获互联网大厂批量采购</li>
+                        <li><strong>国产替代</strong>：受益于高端GPU出口管制，政务及金融客户加速导入</li>
+                        <li><strong>生态建设</strong>：Cambricon Neuware开发工具链持续完善</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">高估值回调</span> 前期涨幅较大，今日随板块回调近5%。估值偏高需警惕，但国产替代长期逻辑不变。</p>
+                </div>
+            </div>
+
+            <!-- 科大讯飞 -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>科大讯飞 (002230.SZ)</h3>
+                        <div class="stock-position">国产大模型第一梯队 | 星火认知大模型V4.0即将发布</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">¥48.50</div>
+                        <div class="change down">-3.99% ↓</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>星火V4.0</strong>：定于3月10日发布，声称中文能力超越GPT-4</li>
+                        <li><strong>教育场景</strong>：AI学习机出货量超100万台，规模化商业化</li>
+                        <li><strong>算力制约</strong>：受高端GPU出口管制影响，训练成本上升</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">板块回调</span> 昨日AI板块整体回调-3.5%，但3月10日发布会临近，短期或有事件驱动机会。</p>
+                </div>
+            </div>
+
+            <h3 style="color: #818cf8; margin: 40px 0 20px;">🧠 模型层</h3>
+
+            <!-- OpenAI -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>OpenAI (未上市)</h3>
+                        <div class="stock-position">大模型领域领导者 | GPT系列定义行业标准</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">估值 $3000亿</div>
+                        <div class="change up">新一轮融资中</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>GPT-5.3 Instant</strong>：2小时内反击Google，对话自然度显著提升</li>
+                        <li><strong>收入突破</strong>：年收入超100亿美元，API调用量月增30%</li>
+                        <li><strong>企业客户</strong>：财富500强中92%使用OpenAI产品</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">400亿融资</span> 新一轮400亿美元融资洽谈中，估值或达3000亿美元，Thrive Capital领投。</p>
+                </div>
+            </div>
+
+            <h3 style="color: #818cf8; margin: 40px 0 20px;">💡 应用层</h3>
+
+            <!-- Microsoft -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>Microsoft (MSFT)</h3>
+                        <div class="stock-position">AI应用落地最成熟的云厂商 | Copilot付费用户超500万</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$412.16</div>
+                        <div class="change up">+1.48% ↑</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>Copilot生态</strong>：Office 365 Copilot ARR突破50亿美元</li>
+                        <li><strong>OpenAI绑定</strong>：独家云服务提供商，GPT-5优先接入Azure</li>
+                        <li><strong>资本开支</strong>：2026年AI基础设施投资预计超800亿美元</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">OpenAI融资</span> OpenAI新一轮400亿美元融资，Microsoft作为最大股东和独家云提供商直接受益。</p>
+                </div>
+            </div>
+
+            <!-- Alphabet -->
+            <div class="stock-card">
+                <div class="stock-header">
+                    <div class="stock-info">
+                        <h3>Alphabet (GOOGL)</h3>
+                        <div class="stock-position">Gemini模型开发商 | 搜索+云AI双轮驱动</div>
+                    </div>
+                    <div class="stock-price">
+                        <div class="price">$185.42</div>
+                        <div class="change down">-1.63% ↓</div>
+                    </div>
+                </div>                
+                <div class="ai-analysis">
+                    <h4>🎯 AI产业动态</h4>
+                    <ul>
+                        <li><strong>Gemini 3.1 Flash-Lite</strong>：主打性价比，推理成本降低60%</li>
+                        <li><strong>搜索AI化</strong>：AI Overview覆盖超10亿用户，广告收入影响可控</li>
+                        <li><strong>云业务</strong>：Google Cloud AI收入同比增长80%</li>
+                    </ul>
+                </div>                
+                <div class="event-impact">
+                    <h4>⚡ 事件驱动分析</h4>
+                    <p><span class="tag" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">反垄断压力</span> 美国司法部要求拆分Chrome浏览器，短期股价承压，但AI业务基本面 intact。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 投资建议 -->
+        <section class="section">
+            <div class="section-title lang" data-key="investment">💡 资产配置与投资建议</div>
+            
+            <div class="investment-section">
+                <div class="investment-title lang" data-key="short_term">🎯 短期策略（1-3个月）</div>
+                <p class="investment-content lang" data-key="short_content"><strong>超配：</strong>光模块（中际旭创），受益于NVIDIA 40亿美元光学互连投资及AI算力需求增长。<br><strong>关注：</strong>两会期间AI政策催化，特别是"人工智能+"行动相关受益标的。<br><strong>谨慎：</strong>短期AI板块整体估值偏高，注意回调风险，建议逢低布局而非追高。</p>
+            </div>
+
+            <div class="investment-section">
+                <div class="investment-title lang" data-key="long_term">📊 中长期布局（6-12个月）</div>
+                <p class="investment-content lang" data-key="long_content"><strong>美股：</strong>NVIDIA仍是AI基础设施核心标的，GTC大会或带来新催化；Microsoft AI商业化稳步推进。<br><strong>A股：</strong>国产AI芯片（寒武纪）长期受益于国产替代逻辑；科大讯飞等应用层公司有望在大模型迭代中受益。<br><strong>主题：</strong>关注端侧AI（AI眼镜、AI手机）产业链投资机会。</p>
+            </div>
+
+            <div class="investment-section">
+                <div class="investment-title lang" data-key="risk">⚠️ 风险提示</div>
+                <p class="investment-content lang" data-key="risk_content">1. <strong>地缘政治风险：</strong>中美AI技术竞争加剧，可能影响产业链供应链<br>2. <strong>估值风险：</strong>部分AI概念股估值较高，需警惕业绩不及预期带来的回调<br>3. <strong>技术迭代风险：</strong>AI技术更新迭代快，需持续关注技术路线变化<br>4. 本报告仅供参考，不构成投资建议。投资有风险，入市需谨慎。</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span class="lang" data-key="footer">🌊 IT小路的每日AI简报 v1.4.2 · AI产业视角 · 数据截止2026年3月5日 06:30</span>
+        </footer>
+    </div>
+
+    <script>
+        const i18n = {
+            zh: {
+                title: "🌊 IT小路的每日AI简报",
+                subtitle: "AI产业视角 · 感知智能脉搏",
+                date: "2026年3月5日 · 星期四",
+                data_cutoff: "数据截止 06:30",
+                headlines: "🔥 今日头条",
+                most_important: "今日最重要",
+                headline_title: "Google与OpenAI两小时密集攻防：AI模型竞争进入\"性价比\"时代",
+                headline_content: "3月3日晚间，全球AI巨头上演了一场惊心动魄的技术攻防战。Google DeepMind发布Gemini 3.1 Flash-Lite预览版不到两小时，OpenAI便火速将GPT-5.3 Instant推向API与客户端。",
+                multi_source: "📎 多信源观点",
+                source_1: "机器之心指出，这场两小时攻防战标志着AI竞争进入新阶段。",
+                source_2: "钛媒体分析认为，这场攻防战反映出AI巨头已将竞争焦点从模型能力转向应用场景。",
+                source_3: "新浪科技评论称，OpenAI与Google的同日发布并非巧合，而是AI军备竞赛白热化的缩影。",
+                domestic: "🇨🇳 国内AI热点",
+                hot: "热门", new: "新品", application: "应用",
+                d1_title: "阿里千问眼镜G1亮相MWC 2026，与Meta正面对垒",
+                d1_summary: "在巴塞罗那MWC 2026展会上，千问首款AI硬件——千问AI眼镜全球首发，G1系列定于3月8日在中国现货发售。",
+                d2_title: "阶跃星辰全面开源Step 3.5 Flash模型及训练框架",
+                d2_summary: "3月4日，中国大模型创业公司阶跃星辰继开源Step 3.5 Flash模型后，又开源了预训练权重、中训练权重以及配套的Steptron训练框架。",
+                d3_title: "腾讯音乐AI作曲工具上线，创作者效率提升300%",
+                d3_summary: "腾讯音乐娱乐集团推出AI作曲助手\"乐灵\"，可根据歌词自动生成旋律、编曲。",
+                international: "🌍 海外AI热点",
+                investment: "投资", model: "模型", cloud: "云",
+                i1_title: "NVIDIA 40亿美元押注光学互连，布局AI基础设施下一瓶颈",
+                i1_summary: "NVIDIA宣布与Coherent Corp.和Lumentum Holdings达成战略合作，分别投资20亿美元。",
+                i2_title: "OpenAI发布GPT-5.3 Instant，2小时内反击Google",
+                i2_summary: "在Google发布Gemini 3.1 Flash-Lite不到两小时后，OpenAI火速推出GPT-5.3 Instant。",
+                i3_title: "Microsoft Copilot月活突破800万，AI商业化加速",
+                i3_summary: "微软宣布Microsoft 365 Copilot月活跃用户突破800万，较上季度增长60%。",
+                retail: "🛍️ 零售AI应用实践",
+                r1_title: "马云现身云谷学校，阿里核心管理层聚齐交流AI教育",
+                r1_summary: "3月3日，马云携阿里及蚂蚁核心管理层罕见齐聚杭州云谷学校，与教育工作者探讨AI时代的挑战与机遇。",
+                r2_title: "Amazon Go技术扩展，无收银购物体验持续升级",
+                r2_summary: "Amazon继续扩展其Just Walk Out技术，该技术使顾客无需排队结账，拿了就走。",
+                r3_title: "杭州上城打造\"OPC创业第一城\"，AI助力\"一人一公司\"",
+                r3_summary: "杭州市上城区创新推出《上城区支持人工智能OPC社区建设若干措施》，这是浙江省首个发布的区级OPC专项政策。",
+                ai_chain: "🔗 AI产业链全景",
+                infrastructure: "🏗️ 基础设施层（5家）",
+                model_layer: "🧠 模型层（5家）",
+                application_layer: "💡 应用层（5家）",
+                stocks: "📈 AI产业视角股票分析（15家核心标的）",
+                short_term: "🎯 短期策略（1-3个月）",
+                short_content: "超配：光模块（中际旭创），受益于NVIDIA 40亿美元光学互连投资及AI算力需求增长。关注：两会期间AI政策催化。谨慎：短期AI板块整体估值偏高。",
+                long_term: "📊 中长期布局（6-12个月）",
+                long_content: "美股：NVIDIA仍是AI基础设施核心标的。A股：国产AI芯片（寒武纪）长期受益于国产替代逻辑。主题：关注端侧AI产业链投资机会。",
+                risk: "⚠️ 风险提示",
+                risk_content: "1. 地缘政治风险 2. 估值风险 3. 技术迭代风险 4. 本报告仅供参考，不构成投资建议。",
+                footer: "🌊 IT小路的每日AI简报 v1.4.2 · AI产业视角 · 数据截止2026年3月5日 06:30"
+            },
+            en: {
+                title: "🌊 IT小路的每日AI简报",
+                subtitle: "AI Industry Perspective · Sensing the Pulse of Intelligence",
+                date: "March 5, 2026 · Thursday",
+                data_cutoff: "Data as of 06:30",
+                headlines: "🔥 Headlines",
+                most_important: "Most Important Today",
+                headline_title: "Google vs OpenAI 2-Hour Battle: AI Competition Enters 'Cost-Performance' Era",
+                headline_content: "On the evening of March 3, global AI giants staged a thrilling technical battle.",
+                multi_source: "📎 Multi-Source Perspectives",
+                source_1: "Jiqizhixin notes that this two-hour battle marks a new stage in AI competition.",
+                source_2: "TMTpost analysis suggests this battle reflects AI giants' shift of focus.",
+                source_3: "Sina Tech comments that the simultaneous releases are no coincidence.",
+                domestic: "🇨🇳 Domestic AI News",
+                hot: "Hot", new: "New", application: "Application",
+                d1_title: "Alibaba Qwen Glasses G1 Debuts at MWC 2026",
+                d1_summary: "At the Barcelona MWC 2026 exhibition, Qwen's first AI hardware made its global debut.",
+                d2_title: "StepFun Fully Open Sources Step 3.5 Flash Model",
+                d2_summary: "On March 4, Chinese large model startup StepFun open sourced pre-training weights.",
+                d3_title: "Tencent Music AI Composition Tool Launches",
+                d3_summary: "Tencent Music Entertainment Group launched AI composition assistant 'Ling'.",
+                international: "🌍 International AI News",
+                investment: "Investment", model: "Model", cloud: "Cloud",
+                i1_title: "NVIDIA Bets $4 Billion on Optical Interconnect",
+                i1_summary: "NVIDIA announced strategic partnerships with Coherent Corp. and Lumentum Holdings.",
+                i2_title: "OpenAI Releases GPT-5.3 Instant",
+                i2_summary: "Less than two hours after Google, OpenAI quickly launched GPT-5.3 Instant.",
+                i3_title: "Microsoft Copilot MAU Exceeds 8 Million",
+                i3_summary: "Microsoft announced Microsoft 365 Copilot monthly active users exceeded 8 million.",
+                retail: "🛍️ Retail AI Practices",
+                r1_title: "Jack Ma Appears at Yun谷 School",
+                r1_summary: "On March 3, Jack Ma and Alibaba core management gathered at Hangzhou Yun谷 School.",
+                r2_title: "Amazon Go Technology Expansion",
+                r2_summary: "Amazon continues expanding Just Walk Out technology.",
+                r3_title: "Hangzhou Shangcheng Builds 'OPC Entrepreneurship First City'",
+                r3_summary: "Hangzhou Shangcheng District launched measures to support AI OPC community construction.",
+                ai_chain: "🔗 AI Industry Chain",
+                infrastructure: "🏗️ Infrastructure Layer (5)",
+                model_layer: "🧠 Model Layer (5)",
+                application_layer: "💡 Application Layer (5)",
+                stocks: "📈 AI Industry Stock Analysis (15 Core Targets)",
+                short_term: "🎯 Short-Term Strategy (1-3 months)",
+                short_content: "Overweight: Optical modules. Watch: Two Sessions AI policy catalysts. Caution: High valuations.",
+                long_term: "📊 Medium-Long Term Layout (6-12 months)",
+                long_content: "US Stocks: NVIDIA remains core AI infrastructure target. A-shares: Domestic AI chips benefit from substitution logic.",
+                risk: "⚠️ Risk Warnings",
+                risk_content: "1. Geopolitical Risk 2. Valuation Risk 3. Technology Iteration Risk 4. For reference only.",
+                footer: "🌊 IT小路的每日AI简报 v1.4.2 · AI Industry Perspective · Data as of March 5, 2026 06:30"
+            },
+            fr: {
+                title: "🌊 IT小路的每日AI简报",
+                subtitle: "Perspective Industrie AI · Percevoir le Pouls",
+                date: "5 Mars 2026 · Jeudi",
+                data_cutoff: "Données au 06:30",
+                headlines: "🔰 À la Une",
+                most_important: "Le Plus Important",
+                headline_title: "Bataille Google vs OpenAI : La Compétition Entre dans l'Ère 'Coût-Performance'",
+                headline_content: "Dans la soirée du 3 mars, les géants mondiaux de l'AI ont livré une bataille technique.",
+                multi_source: "📎 Perspectives Multi-Sources",
+                source_1: "Jiqizhixin note que cette bataille marque une nouvelle étape.",
+                source_2: "L'analyse de TMTpost suggère que cette bataille reflète le déplacement du focus.",
+                source_3: "Sina Tech commente que les sorties simultanées ne sont pas une coïncidence.",
+                domestic: "🇨🇳 Actualités AI Nationales",
+                hot: "Populaire", new: "Nouveau", application: "Application",
+                d1_title: "Lunettes Qwen G1 d'Alibaba Débutent au MWC 2026",
+                d1_summary: "À l'exposition MWC 2026 de Barcelone, les lunettes AI Qwen ont fait leur début mondial.",
+                d2_title: "StepFun Open Source Complet du Modèle Step 3.5 Flash",
+                d2_summary: "Le 4 mars, la startup chinoise StepFun a open sourcé les poids de pré-entraînement.",
+                d3_title: "Outil de Composition AI de Tencent Music Lancé",
+                d3_summary: "Tencent Music Entertainment Group a lancé l'assistant de composition AI 'Ling'.",
+                international: "🌍 Actualités AI Internationales",
+                investment: "Investissement", model: "Modèle", cloud: "Cloud",
+                i1_title: "NVIDIA Parie 4 Milliards sur l'Interconnexion Optique",
+                i1_summary: "NVIDIA a annoncé des partenariats stratégiques avec Coherent Corp. et Lumentum Holdings.",
+                i2_title: "OpenAI Lance GPT-5.3 Instant",
+                i2_summary: "Moins de deux heures après Google, OpenAI a rapidement lancé GPT-5.3 Instant.",
+                i3_title: "Copilot de Microsoft Dépasse 8 Millions d'Utilisateurs",
+                i3_summary: "Microsoft a annoncé que Copilot a dépassé 8 millions d'utilisateurs actifs mensuels.",
+                retail: "🛍️ Pratiques AI dans le Commerce",
+                r1_title: "Jack Ma Apparaît à l'École Yun谷",
+                r1_summary: "Le 3 mars, Jack Ma et la direction d'Alibaba se sont réunis à l'école Yun谷 de Hangzhou.",
+                r2_title: "Expansion Technologie Amazon Go",
+                r2_summary: "Amazon continue d'étendre sa technologie Just Walk Out.",
+                r3_title: "Hangzhou Shangcheng Construit la 'Première Ville OPC'",
+                r3_summary: "Le district de Shangcheng a lancé des mesures pour soutenir les communautés OPC AI.",
+                ai_chain: "🔗 Chaîne Industrielle AI",
+                infrastructure: "🏗️ Couche Infrastructure (5)",
+                model_layer: "🧠 Couche Modèle (5)",
+                application_layer: "💡 Couche Application (5)",
+                stocks: "📈 Analyse des Actions AI (15 Cibles Principales)",
+                short_term: "🎯 Stratégie Court Terme (1-3 mois)",
+                short_content: "Surpondération : Modules optiques. Surveiller : Catalyseurs politiques AI. Prudence : Valorisations élevées.",
+                long_term: "📊 Disposition Moyen-Long Terme (6-12 mois)",
+                long_content: "Actions US : NVIDIA reste la cible principale. Actions A : Puces AI domestiques bénéficient de la substitution.",
+                risk: "⚠️ Avertissements de Risque",
+                risk_content: "1. Risque géopolitique 2. Risque de valorisation 3. Risque d'itération technologique 4. Uniquement à titre de référence.",
+                footer: "🌊 IT小路的每日AI简报 v1.4.2 · Perspective Industrie AI · Données au 5 mars 2026 06:30"
+            }
+        };
+
+        function switchLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const elements = document.querySelectorAll('.lang');
+            
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
+            });
+            
+            document.getElementById('page-title').textContent = i18n[lang].title.replace('🌊 ', '');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            switchLanguage();
+        });
+    </script>
+</body>
+</html>
