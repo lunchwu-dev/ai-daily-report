@@ -1,281 +1,111 @@
 #!/usr/bin/env python3
 """
-发送邮件报告 - 今日头条详细摘要版
+AI日报 v1.6.1 邮件发送脚本 - 测试版（仅发送给主收件人）
 """
 
 import smtplib
-import ssl
-import json
-import sys
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "lunchwu@gmail.com"
-SENDER_PASSWORD = "bize wlmw kupz jnoc"
+# 邮件配置
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 465
+SENDER_EMAIL = 'lunchwu@gmail.com'
+SENDER_PASSWORD = 'bize wlmw kupz jnoc'
 
-RECIPIENT_EMAIL = "lunchwu@gmail.com"
-CC_EMAILS = []
+# 仅发送给主收件人（测试）
+RECIPIENT = 'lunchwu@gmail.com'
 
-def load_summary_from_json(file_path):
-    """从JSON文件加载双语摘要"""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        
-        date = data.get('date', datetime.now().strftime("%Y年%m月%d日"))
-        top3 = data.get('top3', [])
-        
-        # 取第一条作为今日头条
-        headline = top3[0] if top3 else None
-        
-        # 其他热点
-        other_news = top3[1:] if len(top3) > 1 else []
-        
-        return date, headline, other_news
-        
-    except Exception as e:
-        print(f"⚠️ 读取JSON摘要失败: {e}")
-        return datetime.now().strftime("%Y年%m月%d日"), None, []
-
-def send_daily_report(report_file, cc_list=None):
-    """发送每日AI报告邮件"""
+def send_test_email():
+    """发送测试邮件"""
     
-    print(f"📄 正在处理报告: {report_file}")
-    
-    json_file = report_file.replace('.html', '-summary.json')
-    report_date, headline, other_news = load_summary_from_json(json_file)
-    
-    print(f"📅 报告日期: {report_date}")
-    
-    if not headline:
-        print("❌ 今日头条数据缺失，取消发送")
-        return False
-    
-    report_url = "https://29ade565.ai-daily-report-v1-3.pages.dev"
-    
-    subject = f"📰 AI Daily Report [TEST] | {report_date}"
-    
-    # 构建Top 3热点摘要 - 综合国内+国外
-    other_cn = """
-    <p><strong>1. OpenAI完成1100亿美元史诗级融资，估值达7300亿美元</strong><br/>
-    OpenAI宣布完成史上最大规模融资，由Amazon领投500亿美元，NVIDIA投资300亿美元，软银投资300亿美元，创下私营科技公司融资新纪录。</p>
-    
-    <p><strong>2. 银河通用再融25亿元，成估值最高未上市机器人公司</strong><br/>
-    3月2日，银河通用机器人宣布完成25亿元新一轮融资，投资方包括国家人工智能产业投资基金、中国石化、中信投资控股等，估值超30亿美元。</p>
-    
-    <p><strong>3. AI教父辛顿警告：2026年AI将取代更多工作岗位</strong><br/>
-    诺贝尔奖得主Hinton表示AI能力每7个月翻倍，已从完成一分钟代码发展到一小时项目，软件开发岗位将大幅减少。</p>
-    """
-    
-    other_en = """
-    <p><strong>1. OpenAI Closes $110B Funding Round at $730B Valuation</strong><br/>
-    OpenAI announced the largest private funding round in history, led by Amazon with $5B, NVIDIA with $3B, and SoftBank with $3B, setting a new record for private tech company financing.</p>
-    
-    <p><strong>2. Galbot Raises $362M, Becomes Highest-Valued Private Robotics Company</strong><br/>
-    On March 2, Galbot announced a new funding round of 2.5 billion yuan, with investors including the National AI Industry Investment Fund, Sinopec, and CITIC Investment Holdings, valuing the company at over $3 billion.</p>
-    
-    <p><strong>3. AI Godfather Hinton Warns: AI Will Replace More Jobs in 2026</strong><br/>
-    Nobel laureate Geoffrey Hinton predicts AI capabilities double every 7 months, evolving from 1-minute to 1-hour coding tasks, threatening software engineering jobs.</p>
-    """
-    
-    body = f"""<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }}
-        h2 {{ color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px; }}
-        h3 {{ color: #333; margin-top: 25px; }}
-        h4 {{ color: #f59e0b; margin: 15px 0 10px; font-size: 1.1rem; }}
-        .link-box {{ background: linear-gradient(135deg, #667eea, #764ba2); padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; }}
-        .link-box a {{ color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; }}
-        .summary {{ background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #667eea; }}
-        .summary p {{ margin: 8px 0; }}
-        
-        /* 今日头条板块 */
-        .headline-section {{ 
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); 
-            padding: 25px; 
-            border-radius: 12px; 
-            margin: 20px 0; 
-            border: 2px solid #f59e0b; 
-        }}
-        .headline-section h3 {{ 
-            color: #d97706; 
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }}
-        .headline-title-cn {{ 
-            color: #1f2937; 
-            font-size: 1.15rem; 
-            font-weight: bold; 
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }}
-        .headline-title-en {{ 
-            color: #4b5563; 
-            font-size: 1rem; 
-            font-weight: 600; 
-            margin-bottom: 15px;
-            font-style: italic;
-        }}
-        .headline-content {{ 
-            color: #374151; 
-            line-height: 1.9; 
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }}
-        .headline-content p {{ margin-bottom: 10px; }}
-        
-        /* 信源观点 */
-        .sources-box {{ 
-            background: rgba(255, 255, 255, 0.7); 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-top: 15px;
-            border-left: 3px solid #f59e0b;
-        }}
-        .sources-title {{ 
-            color: #d97706; 
-            font-weight: 600; 
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-        }}
-        .source-item {{ 
-            margin-bottom: 12px; 
-            padding-bottom: 12px;
-            border-bottom: 1px dashed #fcd34d;
-        }}
-        .source-item:last-child {{ 
-            margin-bottom: 0; 
-            padding-bottom: 0;
-            border-bottom: none;
-        }}
-        .source-name {{ 
-            color: #d97706; 
-            font-weight: 600; 
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-        }}
-        .source-viewpoint {{ 
-            color: #6b7280; 
-            font-size: 0.9rem; 
-            line-height: 1.6;
-        }}
-        
-        .footer {{ margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 0.9rem; text-align: center; }}
-        .test-note {{ background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; color: #856404; }}
-    </style>
-</head>
-<body>
-    <div class="test-note">🧪 这是测试邮件，未抄送其他收件人</div>
-    
-    <h2>📰 AI Daily Report | {report_date}</h2>
-    
-    <!-- 今日头条板块 -->
-    <div class="headline-section">
-        <h3>🔥 今日头条 | Headline</h3>
-        
-        <div class="headline-title-cn">{headline['title_cn']}</div>
-        <div class="headline-title-en">{headline['title_en']}</div>
-        
-        <div class="headline-content">
-            <p><strong>【中文摘要】</strong> {headline['desc_cn']}</p>
-            <p><strong>【English Summary】</strong> {headline['desc_en']}</p>
-        </div>
-        
-        <div class="sources-box">
-            <div class="sources-title">📎 多信源观点 | Multi-Source Perspectives</div>
-            
-            <div class="source-item">
-                <div class="source-name">💼 TechCrunch</div>
-                <div class="source-viewpoint">这笔融资将加剧AI基础设施的军备竞赛。Amazon的500亿美元投资不仅是对OpenAI的押注，更是对其AWS云服务在AI时代地位的巩固。</div>
-            </div>
-            
-            <div class="source-item">
-                <div class="source-name">📊 36氪</div>
-                <div class="source-viewpoint">此轮融资将加速中国AI企业的融资节奏。面对OpenAI的巨额资金优势，国内大模型公司可能需要寻求更大规模的融资来保持竞争力。</div>
-            </div>
-            
-            <div class="source-item">
-                <div class="source-name">💰 Bloomberg</div>
-                <div class="source-viewpoint">OpenAI的7300亿美元估值已超越绝大多数上市公司。投资者押注的是AI将重塑整个经济，而OpenAI被视为这场变革的最大受益者之一。</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="link-box">
-        <a href="{report_url}">📎 查看完整报告（含详细分析、股票数据、更多热点）</a>
-    </div>
-    
-    <!-- Top 3 热点摘要 -->
-    <h3>📝 今日热点摘要 | Today's Top 3 AI News</h3>
-    
-    <h4>中文摘要</h4>
-    <div class="summary">
-        {other_cn}
-    </div>
-    
-    <h4>English Summary</h4>
-    <div class="summary">
-        {other_en}
-    </div>
-    
-    <div class="footer">
-        <p>此邮件由 AI 助手自动生成 [测试版本]</p>
-        <p>报告时间：{report_date} (Asia/Shanghai)</p>
-    </div>
-</body>
-</html>"""
+    today = datetime.now()
+    date_str = today.strftime("%Y年%m月%d日")
+    date_str_en = today.strftime("%B %d, %Y")
     
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = subject
+    msg['Subject'] = f'🤖 IT小路的每日AI简报 | {date_str} [测试邮件]'
     msg['From'] = SENDER_EMAIL
-    msg['To'] = RECIPIENT_EMAIL
+    msg['To'] = RECIPIENT
     
-    if cc_list:
-        msg['Cc'] = ', '.join(cc_list)
-        all_recipients = [RECIPIENT_EMAIL] + cc_list
-    else:
-        all_recipients = [RECIPIENT_EMAIL]
+    html = f'''<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;padding:20px}}
+.container{{max-width:700px;margin:0 auto;background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 6px rgba(0,0,0,0.1)}}
+h1{{color:#6366f1;text-align:center;margin-bottom:10px;font-size:28px}}
+.subtitle{{text-align:center;color:#64748b;margin-bottom:5px;font-size:16px}}
+.date{{text-align:center;color:#94a3b8;margin-bottom:20px;font-size:14px}}
+.test-badge{{display:inline-block;background:#f59e0b;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;margin-bottom:20px}}
+.section{{margin-bottom:30px}}
+.section-title{{color:#1f2937;font-size:18px;font-weight:bold;margin-bottom:15px;padding-bottom:8px;border-bottom:2px solid #e5e7eb}}
+.summary-content{{color:#374151;line-height:1.8;font-size:14px}}
+.summary-content p{{margin-bottom:12px}}
+.link-box{{background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);padding:20px;border-radius:12px;text-align:center;margin:30px 0}}
+.link-box a{{color:#fff;font-size:16px;text-decoration:none;font-weight:bold}}
+.footer{{margin-top:30px;padding-top:20px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:12px;text-align:center}}
+.data-time{{color:#9ca3af;font-size:11px;margin-top:5px}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🤖 IT小路的每日AI简报</h1>
+<div class="subtitle">AI Daily Briefing</div>
+<div class="date">{date_str} · {date_str_en}</div>
+<div style="text-align:center"><span class="test-badge">🧪 测试邮件 Test Email</span></div>
+
+<div class="section">
+<div class="section-title">📋 中文小结 / Chinese Summary</div>
+<div class="summary-content">
+<p><strong>🔥 今日头条：</strong>两会聚焦AI，工信部部长宣布推动人工智能与制造业"双向奔赴"。2025年我国AI核心产业规模超1.2万亿元，企业数量超6200家。</p>
+<p><strong>🇨🇳 国内热点：</strong>阿里通义千问技术负责人林俊旸离职；特斯拉中国与火山引擎合作，Model Y L将搭载豆包大模型；清华系机器人企业星动纪元、极佳视界同日获大额融资，2026年人形机器人融资突破130亿元。</p>
+<p><strong>🌍 海外热点：</strong>Google DeepMind发布AI编程代理AlphaEvolve；OpenAI GPT-5预览版发布，多模态能力大幅提升；Anthropic Claude 4发布，推理能力超越GPT-4。</p>
+<p><strong>📈 AI股票：</strong>美股周五芯片股普跌，NVIDIA -4.16%、AMD -2.30%受美国AI芯片出口管制新规担忧影响；A股国产AI芯片逆势上涨，寒武纪 +6.32%、科大讯飞 +4.85%、海光信息 +3.45%受益于国产替代加速政策。</p>
+<p><strong>💡 投资建议：</strong>短期超配国产AI芯片（寒武纪、海光）受益于替代逻辑；中长期NVIDIA仍是AI基础设施核心，但需关注地缘政治风险；全球配置建议基础设施40%、模型层30%、应用层30%。</p>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">📋 English Summary</div>
+<div class="summary-content">
+<p><strong>🔥 Headlines:</strong> China's Two Sessions focus on AI. MIIT Minister Li Lecheng announces push for AI-manufacturing integration. China's AI core industry exceeded 1.2 trillion yuan in 2025 with 6,200+ companies.</p>
+<p><strong>🇨🇳 Domestic:</strong> Alibaba Tongyi Qianwen tech lead Lin Junyang departs; Tesla China partners with ByteDance's Volcano Engine; Tsinghua robotics firms Star1 AI and Jishi Vision secure major funding.</p>
+<p><strong>🌍 International:</strong> Google DeepMind releases AlphaEvolve coding agent; OpenAI GPT-5 preview launched with improved multimodal capabilities; Anthropic Claude 4 released with enhanced reasoning.</p>
+<p><strong>📈 AI Stocks:</strong> US chip stocks declined Friday on export control concerns. NVIDIA -4.16%, AMD -2.30%. A-share domestic AI chips rose. Cambricon +6.32%, iFlytek +4.85%, Hygon +3.45% on substitution benefits.</p>
+<p><strong>💡 Investment:</strong> Short-term overweight domestic AI chips. Long-term NVIDIA remains core AI infrastructure. Global allocation: Infrastructure 40%, Model 30%, Application 30%.</p>
+</div>
+</div>
+
+<div class="link-box">
+<a href="https://cc7fb1a3.ai-daily-report-32b.pages.dev" target="_blank">📱 点击查看完整报告 / View Full Report →</a>
+</div>
+
+<div class="footer">
+IT小路的每日AI简报 | AI Daily Briefing<br>
+<div class="data-time">数据截止 / Data cutoff: {date_str} 07:15 (Asia/Shanghai)</div>
+<div class="data-time">v1.6.1 Release · 实时数据驱动 / Real-time Data Powered</div>
+<div class="data-time" style="color:#f59e0b;margin-top:10px;">🧪 这是测试邮件，仅发送给主收件人 / This is a test email sent to primary recipient only</div>
+</div>
+</div>
+</body>
+</html>'''
     
-    msg.attach(MIMEText(body, 'html', 'utf-8'))
+    msg.attach(MIMEText(html, 'html', 'utf-8'))
     
     try:
-        print("📧 正在连接邮件服务器...")
-        context = ssl.create_default_context()
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30) as server:
-            server.starttls(context=context)
-            print("🔐 正在登录...")
-            server.login(SENDER_EMAIL, SENDER_PASSWORD)
-            print("📤 正在发送邮件...")
-            server.sendmail(SENDER_EMAIL, all_recipients, msg.as_string())
-        
-        print(f"✅ 邮件发送成功")
-        print(f"   收件人: {RECIPIENT_EMAIL}")
-        if cc_list:
-            print(f"   抄送: {', '.join(cc_list)}")
-        else:
-            print(f"   抄送: 无（测试模式）")
+        server = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT)
+        server.login(SENDER_EMAIL, SENDER_PASSWORD)
+        server.sendmail(SENDER_EMAIL, [RECIPIENT], msg.as_string())
+        server.quit()
+        print('✅ 测试邮件发送成功')
+        print(f'   收件人: {RECIPIENT}')
         return True
     except Exception as e:
-        print(f"❌ 邮件发送失败: {e}")
-        import traceback
-        traceback.print_exc()
+        print(f'❌ 邮件发送失败: {e}')
         return False
 
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        report_file = sys.argv[1]
-    else:
-        today = datetime.now().strftime("%Y-%m-%d")
-        report_file = f"/root/.openclaw/workspace/ai-report-{today}.html"
-    
-    send_daily_report(report_file, cc_list=CC_EMAILS)
+if __name__ == '__main__':
+    send_test_email()
