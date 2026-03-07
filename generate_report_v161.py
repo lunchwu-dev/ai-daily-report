@@ -14,34 +14,34 @@ def generate_stock_data():
     """生成15家AI产业股票数据 - 增强详细分析"""
     return {
         "infrastructure": [
-            {"name": "NVIDIA", "code": "NVDA", "price": 142.62, "change": 2.93, "currency": "USD",
+            {"name": "NVIDIA", "code": "NVDA", "price": 177.82, "change": -4.16, "currency": "USD",
              "position": "AI算力基础设施绝对龙头 | 数据中心收入占比 87%",
              "dynamics": [
-                 "Blackwell架构B200芯片Q2出货，单卡算力提升4倍，巩固训练市场垄断地位",
-                 "40亿美元投资Coherent/Lumentum，解决超大规模集群光学互连瓶颈",
-                 "微软、谷歌、Meta三大客户合计占数据中心收入45%，客户集中度高"
+                 "Blackwell架构B200芯片Q2出货，单卡算力提升4倍",
+                 "40亿美元投资光学互连解决集群瓶颈",
+                 "美国政府考虑AI芯片出口管制新规，或影响增长"
              ],
-             "event": "光学互连投资",
-             "event_desc": "宣布40亿美元投资光学互连领域后，市场认可NVIDIA不只是卖芯片，而是构建从芯片到网络的全栈AI基础设施生态，长期竞争力进一步增强",
-             "risk": "客户集中度高、地缘政治出口限制",
-             "outlook": "短期受益Blackwell出货，长期AI算力需求持续增长"},
-            {"name": "AMD", "code": "AMD", "price": 178.25, "change": 1.85, "currency": "USD",
+             "event": "出口管制担忧",
+             "event_desc": "美国政府考虑推行全球性AI芯片出口管制新规，要求企业申请许可后方可出口，可能对NVIDIA AI业务增长构成重大挑战，周五股价跌超4%",
+             "risk": "出口管制风险、客户集中度高、地缘政治",
+             "outlook": "短期受政策担忧压制，长期AI算力需求仍强劲"},
+            {"name": "AMD", "code": "AMD", "price": 108.50, "change": -2.30, "currency": "USD",
              "position": "NVIDIA最强挑战者 | MI300系列加速追赶",
              "dynamics": [
-                 "MI300X配备192GB HBM3内存，单卡性能接近H100，已获微软、Meta大单",
-                 "ROCm开源生态持续完善，作为CUDA替代方案吸引开发者迁移",
-                 "数据中心GPU市场份额从3%快速提升至12%，增长势头强劲"
+                 "MI300X配备192GB HBM3内存，单卡性能接近H100",
+                 "ROCm开源生态持续完善，吸引开发者迁移",
+                 "同样受出口管制新规影响"
              ],
-             "event": "Meta 600亿订单",
-             "event_desc": "与Meta达成600亿美元AI芯片采购协议，成为AMD史上最大订单，验证MI300竞争力，预计2026年数据中心收入占比将超50%",
-             "risk": "软件生态仍落后于CUDA、毛利率承压",
-             "outlook": "受益于AI芯片多元化需求，份额持续提升"},
-            {"name": "Intel", "code": "INTC", "price": 24.18, "change": -0.52, "currency": "USD",
+             "event": "出口管制影响",
+             "event_desc": "与NVIDIA同样面临美国AI芯片出口管制新规影响，周五股价跌逾2%",
+             "risk": "出口管制、软件生态落后于CUDA",
+             "outlook": "受益于AI芯片多元化需求，但短期受政策压制"},
+            {"name": "Intel", "code": "INTC", "price": 24.18, "change": -2.00, "currency": "USD",
              "position": "CPU巨头转型AI | Gaudi系列加速卡",
              "dynamics": [
                  "Gaudi 3性能对标H100，在推理场景具有性价比优势",
-                 "与戴尔、惠普等OEM合作推AI服务器，拓展企业市场",
-                 "代工业务分拆独立，设计部门专注高性能芯片研发"
+                 "代工业务分拆独立，设计部门专注高性能芯片",
+                 "周五跌2%，受整体芯片板块下跌影响"
              ],
              "event": "Gaudi 3发布",
              "event_desc": "新一代AI加速器Gaudi 3发布，瞄准推理市场，但市场反应平淡，投资者关注其能否在AI时代重拾竞争力",
