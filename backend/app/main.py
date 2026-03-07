@@ -2,6 +2,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api import api_router
+
 app = FastAPI(
     title="AI日报 API",
     description="AI日报 v2.0 前后端分离架构 API",
@@ -17,19 +19,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 根路由
 @app.get("/")
 async def root():
-    return {"message": "AI日报 API v2.0", "status": "running"}
+    return {
+        "message": "AI日报 API v2.0",
+        "status": "running",
+        "docs": "/docs"
+    }
 
+# 健康检查
 @app.get("/api/v2/health")
 async def health_check():
     return {"status": "healthy", "version": "2.0.0"}
 
-# 后续将导入路由
-# from app.api import reports, stocks, companies
-# app.include_router(reports.router, prefix="/api/v2/reports", tags=["reports"])
-# app.include_router(stocks.router, prefix="/api/v2/stocks", tags=["stocks"])
-# app.include_router(companies.router, prefix="/api/v2/companies", tags=["companies"])
+# API路由
+app.include_router(api_router, prefix="/api/v2")
 
 if __name__ == "__main__":
     import uvicorn
