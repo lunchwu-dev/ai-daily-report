@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AI日报自定义样式 */
+@layer base {
+  body {
+    @apply bg-slate-900 text-slate-100;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent;
+  }
+  
+  .card {
+    @apply bg-slate-800 rounded-2xl p-6 border border-slate-700;
+  }
+  
+  .section-title {
+    @apply inline-flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-lg;
+  }
+}
