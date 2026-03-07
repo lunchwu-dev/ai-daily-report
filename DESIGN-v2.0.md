@@ -1,10 +1,11 @@
-# AI日报 v2.0 架构设计方案
+# AI日报 v2.0 架构设计方案（完整版）
 
 ## 版本信息
 - **版本**: v2.0
 - **目标**: 前后端分离架构
 - **分支**: `v2.0-dev`
 - **基线**: v1.6.3
+- **更新日期**: 2026-03-07
 
 ---
 
@@ -75,333 +76,406 @@
 
 ## 二、数据模型设计
 
-### 2.1 数据库 Schema (PostgreSQL)
+### 2.1 数据库表清单（共7张表）
+
+| 表名 | 用途 | 每日数据量 | 说明 |
+|------|------|-----------|------|
+| **reports** | 报告主表 | 1条 | 今日头条、报告基础信息 |
+| **news** | 新闻表 | 9条 | 国内3+国际3+零售3 |
+| **stock_prices** | 股票价格表 | 15条 | 15家AI股票实时价格 |
+| **stock_analysis** | 股票分析表 | 15条 | 深度分析（定位/动态/事件/风险/展望） |
+| **ai_companies** | AI公司基础表 | 15条（固定） | 公司基础信息 |
+| **investment_advice** | 投资建议表 | 1条 | 短/中/长期策略+风险提示 |
+| **retail_cases** | 零售AI案例表 | 3条 | 零售AI应用案例 |
+
+**每日总数据量**: 44条新记录
+
+---
+
+### 2.2 表结构详细设计
+
+#### 2.2.1 报告主表 (reports)
 
 ```sql
--- 报告表
 CREATE TABLE reports (
     id SERIAL PRIMARY KEY,
     date DATE UNIQUE NOT NULL,
     version VARCHAR(10) DEFAULT '2.0',
+    
+    -- 今日头条
     headline_title VARCHAR(500),
     headline_content TEXT,
-    headline_sources JSONB,
-    investment_short TEXT,
-    investment_long TEXT,
-    investment_risk TEXT,
+    headline_sources JSONB,  -- [{"source": "新华社", "viewpoint": "..."}, ...]
+    
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- 新闻表
+-- 索引
+CREATE INDEX idx_reports_date ON reports(date);
+```
+
+---
+
+#### 2.2.2 新闻表 (news)
+
+```sql
 CREATE TABLE news (
     id SERIAL PRIMARY KEY,
-    report_id INTEGER REFERENCES reports(id),
-    category VARCHAR(50), -- 'domestic', 'international', 'retail'
-    title VARCHAR(500),
+    report_id INTEGER REFERENCES reports(id) ON DELETE CASCADE,
+    category VARCHAR(50) NOT NULL,  -- 'domestic', 'international', 'retail'
+    title VARCHAR(500) NOT NULL,
     summary TEXT,
     source VARCHAR(100),
-    sort_order INTEGER DEFAULT 0
+    sort_order INTEGER DEFAULT 0,
+    
+    created_at TIMESTAMP DEFAULT NOW()
 );
 
--- 股票表
-CREATE TABLE stocks (
+-- 索引
+CREATE INDEX idx_news_report_id ON news(report_id);
+CREATE INDEX idx_news_category ON news(category);
+```
+
+---
+
+#### 2.2.3 股票价格表 (stock_prices)
+
+存储每日15家AI股票的实时价格数据
+
+```sql
+CREATE TABLE stock_prices (
     id SERIAL PRIMARY KEY,
-    report_id INTEGER REFERENCES reports(id),
-    layer VARCHAR(50), -- 'infrastructure', 'model', 'application'
-    name VARCHAR(100),
-    code VARCHAR(20),
-    price DECIMAL(10, 2),
-    change DECIMAL(5, 2),
-    currency VARCHAR(10),
-    position VARCHAR(500),
-    dynamics JSONB,
-    event VARCHAR(200),
-    event_desc TEXT,
-    risk TEXT,
-    outlook TEXT,
-    sort_order INTEGER DEFAULT 0
+    report_id INTEGER REFERENCES reports(id) ON DELETE CASCADE,
+    company_id INTEGER REFERENCES ai_companies(id),
+    
+    -- 价格数据
+    price DECIMAL(10, 2) NOT NULL,        -- 收盘价，如 177.82
+    change DECIMAL(5, 2),                 -- 涨跌额，如 -4.16
+    change_percent DECIMAL(5, 2),         -- 涨跌幅%，如 -4.16
+    currency VARCHAR(10) NOT NULL,        -- USD / CNY
+    
+    -- 可选字段（后续扩展）
+    volume BIGINT,                        -- 成交量
+    market_cap BIGINT,                    -- 市值
+    
+    recorded_at TIMESTAMP DEFAULT NOW()
 );
 
--- AI产业链公司表（基础数据）
+-- 索引
+CREATE INDEX idx_stock_prices_report_id ON stock_prices(report_id);
+CREATE INDEX idx_stock_prices_company_id ON stock_prices(company_id);
+```
+
+**设计理由**: 价格单独成表，便于历史价格查询、趋势图表生成
+
+---
+
+#### 2.2.4 股票分析表 (stock_analysis)
+
+存储15家AI股票的深度分析
+
+```sql
+CREATE TABLE stock_analysis (
+    id SERIAL PRIMARY KEY,
+    report_id INTEGER REFERENCES reports(id) ON DELETE CASCADE,
+    company_id INTEGER REFERENCES ai_companies(id),
+    
+    -- 分析内容
+    position VARCHAR(500),                -- 市场定位
+    dynamics JSONB,                       -- 产业动态，["动态1", "动态2", "动态3"]
+    event VARCHAR(200),                   -- 最新事件标题
+    event_desc TEXT,                      -- 事件详细分析
+    risk TEXT,                            -- 风险因素
+    outlook TEXT,                         -- 投资展望
+    
+    -- 版本管理
+    analysis_version INTEGER DEFAULT 1,   -- 分析版本，便于追踪变化
+    
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 索引
+CREATE INDEX idx_stock_analysis_report_id ON stock_analysis(report_id);
+CREATE INDEX idx_stock_analysis_company_id ON stock_analysis(company_id);
+```
+
+**设计理由**: 与 prices 分离，分析内容可能多日不变，或微调后版本+1
+
+---
+
+#### 2.2.5 AI产业链公司基础表 (ai_companies)
+
+存储15家核心公司的基础信息（相对稳定，初始化后很少变动）
+
+```sql
 CREATE TABLE ai_companies (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    code VARCHAR(20),
-    layer VARCHAR(50),
-    position VARCHAR(500),
-    description TEXT,
-    logo_url VARCHAR(500),
-    website VARCHAR(500)
+    name VARCHAR(100) NOT NULL,           -- 公司名称，如NVIDIA
+    code VARCHAR(20) NOT NULL,            -- 股票代码，如NVDA
+    layer VARCHAR(50) NOT NULL,           -- infrastructure / model / application
+    
+    -- 公司信息
+    position VARCHAR(500),                -- 一句话定位
+    description TEXT,                     -- 公司简介
+    logo_url VARCHAR(500),                -- Logo链接
+    website VARCHAR(500),                 -- 官网链接
+    
+    -- 状态
+    is_active BOOLEAN DEFAULT TRUE,       -- 是否活跃
+    
+    created_at TIMESTAMP DEFAULT NOW()
 );
 
--- 零售AI案例表
+-- 索引
+CREATE INDEX idx_ai_companies_layer ON ai_companies(layer);
+CREATE INDEX idx_ai_companies_code ON ai_companies(code);
+```
+
+**初始化数据（15家）**:
+
+| layer | name | code |
+|-------|------|------|
+| infrastructure | NVIDIA | NVDA |
+| infrastructure | AMD | AMD |
+| infrastructure | Intel | INTC |
+| infrastructure | 寒武纪 | 688256.SH |
+| infrastructure | 海光信息 | 688041.SH |
+| model | OpenAI | - |
+| model | Alphabet | GOOGL |
+| model | Meta | META |
+| model | 阿里巴巴 | BABA |
+| model | 科大讯飞 | 002230.SZ |
+| application | Microsoft | MSFT |
+| application | Adobe | ADBE |
+| application | Salesforce | CRM |
+| application | Palantir | PLTR |
+| application | Tesla | TSLA |
+
+---
+
+#### 2.2.6 投资建议表 (investment_advice)
+
+存储每日的投资配置建议
+
+```sql
+CREATE TABLE investment_advice (
+    id SERIAL PRIMARY KEY,
+    report_id INTEGER REFERENCES reports(id) ON DELETE CASCADE,
+    
+    -- 短期策略
+    short_term_title VARCHAR(200) DEFAULT '短期策略（1-3个月）',
+    short_term_content TEXT,              -- 超配/关注/谨慎建议
+    
+    -- 中长期布局
+    long_term_title VARCHAR(200) DEFAULT '中长期布局（6-12个月）',
+    long_term_content TEXT,               -- 美股/A股/全球配置建议
+    
+    -- 风险提示
+    risk_title VARCHAR(200) DEFAULT '风险提示',
+    risk_content TEXT,                    -- 地缘政治/估值/技术迭代风险
+    
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 索引
+CREATE INDEX idx_investment_advice_report_id ON investment_advice(report_id);
+```
+
+---
+
+#### 2.2.7 零售AI案例表 (retail_cases)
+
+```sql
 CREATE TABLE retail_cases (
     id SERIAL PRIMARY KEY,
-    report_id INTEGER REFERENCES reports(id),
-    company VARCHAR(100),
-    country VARCHAR(50),
-    title VARCHAR(500),
-    summary TEXT,
-    sort_order INTEGER DEFAULT 0
+    report_id INTEGER REFERENCES reports(id) ON DELETE CASCADE,
+    company VARCHAR(100) NOT NULL,        -- 公司名称，如阿里巴巴
+    country VARCHAR(50),                  -- 国家，如中国🇨🇳
+    title VARCHAR(500) NOT NULL,          -- 案例标题
+    summary TEXT,                         -- 案例摘要
+    sort_order INTEGER DEFAULT 0,         -- 排序
+    
+    created_at TIMESTAMP DEFAULT NOW()
 );
-```
 
-### 2.2 API 接口设计
-
-```yaml
-# RESTful API
-
-# 获取指定日期报告
-GET /api/v2/reports/{date}
-Response:
-  {
-    "date": "2026-03-07",
-    "headline": { ... },
-    "news": {
-      "domestic": [...],
-      "international": [...],
-      "retail": [...]
-    },
-    "stocks": {
-      "infrastructure": [...],
-      "model": [...],
-      "application": [...]
-    },
-    "investment": { ... }
-  }
-
-# 获取报告列表
-GET /api/v2/reports?limit=30&offset=0
-
-# 获取最新报告
-GET /api/v2/reports/latest
-
-# 获取股票历史数据
-GET /api/v2/stocks/{code}/history?start=2026-01-01&end=2026-03-07
-
-# 获取AI产业链公司列表
-GET /api/v2/companies
-
-# 管理接口（可选）
-POST /api/v2/admin/reports  # 创建报告
-PUT /api/v2/admin/reports/{date}  # 更新报告
-DELETE /api/v2/admin/reports/{date}  # 删除报告
+-- 索引
+CREATE INDEX idx_retail_cases_report_id ON retail_cases(report_id);
 ```
 
 ---
 
-## 三、前端架构
+### 2.3 表关系图
 
-### 3.1 技术栈
-- **框架**: React 18 + TypeScript
-- **构建**: Vite
-- **样式**: Tailwind CSS
-- **状态管理**: Zustand / React Query
-- **图表**: ECharts / Recharts
-- **部署**: Cloudflare Pages
-
-### 3.2 页面结构
 ```
-src/
-├── components/           # 公共组件
-│   ├── Layout.tsx       # 布局框架
-│   ├── Header.tsx       # 头部
-│   ├── Footer.tsx       # 底部
-│   ├── StockCard.tsx    # 股票卡片
-│   ├── NewsCard.tsx     # 新闻卡片
-│   └── Chart/           # 图表组件
-│
-├── pages/               # 页面
-│   ├── Report/          # 报告展示页
-│   │   ├── index.tsx
-│   │   ├── Headline.tsx
-│   │   ├── NewsSection.tsx
-│   │   ├── StockSection.tsx
-│   │   └── InvestmentSection.tsx
-│   │
-│   ├── Index/           # 首页/历史索引
-│   │   └── index.tsx
-│   │
-│   └── Admin/           # 管理后台（可选）
-│       └── index.tsx
-│
-├── hooks/               # 自定义Hooks
-│   ├── useReport.ts     # 获取报告数据
-│   ├── useReports.ts    # 获取报告列表
-│   └── useStocks.ts     # 获取股票数据
-│
-├── services/            # API服务
-│   └── api.ts
-│
-├── types/               # TypeScript类型
-│   └── index.ts
-│
-└── utils/               # 工具函数
-    └── format.ts
-```
+┌─────────────────────────────────────────────────────────────────┐
+│                         reports (1)                              │
+│                    报告主表 - 每日1条                              │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │  headline_title, headline_content, headline_sources     │   │
+│  └─────────────────────────────────────────────────────────┘   │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+        ▼                   ▼                   ▼
+┌───────────────┐  ┌────────────────┐  ┌──────────────────┐
+│    news (N)    │  │ stock_prices   │  │ stock_analysis   │
+│   新闻表        │  │   (N) 价格表    │  │   (N) 分析表      │
+│  每日9条       │  │  每日15条       │  │  每日15条         │
+└───────────────┘  └───────┬────────┘  └───────┬──────────┘
+                           │                   │
+                           └─────────┬─────────┘
+                                     │
+                                     ▼
+                          ┌────────────────────┐
+                          │  ai_companies (15) │
+                          │   AI公司基础表      │
+                          │   固定15家公司      │
+                          └────────────────────┘
 
-### 3.3 前端部署
-- **托管**: Cloudflare Pages
-- **域名**: `ai-daily-report-32b.pages.dev`
-- **构建命令**: `npm run build`
-- **输出目录**: `dist/`
-
----
-
-## 四、后端架构
-
-### 4.1 技术栈
-- **框架**: FastAPI (Python)
-- **数据库**: PostgreSQL + SQLAlchemy
-- **缓存**: Redis
-- **部署**: Cloudflare Workers / Docker
-- **API文档**: 自动生成 Swagger UI
-
-### 4.2 项目结构
-```
-backend/
-├── app/
-│   ├── __init__.py
-│   ├── main.py              # FastAPI入口
-│   ├── config.py            # 配置
-│   │
-│   ├── api/                 # API路由
-│   │   ├── __init__.py
-│   │   ├── reports.py       # 报告接口
-│   │   ├── stocks.py        # 股票接口
-│   │   └── admin.py         # 管理接口
-│   │
-│   ├── models/              # 数据模型
-│   │   ├── __init__.py
-│   │   ├── report.py
-│   │   ├── news.py
-│   │   ├── stock.py
-│   │   └── company.py
-│   │
-│   ├── schemas/             # Pydantic模型
-│   │   ├── __init__.py
-│   │   ├── report.py
-│   │   └── stock.py
-│   │
-│   ├── services/            # 业务逻辑
-│   │   ├── __init__.py
-│   │   ├── report_service.py
-│   │   └── stock_service.py
-│   │
-│   └── core/                # 核心功能
-│       ├── database.py      # 数据库连接
-│       └── cache.py         # 缓存配置
-│
-├── migrations/              # 数据库迁移
-│   └── versions/
-│
-├── tests/                   # 测试
-│
-├── Dockerfile
-├── requirements.txt
-└── alembic.ini
-```
-
-### 4.3 后端部署
-- **方案A**: Cloudflare Workers (Serverless)
-- **方案B**: Docker + Fly.io / Railway
-- **数据库**: Supabase PostgreSQL / Neon
-
----
-
-## 五、数据采集层
-
-### 5.1 数据获取脚本
-```
-collectors/
-├── __init__.py
-├── config.py
-├── main.py                  # 每日执行入口
-│
-├── news/                    # 新闻采集
-│   ├── kimi_search.py       # Kimi Search API
-│   └── processor.py         # 数据清洗
-│
-├── stocks/                  # 股票采集
-│   ├── yahoo_finance.py     # Yahoo Finance API
-│   └── alpha_vantage.py     # Alpha Vantage API
-│
-└── database/                # 数据写入
-    └── writer.py            # 写入PostgreSQL
-```
-
-### 5.2 执行流程
-```python
-# 每日 6:30 执行
-async def daily_update():
-    # 1. 获取AI新闻
-    news_data = await collect_news()
-    
-    # 2. 获取股票数据
-    stock_data = await collect_stocks()
-    
-    # 3. 数据清洗处理
-    processed = process_data(news_data, stock_data)
-    
-    # 4. 写入数据库
-    await write_to_database(processed)
-    
-    # 5. 清除缓存
-    await clear_cache()
-    
-    # 6. 触发前端重新部署（可选）
-    # 或前端自动获取最新数据
+┌───────────────────────┐  ┌───────────────────────┐
+│ investment_advice (1) │  │   retail_cases (N)    │
+│     投资建议表         │  │     零售AI案例表       │
+│     每日1条            │  │     每日3条            │
+└───────────────────────┘  └───────────────────────┘
 ```
 
 ---
 
-## 六、部署架构
+### 2.4 每日数据量汇总
 
-### 6.1 完整部署图
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         用户访问                             │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-           ┌───────────────┼───────────────┐
-           │               │               │
-           ▼               ▼               ▼
-┌─────────────────┐ ┌──────────────┐ ┌──────────────┐
-│  Cloudflare     │ │  Cloudflare  │ │  Cloudflare  │
-│  Pages          │ │  Workers     │ │  R2 Storage  │
-│  (前端)          │ │  (后端API)   │ │  (静态资源)  │
-└─────────────────┘ └──────┬───────┘ └──────────────┘
-                           │
-           ┌───────────────┼───────────────┐
-           │               │               │
-           ▼               ▼               ▼
-┌─────────────────┐ ┌──────────────┐ ┌──────────────┐
-│  Supabase       │ │  Upstash     │ │  GitHub      │
-│  PostgreSQL     │ │  Redis       │ │  Actions     │
-│  (主数据库)      │ │  (缓存)      │ │  (定时任务)  │
-└─────────────────┘ └──────────────┘ └──────────────┘
+| 表名 | 每日新增 | 月度新增 | 年度新增 |
+|------|---------|---------|---------|
+| reports | 1条 | ~30条 | ~365条 |
+| news | 9条 | ~270条 | ~3,285条 |
+| stock_prices | 15条 | ~450条 | ~5,475条 |
+| stock_analysis | 15条 | ~450条 | ~5,475条 |
+| investment_advice | 1条 | ~30条 | ~365条 |
+| retail_cases | 3条 | ~90条 | ~1,095条 |
+| **合计** | **44条** | **~1,320条** | **~16,060条** |
+
+**存储估算**:
+- 单条记录平均 2KB
+- 年度数据量：~32MB
+- **结论**：PostgreSQL免费额度充足
+
+---
+
+### 2.5 核心查询示例
+
+#### 查询某日完整报告
+```sql
+-- 1. 报告基础信息
+SELECT * FROM reports WHERE date = '2026-03-07';
+
+-- 2. 新闻（按分类排序）
+SELECT * FROM news 
+WHERE report_id = 123 
+ORDER BY category, sort_order;
+
+-- 3. 股票（价格+分析 JOIN，按层级排序）
+SELECT 
+    c.name,
+    c.code,
+    c.layer,
+    sp.price,
+    sp.change,
+    sp.change_percent,
+    sa.position,
+    sa.dynamics,
+    sa.event,
+    sa.risk,
+    sa.outlook
+FROM stock_prices sp
+JOIN ai_companies c ON sp.company_id = c.id
+LEFT JOIN stock_analysis sa 
+    ON sp.company_id = sa.company_id 
+    AND sp.report_id = sa.report_id
+WHERE sp.report_id = 123
+ORDER BY 
+    CASE c.layer 
+        WHEN 'infrastructure' THEN 1 
+        WHEN 'model' THEN 2 
+        WHEN 'application' THEN 3 
+    END;
+
+-- 4. 投资建议
+SELECT * FROM investment_advice WHERE report_id = 123;
+
+-- 5. 零售AI案例
+SELECT * FROM retail_cases 
+WHERE report_id = 123 
+ORDER BY sort_order;
 ```
 
-### 6.2 服务选型
-| 服务 | 选型 | 说明 |
+#### 查询某股票历史价格（用于图表）
+```sql
+SELECT 
+    r.date,
+    sp.price,
+    sp.change_percent
+FROM stock_prices sp
+JOIN reports r ON sp.report_id = r.id
+JOIN ai_companies c ON sp.company_id = c.id
+WHERE c.code = 'NVDA'
+  AND r.date BETWEEN '2026-01-01' AND '2026-03-07'
+ORDER BY r.date;
+```
+
+---
+
+## 三、API 接口设计
+
+### 3.1 RESTful API 列表
+
+| 方法 | 路径 | 说明 |
 |------|------|------|
-| 前端托管 | Cloudflare Pages | 免费，全球CDN |
-| 后端API | Cloudflare Workers | Serverless，免费额度充足 |
-| 数据库 | Supabase PostgreSQL | 免费500MB，足够初期使用 |
-| 缓存 | Upstash Redis | 免费10MB，API响应缓存 |
-| 定时任务 | GitHub Actions | 免费，每日触发 |
-| 对象存储 | Cloudflare R2 | 免费10GB，存储静态资源 |
+| GET | `/api/v2/reports/{date}` | 获取指定日期完整报告 |
+| GET | `/api/v2/reports/latest` | 获取最新报告 |
+| GET | `/api/v2/reports?limit=30&offset=0` | 获取报告列表 |
+| GET | `/api/v2/stocks/{code}/history` | 获取股票历史价格 |
+| GET | `/api/v2/companies` | 获取AI产业链公司列表 |
+
+### 3.2 响应格式示例
+
+```json
+// GET /api/v2/reports/2026-03-07
+{
+  "date": "2026-03-07",
+  "headline": {
+    "title": "两会聚焦AI...",
+    "content": "...",
+    "sources": [{"source": "新华社", "viewpoint": "..."}]
+  },
+  "news": {
+    "domestic": [...],
+    "international": [...],
+    "retail": [...]
+  },
+  "stocks": {
+    "infrastructure": [...],
+    "model": [...],
+    "application": [...]
+  },
+  "investment": {
+    "short_term": "...",
+    "long_term": "...",
+    "risk": "..."
+  }
+}
+```
 
 ---
 
-## 七、开发计划
+## 四、开发计划
 
 ### Phase 1: 基础架构 (Week 1-2)
-- [ ] 创建 v2.0-dev 分支
 - [ ] 搭建后端 FastAPI 框架
-- [ ] 设计数据库 Schema
+- [ ] 创建数据库表结构
 - [ ] 实现基础 API 接口
+- [ ] 初始化 ai_companies 数据
 
 ### Phase 2: 前端开发 (Week 2-3)
 - [ ] 搭建 React + Vite 项目
@@ -421,28 +495,19 @@ async def daily_update():
 - [ ] 配置数据库
 - [ ] 端到端测试
 
-### Phase 5: 优化迭代 (Week 5+)
-- [ ] 性能优化
-- [ ] 缓存策略
-- [ ] 错误处理
-- [ ] 监控告警
+---
+
+## 五、服务选型
+
+| 服务 | 选型 | 说明 |
+|------|------|------|
+| 前端托管 | Cloudflare Pages | 免费，全球CDN |
+| 后端API | Cloudflare Workers / FastAPI | Serverless |
+| 数据库 | Supabase PostgreSQL | 免费500MB |
+| 缓存 | Upstash Redis | 免费10MB |
+| 定时任务 | GitHub Actions | 免费 |
 
 ---
 
-## 八、优势对比
-
-| 特性 | v1.6.3 (静态) | v2.0 (前后端分离) |
-|------|---------------|-------------------|
-| 数据更新 | 重新生成HTML | 仅更新数据库 |
-| 前端迭代 | 影响历史报告 | 不影响历史数据 |
-| 历史查询 | 需解析HTML | 直接SQL查询 |
-| 数据复用 | 困难 | 容易 |
-| 扩展性 | 有限 | 强 |
-| 开发效率 | 低 | 高 |
-| 部署复杂度 | 简单 | 中等 |
-
----
-
-**文档版本**: v2.0-design
-**设计日期**: 2026-03-07
-**作者**: AI Assistant
+**文档版本**: v2.0-final
+**更新日期**: 2026-03-07
