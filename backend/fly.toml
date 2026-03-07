@@ -1,0 +1,25 @@
+# Fly.io deployment configuration
+app = "ai-daily-api"
+primary_region = "sin"  # 新加坡，靠近中国
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  ENV = "production"
+  PORT = "8000"
+
+[[services]]
+  internal_port = 8000
+  protocol = "tcp"
+  
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+    
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+[deploy]
+  release_command = "python scripts/init_db.py"
