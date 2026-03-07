@@ -1,5 +1,13 @@
 // 类型定义
 
+export interface AICompany {
+  id: number
+  name: string
+  code: string
+  layer: 'infrastructure' | 'model' | 'application'
+  position?: string
+}
+
 export interface News {
   id: number
   category: 'domestic' | 'international' | 'retail'
